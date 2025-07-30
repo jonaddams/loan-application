@@ -1,0 +1,576 @@
+[
+	{
+		"name": "Bank details",
+		"fields": [
+			{
+				"name": "Bank name",
+				"semanticDescription": "The name of the bank",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "IBAN",
+				"semanticDescription": "The international bank deposit number, usually called IBAN",
+				"format": "Text",
+				"validationMethod": "IBANIntegrity"
+			},
+			{
+				"name": "Account number",
+				"semanticDescription": "The account number",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Bank number",
+				"semanticDescription": "The bank number",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "BIC code",
+				"semanticDescription": "The bank identifier code, usually called BIC",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Bank address",
+				"semanticDescription": "The postal address of the bank",
+				"format": "Text",
+				"validationMethod": "PostalAddressIntegrity"
+			},
+			{
+				"name": "Owner name",
+				"semanticDescription": "The owner's name",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Owner address",
+				"semanticDescription": "The owner's address",
+				"format": "Text",
+				"validationMethod": "PostalAddressIntegrity"
+			},
+			{
+				"name": "Currency",
+				"semanticDescription": "The currency of the bank account",
+				"format": "Currency",
+				"validationMethod": "CurrencyIntegrity"
+			}
+		],
+		"identifier": "A8726E28-4287-4D90-837B-30F0FFC5CBDD",
+		"semanticDescription": "a bank account details, also known as bank account information"
+	},
+	{
+		"name": "Driver license",
+		"fields": [
+			{
+				"name": "License number",
+				"semanticDescription": "The driver license number",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Country",
+				"semanticDescription": "The three letters of the country of the driver license",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "First name",
+				"semanticDescription": "The first name of the driver license owner",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Second name",
+				"semanticDescription": "The second name of the driver license owner",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Last name",
+				"semanticDescription": "The last name of the driver license owner",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Birth date",
+				"semanticDescription": "The birth date value of the driver license owner",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			}
+		],
+		"identifier": "20D8832E-FE4B-4B6C-A8A0-E4768FFF71CF",
+		"semanticDescription": "a driver's license, also known as driving permit and driving licence"
+	},
+	{
+		"name": "Id Card",
+		"fields": [
+			{
+				"name": "Card number",
+				"semanticDescription": "The id card number",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Country",
+				"semanticDescription": "The three letters of the country of the id card",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "First name",
+				"semanticDescription": "The first name of the id card owner",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Second name",
+				"semanticDescription": "The second name of the id card owner",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Last name",
+				"semanticDescription": "The last name of the id card owner",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Birth date",
+				"semanticDescription": "The birth date of the id card owner",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			}
+		],
+		"identifier": "08FBD6C8-6A9C-4EC4-8C47-30D2FAE76C77",
+		"semanticDescription": "an identity card, also known as a personal identification card"
+	},
+	{
+		"name": "Invoice",
+		"fields": [
+			{
+				"name": "Invoice number",
+				"semanticDescription": "The invoice number if it exists, otherwise ignore this field.",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Date emission",
+				"semanticDescription": "The date of the invoice",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			},
+			{
+				"name": "Due date",
+				"semanticDescription": "The due date of the payment if it exists, otherwise ignore this field.",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			},
+			{
+				"name": "Customer name",
+				"semanticDescription": "The customer's name mentioned on the invoice",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Customer address",
+				"semanticDescription": "The customer's address mentioned on the invoice",
+				"format": "Text",
+				"validationMethod": "PostalAddressIntegrity"
+			},
+			{
+				"name": "Vendor name",
+				"semanticDescription": "The vendor's name mentioned on the invoice",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Vendor address",
+				"semanticDescription": "The vendor's address mentioned on the invoice",
+				"format": "Text",
+				"validationMethod": "PostalAddressIntegrity"
+			},
+			{
+				"name": "Total amount, VAT excluded",
+				"semanticDescription": "The total amount of the invoice, excluding taxes",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "Total amount, VAT included",
+				"semanticDescription": "The total amount of the invoice, including taxes",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "VAT percentage",
+				"semanticDescription": "The VAT percentage applied",
+				"format": "Number",
+				"validationMethod": null
+			},
+			{
+				"name": "VAT amount",
+				"semanticDescription": "The VAT amount to be paid",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "Currency",
+				"semanticDescription": "Currency used in this invoice",
+				"format": "Currency",
+				"validationMethod": "CurrencyIntegrity"
+			},
+			{
+				"name": "Line items",
+				"semanticDescription": "The line items (if any) of the invoice in JSON format including the header for each value.",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Point of contact",
+				"semanticDescription": "The point of contact (POC) of the invoice, referring to the name, email and/or phone number of the individual or department that serves as the main liaison between the invoice issuer and the recipient organization, if it exists, otherwise ignore this field.",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Payment terms",
+				"semanticDescription": "The payment terms in the invoice, referring to the conditions under which a buyer is required to make payment to a seller for goods or services, if it exists, otherwise ignore this field.",
+				"format": "Text",
+				"validationMethod": null
+			}
+		],
+		"identifier": "BE04BA52-2649-448D-9700-40EF7A3B6BC9",
+		"semanticDescription": "an invoice, also known as a bill or sales invoice"
+	},
+	{
+		"name": "Passport",
+		"fields": [
+			{
+				"name": "Passport number",
+				"semanticDescription": "The passport number",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Country",
+				"semanticDescription": "The country mentioned of the passport",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "First name",
+				"semanticDescription": "The first name of passport owner",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Second name",
+				"semanticDescription": "The second name of passport owner",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Last name",
+				"semanticDescription": "The last name of passport owner",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Birth date",
+				"semanticDescription": "The birth date of the passport owner",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			}
+		],
+		"identifier": "8EFDD902-9D1F-4935-A5DE-129D1EAB02E8",
+		"semanticDescription": "a passport"
+	},
+	{
+		"name": "Payment card",
+		"fields": [
+			{
+				"name": "Card number",
+				"semanticDescription": "The payment card number",
+				"format": "Text",
+				"validationMethod": "CreditCardNumberIntegrity"
+			},
+			{
+				"name": "Expiration date",
+				"semanticDescription": "The expiration date of the payment card",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			},
+			{
+				"name": "CVV",
+				"semanticDescription": "The card verification code or card verification value",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Owner name",
+				"semanticDescription": "The name of the owner of the card",
+				"format": "Text",
+				"validationMethod": null
+			}
+		],
+		"identifier": "697B954F-25B7-49BD-9AA2-2503EE69C7A1",
+		"semanticDescription": "a credit card, also known as a transaction card and bank card"
+	},
+	{
+		"name": "Payroll statement",
+		"fields": [
+			{
+				"name": "Employee first name",
+				"semanticDescription": "The first name of the employee",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Employee last name",
+				"semanticDescription": "The last name of the employee",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Employee SSN",
+				"semanticDescription": "The employee's social security number",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Net salary",
+				"semanticDescription": "The amount of net salary",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "Gross salary",
+				"semanticDescription": "The amount of gross salary",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "Pay date",
+				"semanticDescription": "The date of wage payment",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			},
+			{
+				"name": "Period beginning",
+				"semanticDescription": "Pay stub start date",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			},
+			{
+				"name": "Period ending",
+				"semanticDescription": "Pay stub end date",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			}
+		],
+		"identifier": "1A0CDF22-383E-4A7E-BBDD-01B96C386F54",
+		"semanticDescription": "a payroll statement, also known as pay stub and pay slip"
+	},
+	{
+		"name": "Purchase order",
+		"fields": [
+			{
+				"name": "PO number",
+				"semanticDescription": "The number of the purchase order",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Date emission",
+				"semanticDescription": "The date of the purchase order",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			},
+			{
+				"name": "Buyer name",
+				"semanticDescription": "The buyer's name mentioned on the purchase order",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Buyer address",
+				"semanticDescription": "The buyer's address mentioned on the purchase order",
+				"format": "Text",
+				"validationMethod": "PostalAddressIntegrity"
+			},
+			{
+				"name": "Vendor name",
+				"semanticDescription": "The vendor's name mentioned on the purchase order",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Vendor address",
+				"semanticDescription": "The vendor's address mentioned on the purchase order",
+				"format": "Text",
+				"validationMethod": "PostalAddressIntegrity"
+			},
+			{
+				"name": "Total VAT excluded",
+				"semanticDescription": "The total price without taxes of the purchase order",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "Total VAT included",
+				"semanticDescription": "The total price with taxes included of the purchase order",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "VAT percentage",
+				"semanticDescription": "The VAT percentage applied",
+				"format": "Number",
+				"validationMethod": null
+			},
+			{
+				"name": "VAT amount",
+				"semanticDescription": "The VAT amount to be paid",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "Currency",
+				"semanticDescription": "Currency used in this invoice",
+				"format": "Currency",
+				"validationMethod": "CurrencyIntegrity"
+			}
+		],
+		"identifier": "B06D986E-573D-42EE-9789-5845CC6FB763",
+		"semanticDescription": "a purchase order, also known as a procurement order"
+	},
+	{
+		"name": "Receipt",
+		"fields": [
+			{
+				"name": "Receipt number",
+				"semanticDescription": "The receipt number",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "VAT percentage",
+				"semanticDescription": "The VAT percentage applied",
+				"format": "Number",
+				"validationMethod": null
+			},
+			{
+				"name": "VAT amount",
+				"semanticDescription": "The VAT amount to be paid",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "Total VAT excluded",
+				"semanticDescription": "The total price without taxes of receipt",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "Total VAT included",
+				"semanticDescription": "The total price with taxes included of the receipt",
+				"format": "Number",
+				"validationMethod": "NumberIntegrity"
+			},
+			{
+				"name": "Purchase date",
+				"semanticDescription": "The purchase date",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			},
+			{
+				"name": "Supplier name",
+				"semanticDescription": "The  name of the supplier",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Country",
+				"semanticDescription": "The country",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Currency",
+				"semanticDescription": "The currency of the receipt",
+				"format": "Currency",
+				"validationMethod": "CurrencyIntegrity"
+			},
+			{
+				"name": "VAT number",
+				"semanticDescription": "The vat number of the supplier",
+				"format": "Text",
+				"validationMethod": "VATIdIntegrity"
+			}
+		],
+		"identifier": "AD7C06D6-D205-4B80-8A9C-D44C827F9248",
+		"semanticDescription": "a receipt, also known as an order acknowledgment and sales receipt"
+	},
+	{
+		"name": "Resume",
+		"fields": [
+			{
+				"name": "First name",
+				"semanticDescription": "The first name of the person mentioned on the resume",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Last name",
+				"semanticDescription": "The last name of the person mentioned on the resume",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Email",
+				"semanticDescription": "The email of the person mentioned on the resume",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Phone number",
+				"semanticDescription": "The phone number of the person mentioned on the resume",
+				"format": "Text",
+				"validationMethod": "PhoneNumberIntegrity"
+			},
+			{
+				"name": "Birth date",
+				"semanticDescription": "The birth date of the person mentioned on the resume",
+				"format": "Date",
+				"validationMethod": "DateIntegrity"
+			},
+			{
+				"name": "Age",
+				"semanticDescription": "The age of the person mentioned on the resume",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Years of experience",
+				"semanticDescription": "The total number of years of work of the person mentioned on the resume",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Technologies",
+				"semanticDescription": "The technologies used on previous experiences of the person mentioned on the resume",
+				"format": "Text",
+				"validationMethod": null
+			},
+			{
+				"name": "Languages",
+				"semanticDescription": "The languages the person mentioned on the resume can talk with the level of each of them",
+				"format": "Text",
+				"validationMethod": null
+			}
+		],
+		"identifier": "296CB04C-B1C6-4B56-8C9C-81A2D096721D",
+		"semanticDescription": "a resume, also known as a curriculum vitae"
+	}
+]
