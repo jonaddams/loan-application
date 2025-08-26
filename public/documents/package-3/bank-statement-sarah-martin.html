@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Statement - Royal Bank of Canada</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 25px;
+            background-color: #ffffff;
+            color: #000;
+            line-height: 1.4;
+        }
+        .statement {
+            max-width: 750px;
+            margin: 0 auto;
+            background: white;
+            border: 3px solid #005daa;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .header {
+            background: linear-gradient(135deg, #005daa 0%, #0073e6 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        .maple-leaf {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: #ff0000;
+        }
+        .bank-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        .bank-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        .branch-info {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .account-section {
+            background-color: #f0f8ff;
+            border-bottom: 3px solid #b3d9ff;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .customer-info h3,
+        .statement-details h3 {
+            color: #005daa;
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: bold;
+            border-bottom: 2px solid #005daa;
+            padding-bottom: 5px;
+        }
+        .customer-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .customer-address {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        .account-details {
+            font-size: 14px;
+            color: #666;
+        }
+        .account-details strong {
+            color: #005daa;
+        }
+        .content {
+            padding: 25px;
+        }
+        .section-title {
+            background-color: #005daa;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 25px 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .balance-summary {
+            background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%);
+            border: 2px solid #005daa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .balance-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 2px dotted #005daa;
+            font-size: 15px;
+        }
+        .balance-label {
+            font-weight: bold;
+            color: #003d73;
+        }
+        .balance-value {
+            font-weight: bold;
+            color: #28a745;
+        }
+        .balance-value.negative {
+            color: #dc3545;
+        }
+        .current-balance {
+            background-color: #005daa;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .transaction-table th {
+            background-color: #005daa;
+            color: white;
+            border: 1px solid #004080;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .transaction-table td {
+            border: 1px solid #b3d9ff;
+            padding: 10px;
+            vertical-align: top;
+        }
+        .transaction-table tr:nth-child(even) {
+            background-color: #f0f8ff;
+        }
+        .transaction-table tr:hover {
+            background-color: #e6f3ff;
+        }
+        .credit-amount {
+            color: #28a745;
+            font-weight: bold;
+            text-align: right;
+        }
+        .debit-amount {
+            color: #dc3545;
+            font-weight: bold;
+            text-align: right;
+        }
+        .date-col {
+            width: 90px;
+        }
+        .amount-col {
+            width: 120px;
+            text-align: right;
+        }
+        .total-row {
+            background-color: #cce7ff !important;
+            font-weight: bold;
+            border-top: 3px solid #005daa;
+        }
+        .footer {
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .canadian-footer {
+            margin-top: 10px;
+            font-size: 11px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="statement">
+        <div class="header">
+            <div class="maple-leaf">🍁</div>
+            <div class="bank-name">ROYAL BANK OF CANADA</div>
+            <div class="bank-subtitle">RBC • Canada's Largest Bank</div>
+            <div class="branch-info">
+                Downtown Toronto Branch<br>
+                200 Bay Street, Toronto, ON M5J 2J2 | (416) 555-0300
+            </div>
+        </div>
+
+        <div class="account-section">
+            <div class="customer-info">
+                <h3>Account Holder</h3>
+                <div class="customer-name">SARAH MARTIN</div>
+                <div class="customer-address">
+                    456 MAPLE AVENUE<br>
+                    TORONTO, ON M5H 2N8<br>
+                    CANADA
+                </div>
+            </div>
+            <div class="statement-details">
+                <h3>Statement Information</h3>
+                <div class="account-details">
+                    <strong>Account Number:</strong> 1234-567-8901<br>
+                    <strong>Account Type:</strong> RBC VIP Banking<br>
+                    <strong>Statement Period:</strong><br>
+                    March 1, 2024 - March 31, 2024<br>
+                    <strong>Statement Date:</strong> April 3, 2024<br>
+                    <strong>Currency:</strong> CAD
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section-title">Account Summary</div>
+            
+            <div class="balance-summary">
+                <div class="summary-grid">
+                    <div>
+                        <div class="balance-item">
+                            <span class="balance-label">Opening Balance (03/01/2024):</span>
+                            <span class="balance-value">$15,847.92</span>
+                        </div>
+                        <div class="balance-item">
+                            <span class="balance-label">Total Deposits & Credits:</span>
+                            <span class="balance-value">+$9,456.25</span>
+                        </div>
+                        <div class="balance-item">
+                            <span class="balance-label">Total Withdrawals & Debits:</span>
+                            <span class="balance-value negative">-$4,892.67</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="balance-item">
+                            <span class="balance-label">Total Cheques Paid:</span>
+                            <span class="balance-value negative">-$2,750.00</span>
+                        </div>
+                        <div class="balance-item">
+                            <span class="balance-label">Service Charges:</span>
+                            <span class="balance-value negative">-$25.00</span>
+                        </div>
+                        <div class="balance-item">
+                            <span class="balance-label">Interest Earned:</span>
+                            <span class="balance-value">+$18.45</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="current-balance">
+                    CLOSING BALANCE (03/31/2024): CAD $17,654.95
+                </div>
+            </div>
+
+            <div class="section-title">Deposits & Credits</div>
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th class="date-col">Date</th>
+                        <th>Description</th>
+                        <th class="amount-col">Amount (CAD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>03/01</td>
+                        <td>Direct Deposit - SUNRISE FINANCIAL GROUP</td>
+                        <td class="credit-amount">$4,606.13</td>
+                    </tr>
+                    <tr>
+                        <td>03/15</td>
+                        <td>Direct Deposit - SUNRISE FINANCIAL GROUP</td>
+                        <td class="credit-amount">$4,606.13</td>
+                    </tr>
+                    <tr>
+                        <td>03/20</td>
+                        <td>Consulting Fee - MK FINANCIAL CONSULTING</td>
+                        <td class="credit-amount">$225.54</td>
+                    </tr>
+                    <tr>
+                        <td>03/31</td>
+                        <td>Interest Credit - VIP Banking</td>
+                        <td class="credit-amount">$18.45</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2"><strong>Total Deposits & Credits</strong></td>
+                        <td class="credit-amount"><strong>$9,456.25</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">Withdrawals & Debits</div>
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th class="date-col">Date</th>
+                        <th>Description</th>
+                        <th class="amount-col">Amount (CAD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>03/02</td>
+                        <td>ATM Withdrawal - RBC Branch #2847</td>
+                        <td class="debit-amount">$120.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/05</td>
+                        <td>Debit Purchase - LOBLAWS GROCERY</td>
+                        <td class="debit-amount">$189.45</td>
+                    </tr>
+                    <tr>
+                        <td>03/08</td>
+                        <td>Debit Purchase - ESSO GAS STATION</td>
+                        <td class="debit-amount">$75.60</td>
+                    </tr>
+                    <tr>
+                        <td>03/10</td>
+                        <td>E-Transfer - Investment Account</td>
+                        <td class="debit-amount">$1,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/12</td>
+                        <td>Online Purchase - HUDSON'S BAY</td>
+                        <td class="debit-amount">$267.89</td>
+                    </tr>
+                    <tr>
+                        <td>03/15</td>
+                        <td>ATM Withdrawal - RBC Branch #2847</td>
+                        <td class="debit-amount">$100.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/18</td>
+                        <td>Debit Purchase - AMAZON.CA</td>
+                        <td class="debit-amount">$156.78</td>
+                    </tr>
+                    <tr>
+                        <td>03/20</td>
+                        <td>Online Bill Payment - TORONTO HYDRO</td>
+                        <td class="debit-amount">$145.67</td>
+                    </tr>
+                    <tr>
+                        <td>03/22</td>
+                        <td>Debit Purchase - SHOPPERS DRUG MART</td>
+                        <td class="debit-amount">$89.34</td>
+                    </tr>
+                    <tr>
+                        <td>03/25</td>
+                        <td>Online Bill Payment - ROGERS COMMUNICATIONS</td>
+                        <td class="debit-amount">$127.94</td>
+                    </tr>
+                    <tr>
+                        <td>03/28</td>
+                        <td>Debit Purchase - CANADIAN TIRE</td>
+                        <td class="debit-amount">$195.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/31</td>
+                        <td>Monthly Service Charge - VIP Banking</td>
+                        <td class="debit-amount">$25.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2"><strong>Total Withdrawals & Debits</strong></td>
+                        <td class="debit-amount"><strong>$2,992.67</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">Cheques Paid</div>
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th class="date-col">Date</th>
+                        <th>Cheque #</th>
+                        <th>Payee/Description</th>
+                        <th class="amount-col">Amount (CAD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>03/01</td>
+                        <td>2145</td>
+                        <td>MAPLE AVENUE PROPERTIES - Monthly Rent</td>
+                        <td class="debit-amount">$2,100.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/15</td>
+                        <td>2146</td>
+                        <td>INTACT INSURANCE - Auto Premium</td>
+                        <td class="debit-amount">$425.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/28</td>
+                        <td>2147</td>
+                        <td>RBC VISA - Credit Card Payment</td>
+                        <td class="debit-amount">$225.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3"><strong>Total Cheques Paid</strong></td>
+                        <td class="debit-amount"><strong>$2,750.00</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <strong>Royal Bank of Canada</strong><br>
+            Member - Canada Deposit Insurance Corporation (CDIC) | Equal Opportunity Lender
+            <div class="canadian-footer">
+                This statement contains important account information. Please review and report discrepancies within 30 days.<br>
+                Customer Service: 1-800-ROYAL-2-2 | Online Banking: www.rbc.com | Mobile App: RBC Mobile
+            </div>
+        </div>
+    </div>
+</body>
+</html>

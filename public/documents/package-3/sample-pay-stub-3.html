@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Stub - Sunrise Financial Group</title>
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f6f8;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+        .payslip {
+            max-width: 780px;
+            margin: 0 auto;
+            background: white;
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .company-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .company-subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        .company-address {
+            font-size: 12px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        .pay-period-banner {
+            background-color: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .content {
+            padding: 25px;
+        }
+        .employee-section {
+            background: linear-gradient(135deg, #ecf0f1 0%, #d5dbdb 100%);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #e74c3c;
+        }
+        .employee-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .employee-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .info-value {
+            color: #34495e;
+            font-weight: 600;
+        }
+        .section-title {
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 25px -25px 20px -25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .earnings-container {
+            background-color: #d5f4e6;
+            border: 2px solid #27ae60;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .earnings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .earnings-header {
+            background-color: #27ae60;
+            color: white;
+            font-weight: bold;
+            padding: 12px;
+            text-align: center;
+        }
+        .earnings-row {
+            border-bottom: 1px solid #bdc3c7;
+        }
+        .earnings-row:hover {
+            background-color: #eafaf1;
+        }
+        .earnings-cell {
+            padding: 12px;
+            text-align: left;
+        }
+        .amount-cell {
+            text-align: right;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .total-row {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            border-top: 2px solid #27ae60;
+        }
+        .deductions-container {
+            background-color: #fdeaea;
+            border: 2px solid #e67e22;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .deductions-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+        .deduction-row {
+            display: contents;
+            padding: 10px 0;
+        }
+        .deduction-label {
+            padding: 10px 0;
+            color: #d35400;
+            font-weight: 500;
+        }
+        .deduction-amount {
+            text-align: right;
+            padding: 10px 0;
+            font-weight: bold;
+            color: #e67e22;
+        }
+        .deduction-total {
+            grid-column: 1 / -1;
+            background-color: #f39c12;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        .net-pay-section {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(52,152,219,0.3);
+        }
+        .net-pay-label {
+            font-size: 18px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        .net-pay-amount {
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .pay-method {
+            font-size: 14px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        .ytd-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+        .ytd-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .ytd-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            text-align: center;
+        }
+        .ytd-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        .ytd-label {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        .ytd-value {
+            font-weight: bold;
+            color: #495057;
+            font-size: 16px;
+        }
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            margin: -25px -25px 0 -25px;
+            text-align: center;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payslip">
+        <div class="header">
+            <div class="company-title">SUNRISE FINANCIAL GROUP</div>
+            <div class="company-subtitle">Premier Investment & Wealth Management Services</div>
+            <div class="company-address">
+                5500 Executive Plaza, Suite 1200, Toronto, ON M5H 3R7<br>
+                Tel: (416) 555-0244 | Fax: (416) 555-0245 | www.sunrisefinancial.ca
+            </div>
+        </div>
+
+        <div class="pay-period-banner">
+            Pay Period: March 1, 2024 - March 15, 2024 | Pay Date: March 22, 2024
+        </div>
+
+        <div class="content">
+            <div class="employee-section">
+                <div class="employee-grid">
+                    <div>
+                        <div class="employee-info">
+                            <span class="info-label">Employee Name:</span>
+                            <span class="info-value">Sarah Martin</span>
+                        </div>
+                        <div class="employee-info">
+                            <span class="info-label">Employee ID:</span>
+                            <span class="info-value">SF-2024-9012</span>
+                        </div>
+                        <div class="employee-info">
+                            <span class="info-label">Department:</span>
+                            <span class="info-value">Wealth Management</span>
+                        </div>
+                        <div class="employee-info">
+                            <span class="info-label">Position:</span>
+                            <span class="info-value">Senior Investment Advisor</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="employee-info">
+                            <span class="info-label">Pay Frequency:</span>
+                            <span class="info-value">Bi-Weekly</span>
+                        </div>
+                        <div class="employee-info">
+                            <span class="info-label">Employment Type:</span>
+                            <span class="info-value">Full-Time Exempt</span>
+                        </div>
+                        <div class="employee-info">
+                            <span class="info-label">Location:</span>
+                            <span class="info-value">San Diego HQ</span>
+                        </div>
+                        <div class="employee-info">
+                            <span class="info-label">Cost Center:</span>
+                            <span class="info-value">ADVS-SD-001</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Earnings & Compensation</div>
+            <div class="earnings-container">
+                <table class="earnings-table">
+                    <thead>
+                        <tr>
+                            <th class="earnings-header">Description</th>
+                            <th class="earnings-header">Rate/Amount</th>
+                            <th class="earnings-header">Hours/Units</th>
+                            <th class="earnings-header">Current Period</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="earnings-row">
+                            <td class="earnings-cell">Base Salary</td>
+                            <td class="earnings-cell">$6,750.00</td>
+                            <td class="earnings-cell">Bi-Weekly</td>
+                            <td class="earnings-cell amount-cell">$6,750.00</td>
+                        </tr>
+                        <tr class="earnings-row">
+                            <td class="earnings-cell">Performance Bonus</td>
+                            <td class="earnings-cell">Q1 2024</td>
+                            <td class="earnings-cell">25% of base</td>
+                            <td class="earnings-cell amount-cell">$1,687.50</td>
+                        </tr>
+                        <tr class="earnings-row">
+                            <td class="earnings-cell">Client Retention Bonus</td>
+                            <td class="earnings-cell">$500.00</td>
+                            <td class="earnings-cell">1 Unit</td>
+                            <td class="earnings-cell amount-cell">$500.00</td>
+                        </tr>
+                        <tr class="earnings-row">
+                            <td class="earnings-cell">Expense Reimbursement</td>
+                            <td class="earnings-cell">Receipts</td>
+                            <td class="earnings-cell">Non-taxable</td>
+                            <td class="earnings-cell amount-cell">$275.00</td>
+                        </tr>
+                        <tr class="earnings-row total-row">
+                            <td class="earnings-cell" colspan="3"><strong>Total Gross Pay</strong></td>
+                            <td class="earnings-cell amount-cell">$9,212.50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-title">Deductions & Taxes</div>
+            <div class="deductions-container">
+                <div class="deductions-grid">
+                    <div class="deduction-row">
+                        <div class="deduction-label">Federal Income Tax</div>
+                        <div class="deduction-amount">$2,022.75</div>
+                    </div>
+                    <div class="deduction-row">
+                        <div class="deduction-label">State Income Tax (CA)</div>
+                        <div class="deduction-amount">$737.00</div>
+                    </div>
+                    <div class="deduction-row">
+                        <div class="deduction-label">Social Security Tax (6.2%)</div>
+                        <div class="deduction-amount">$571.18</div>
+                    </div>
+                    <div class="deduction-row">
+                        <div class="deduction-label">Medicare Tax (1.45%)</div>
+                        <div class="deduction-amount">$133.58</div>
+                    </div>
+                    <div class="deduction-row">
+                        <div class="deduction-label">CA State Disability Insurance</div>
+                        <div class="deduction-amount">$82.91</div>
+                    </div>
+                    <div class="deduction-row">
+                        <div class="deduction-label">Health Insurance Premium</div>
+                        <div class="deduction-amount">$195.00</div>
+                    </div>
+                    <div class="deduction-row">
+                        <div class="deduction-label">Dental/Vision Insurance</div>
+                        <div class="deduction-amount">$28.50</div>
+                    </div>
+                    <div class="deduction-row">
+                        <div class="deduction-label">401(k) Contribution (12%)</div>
+                        <div class="deduction-amount">$1,105.50</div>
+                    </div>
+                    <div class="deduction-row">
+                        <div class="deduction-label">Life Insurance Premium</div>
+                        <div class="deduction-amount">$18.75</div>
+                    </div>
+                    <div class="deduction-row">
+                        <div class="deduction-label">Professional Dues</div>
+                        <div class="deduction-amount">$45.00</div>
+                    </div>
+                </div>
+                <div class="deduction-total">
+                    <span>Total Deductions:</span>
+                    <span>$4,940.17</span>
+                </div>
+            </div>
+
+            <div class="net-pay-section">
+                <div class="net-pay-label">NET PAY</div>
+                <div class="net-pay-amount">$4,272.33</div>
+                <div class="pay-method">
+                    Direct Deposit to Wells Fargo Account ending in 5471<br>
+                    Deposit Date: March 8, 2024 at 6:00 AM PST
+                </div>
+            </div>
+
+            <div class="ytd-section">
+                <div class="ytd-title">Year-to-Date Summary (as of 03/08/2024)</div>
+                <div class="ytd-grid">
+                    <div class="ytd-item">
+                        <div class="ytd-label">YTD Gross Pay</div>
+                        <div class="ytd-value">$47,625.00</div>
+                    </div>
+                    <div class="ytd-item">
+                        <div class="ytd-label">YTD Deductions</div>
+                        <div class="ytd-value">$25,510.88</div>
+                    </div>
+                    <div class="ytd-item">
+                        <div class="ytd-label">YTD Net Pay</div>
+                        <div class="ytd-value">$22,114.12</div>
+                    </div>
+                    <div class="ytd-item">
+                        <div class="ytd-label">YTD Federal Tax</div>
+                        <div class="ytd-value">$10,464.25</div>
+                    </div>
+                    <div class="ytd-item">
+                        <div class="ytd-label">YTD State Tax</div>
+                        <div class="ytd-value">$3,811.25</div>
+                    </div>
+                    <div class="ytd-item">
+                        <div class="ytd-label">YTD 401(k)</div>
+                        <div class="ytd-value">$5,715.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <strong>CONFIDENTIAL PAYROLL STATEMENT</strong><br>
+            This document contains sensitive financial information. Please store securely and do not share.<br>
+            For payroll inquiries, contact Human Resources at (619) 555-0250 or payroll@sunrisefinancial.com<br><br>
+            Sunrise Financial Group • Licensed Investment Advisor • SEC Registered • SIPC Member
+        </div>
+    </div>
+</body>
+</html>

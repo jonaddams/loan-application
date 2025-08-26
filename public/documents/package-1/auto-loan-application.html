@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Loan Application - First National Bank</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.4;
+        }
+        .application-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border: 2px solid #dc3545;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .form-header {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .bank-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        .form-title {
+            font-size: 20px;
+            margin-top: 15px;
+            font-weight: normal;
+        }
+        .form-subtitle {
+            font-size: 14px;
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px;
+        }
+        .application-info {
+            background-color: #f8d7da;
+            border: 1px solid #dc3545;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .app-info-item {
+            text-align: center;
+        }
+        .app-label {
+            font-size: 12px;
+            color: #dc3545;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .app-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #c82333;
+            font-family: 'Courier New', monospace;
+        }
+        .section-title {
+            background-color: #dc3545;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 25px -30px 20px -30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .field-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .field-input {
+            background-color: white;
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .field-input:focus {
+            border-color: #dc3545;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+        }
+        select.field-input {
+            cursor: pointer;
+        }
+        .vehicle-highlight {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(220,53,69,0.3);
+        }
+        .vehicle-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .vehicle-item {
+            background-color: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .checkbox-section {
+            margin: 20px 0;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .checkbox {
+            margin-right: 12px;
+            margin-top: 2px;
+            transform: scale(1.2);
+            accent-color: #dc3545;
+        }
+        .checkbox-label {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .radio {
+            transform: scale(1.2);
+            accent-color: #dc3545;
+        }
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 2px solid #dee2e6;
+        }
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 25px;
+        }
+        .signature-block {
+            text-align: center;
+        }
+        .signature-field {
+            width: 100%;
+            height: 60px;
+            border: 2px solid #dc3545;
+            border-radius: 4px;
+            background-color: #fff;
+            font-family: cursive;
+            font-size: 18px;
+            padding: 10px;
+            text-align: center;
+        }
+        .signature-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+        .footer-info {
+            background-color: #f5f5f5;
+            padding: 20px;
+            margin: -30px -30px 0 -30px;
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+        }
+        .required {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <form id="auto-loan-form">
+        <div class="application-form">
+            <div class="form-header">
+                <div class="bank-name">FIRST NATIONAL BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Est. 1892 • Member FDIC</div>
+                <div class="form-title">AUTO LOAN APPLICATION</div>
+                <div class="form-subtitle">Complete all required fields • All fields will be parsed from documents</div>
+            </div>
+
+            <div class="content">
+                <div class="application-info">
+                    <div class="app-info-item">
+                        <div class="app-label">Application Number</div>
+                        <div class="app-value">AL-2024-156789</div>
+                    </div>
+                    <div class="app-info-item">
+                        <label class="field-label" for="application-date">Date of Application <span class="required">*</span></label>
+                        <input type="date" class="field-input" name="application-date" id="application-date">
+
+                    </div>
+                </div>
+
+                <div class="section-title">Vehicle Information</div>
+                <div class="vehicle-highlight">
+                    <div class="vehicle-title">Vehicle Details</div>
+                    <div class="vehicle-grid">
+                        <div class="vehicle-item">
+                            <label class="field-label" style="color: white;" for="vehicle-year">Year <span class="required">*</span></label>
+                            <input type="text" class="field-input" name="vehicle-year" id="vehicle-year" placeholder="e.g., 2024">
+                        </div>
+                        <div class="vehicle-item">
+                            <label class="field-label" style="color: white;" for="vehicle-make">Make <span class="required">*</span></label>
+                            <input type="text" class="field-input" name="vehicle-make" id="vehicle-make" placeholder="e.g., Toyota">
+                        </div>
+                        <div class="vehicle-item">
+                            <label class="field-label" style="color: white;" for="vehicle-model">Model <span class="required">*</span></label>
+                            <input type="text" class="field-input" name="vehicle-model" id="vehicle-model" placeholder="e.g., Camry">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="field-label" for="vehicle-vin">Vehicle VIN <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="vehicle-vin" id="vehicle-vin" placeholder="17-character VIN">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label" for="vehicle-price">Vehicle Price <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="vehicle-price" id="vehicle-price" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label" for="down-payment">Down Payment <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="down-payment" id="down-payment" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label" for="loan-amount">Loan Amount Requested <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="loan-amount" id="loan-amount" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label" for="loan-term">Loan Term</label>
+                        <select class="field-input" name="loan-term" id="loan-term">
+                            <option value="">Select Term</option>
+                            <option value="36">36 months</option>
+                            <option value="48">48 months</option>
+                            <option value="60">60 months</option>
+                            <option value="72">72 months</option>
+                            <option value="84">84 months</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Vehicle Condition</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" class="radio" name="vehicle-condition" value="new" id="condition-new">
+                                <label for="condition-new">New</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" class="radio" name="vehicle-condition" value="used" id="condition-used">
+                                <label for="condition-used">Used</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">Personal Information</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="field-label" for="first-name">First Name <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="first-name" id="first-name" placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Last Name <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="last-name" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Date of Birth <span class="required">*</span></label>
+                        <input type="date" class="field-input" name="date-of-birth">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Driver's License Number <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="license-number" placeholder="License Number">
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="field-label">Home Address <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="home-address" placeholder="Street Address, City, State, ZIP">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Phone Number <span class="required">*</span></label>
+                        <input type="tel" class="field-input" name="phone-number" placeholder="(000) 000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Email Address</label>
+                        <input type="email" class="field-input" name="email-address" placeholder="email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Housing Status</label>
+                        <select class="field-input" name="housing-status">
+                            <option value="">Select Status</option>
+                            <option value="own">Own</option>
+                            <option value="rent">Rent</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Monthly Rent/Mortgage</label>
+                        <input type="text" class="field-input" name="monthly-housing" placeholder="$">
+                    </div>
+                </div>
+
+                <div class="section-title">Employment & Income Information</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="field-label">Employer Name <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="employer-name" placeholder="Company Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Job Title <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="job-title" placeholder="Position/Title">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Employment Start Date</label>
+                        <input type="date" class="field-input" name="employment-start-date">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Employment Status</label>
+                        <select class="field-input" name="employment-status">
+                            <option value="">Select Status</option>
+                            <option value="full_time">Full-Time</option>
+                            <option value="part_time">Part-Time</option>
+                            <option value="contract">Contract</option>
+                            <option value="self_employed">Self-Employed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Annual Gross Income <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="annual-income" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Monthly Net Income</label>
+                        <input type="text" class="field-input" name="monthly-income" placeholder="$">
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="field-label">Employer Address</label>
+                        <input type="text" class="field-input" name="employer-address" placeholder="Company Address">
+                    </div>
+                </div>
+
+                <div class="section-title">Financial Information</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="field-label">Bank Name</label>
+                        <input type="text" class="field-input" name="bank-name" placeholder="Primary Bank">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Account Type</label>
+                        <select class="field-input" name="account-type">
+                            <option value="">Select Type</option>
+                            <option value="checking">Checking</option>
+                            <option value="savings">Savings</option>
+                            <option value="both">Both</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Checking Account Balance</label>
+                        <input type="text" class="field-input" name="checking-balance" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Savings Account Balance</label>
+                        <input type="text" class="field-input" name="savings-balance" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Monthly Debt Payments</label>
+                        <input type="text" class="field-input" name="monthly-debt" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">Credit Score Range (if known)</label>
+                        <select class="field-input" name="credit-score">
+                            <option value="">Select Range</option>
+                            <option value="excellent">Excellent (750+)</option>
+                            <option value="good">Good (700-749)</option>
+                            <option value="fair">Fair (650-699)</option>
+                            <option value="poor">Poor (Below 650)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section-title">Declarations & Consent</div>
+                <div class="checkbox-section">
+                    <div class="checkbox-item">
+                        <input type="checkbox" class="checkbox" name="cert-truth" id="cert-truth">
+                        <label for="cert-truth" class="checkbox-label">I certify that all information provided is true and complete to the best of my knowledge.</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" class="checkbox" name="auth-credit-check" id="auth-credit-check">
+                        <label for="auth-credit-check" class="checkbox-label">I authorize First National Bank to obtain credit reports and verify information provided.</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" class="checkbox" name="agree-terms" id="agree-terms">
+                        <label for="agree-terms" class="checkbox-label">I agree to the loan terms and conditions as outlined in the loan agreement.</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" class="checkbox" name="insurance-required" id="insurance-required">
+                        <label for="insurance-required" class="checkbox-label">I understand that comprehensive and collision insurance is required for the financed vehicle.</label>
+                    </div>
+                </div>
+
+                <div class="signature-section">
+                    <div style="font-weight: bold; margin-bottom: 15px;">
+                        Electronic Signatures - By signing below, I acknowledge that I have read and agree to all terms.
+                    </div>
+                    <div class="signature-grid">
+                        <div class="signature-block">
+                            <input type="text" class="signature-field" name="applicant-signature" placeholder="Sign your name here">
+                            <div class="signature-label">
+                                <strong>Applicant Signature</strong><br>
+                                Date: ___________
+                            </div>
+                        </div>
+                        <div class="signature-block">
+                            <input type="text" class="signature-field" name="co-applicant-signature" placeholder="Co-applicant signature (if applicable)">
+                            <div class="signature-label">
+                                <strong>Co-Applicant Signature</strong><br>
+                                Date: ___________
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-info">
+                <strong>For Bank Use Only:</strong><br>
+                Loan Officer: _________________ | Date Received: _________________ | Application Status: _________________<br><br>
+                First National Bank • 2500 Financial Center Drive, Sacramento, CA 95825 • (916) 555-0100<br>
+                www.firstnationalbank.com • Member FDIC • Equal Housing Lender
+            </div>
+        </div>
+    </form>
+</body>
+</html>

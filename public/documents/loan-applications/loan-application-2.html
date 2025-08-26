@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Loan Application - Community Trust Bank</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 25px;
+            background-color: #fafafa;
+            color: #333;
+            line-height: 1.5;
+        }
+        .loan-application {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            border: 3px solid #2e7d32;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+        .app-header {
+            background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .bank-logo {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        .bank-motto {
+            font-size: 14px;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        .application-type {
+            font-size: 22px;
+            font-weight: bold;
+            background-color: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .form-content {
+            padding: 35px;
+        }
+        .reference-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            background-color: #e8f5e8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2e7d32;
+        }
+        .ref-item {
+            text-align: center;
+        }
+        .ref-label {
+            font-size: 11px;
+            color: #2e7d32;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .ref-value {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 3px;
+            color: #1b5e20;
+        }
+        .section-header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 30px -35px 25px -35px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-section {
+            margin-bottom: 25px;
+        }
+        .field-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        .field-group {
+            margin-bottom: 18px;
+        }
+        .field-group.full-span {
+            grid-column: 1 / -1;
+        }
+        .field-label {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 14px;
+        }
+        .field-input {
+            background-color: #f9f9f9;
+            border: 2px solid #c8e6c9;
+            border-radius: 6px;
+            padding: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 14px;
+            color: #333;
+        }
+        .field-input.completed {
+            background-color: white;
+            border-color: #2e7d32;
+            font-weight: 600;
+            color: #1b5e20;
+        }
+        .business-info-box {
+            background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+            border: 2px solid #81c784;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .business-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .business-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .business-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted #81c784;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .detail-value {
+            color: #1b5e20;
+            font-weight: 600;
+        }
+        .loan-request-highlight {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffcc02 30%, #ff9800 100%);
+            border: 3px solid #e65100;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(230,81,0,0.3);
+        }
+        .loan-amount-label {
+            font-size: 16px;
+            color: #bf360c;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .loan-amount {
+            font-size: 36px;
+            font-weight: bold;
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        .loan-purpose {
+            font-size: 18px;
+            color: #bf360c;
+            font-weight: 600;
+        }
+        .financial-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            border: 2px solid #81c784;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .table-header {
+            background-color: #2e7d32;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+        }
+        .table-row {
+            border-bottom: 1px solid #c8e6c9;
+        }
+        .table-row:last-child {
+            border-bottom: none;
+        }
+        .table-cell {
+            padding: 12px 15px;
+            border-right: 1px solid #e8f5e8;
+        }
+        .table-cell:last-child {
+            border-right: none;
+        }
+        .table-label {
+            background-color: #f1f8e9;
+            font-weight: bold;
+            color: #2e7d32;
+            width: 45%;
+        }
+        .table-value {
+            color: #1b5e20;
+            font-weight: 600;
+        }
+        .attestation-section {
+            background-color: #f3e5f5;
+            border: 2px solid #8e24aa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        .attestation-title {
+            color: #4a148c;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .agreement-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .check-mark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #8e24aa;
+            background-color: #8e24aa;
+            margin-right: 15px;
+            margin-top: 2px;
+            position: relative;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        .check-mark::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: -2px;
+            left: 4px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .agreement-text {
+            font-size: 14px;
+            line-height: 1.4;
+            color: #4a148c;
+        }
+        .signature-area {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 3px solid #2e7d32;
+        }
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+        .signature-box {
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px dashed #2e7d32;
+        }
+        .sig-line {
+            border-top: 3px solid #2e7d32;
+            width: 100%;
+            margin: 25px 0 10px 0;
+        }
+        .sig-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #2e7d32;
+        }
+        .sig-title {
+            font-size: 12px;
+            color: #666;
+            margin-top: 3px;
+        }
+        .footer-section {
+            background-color: #e8f5e8;
+            padding: 25px;
+            margin: -35px -35px 0 -35px;
+            border-top: 2px solid #81c784;
+            text-align: center;
+            font-size: 12px;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="loan-application">
+        <div class="app-header">
+            <div class="bank-logo">COMMUNITY TRUST BANK</div>
+            <div class="bank-motto">"Building Stronger Communities Together"</div>
+            <div style="font-size: 13px; opacity: 0.8;">
+                1845 Commerce Street, Dallas, TX 75201 | (214) 555-0155
+            </div>
+            <div class="application-type">BUSINESS LOAN APPLICATION</div>
+        </div>
+
+        <div class="form-content">
+            <div class="reference-info">
+                <div class="ref-item">
+                    <div class="ref-label">Application Number</div>
+                    <div class="ref-value">BL-2024-156783</div>
+                </div>
+                <div class="ref-item">
+                    <div class="ref-label">Date Submitted</div>
+                    <div class="ref-value">March 22, 2024</div>
+                </div>
+                <div class="ref-item">
+                    <div class="ref-label">Loan Officer</div>
+                    <div class="ref-value">Patricia Martinez</div>
+                </div>
+            </div>
+
+            <div class="business-info-box">
+                <div class="business-name">Elite Marketing Solutions LLC</div>
+                <div class="business-details">
+                    <div class="business-detail">
+                        <span class="detail-label">Business Type:</span>
+                        <span class="detail-value">Limited Liability Company</span>
+                    </div>
+                    <div class="business-detail">
+                        <span class="detail-label">Industry:</span>
+                        <span class="detail-value">Digital Marketing & Advertising</span>
+                    </div>
+                    <div class="business-detail">
+                        <span class="detail-label">Years in Business:</span>
+                        <span class="detail-value">8 Years</span>
+                    </div>
+                    <div class="business-detail">
+                        <span class="detail-label">Federal EIN:</span>
+                        <span class="detail-value">75-8934567</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loan-request-highlight">
+                <div class="loan-amount-label">LOAN AMOUNT REQUESTED</div>
+                <div class="loan-amount">$125,000.00</div>
+                <div class="loan-purpose">Equipment Purchase & Working Capital</div>
+            </div>
+
+            <div class="section-header">Business Information</div>
+            <div class="field-grid">
+                <div class="field-group full-span">
+                    <label class="field-label">Business Address:</label>
+                    <div class="field-input completed">4567 Business Park Drive, Suite 200, Dallas, TX 75238</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Business Phone:</label>
+                    <div class="field-input completed">(214) 555-0298</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Business Email:</label>
+                    <div class="field-input completed">info@elitemarketingsolutions.com</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Date Established:</label>
+                    <div class="field-input completed">January 15, 2016</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Number of Employees:</label>
+                    <div class="field-input completed">24 Full-Time</div>
+                </div>
+            </div>
+
+            <div class="section-header">Primary Owner Information</div>
+            <div class="field-grid">
+                <div class="field-group">
+                    <label class="field-label">Owner Name:</label>
+                    <div class="field-input completed">Maria Elena Vasquez</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Ownership Percentage:</label>
+                    <div class="field-input completed">65%</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Title/Position:</label>
+                    <div class="field-input completed">Chief Executive Officer</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">SSN:</label>
+                    <div class="field-input completed">XXX-XX-9284</div>
+                </div>
+                <div class="field-group full-span">
+                    <label class="field-label">Home Address:</label>
+                    <div class="field-input completed">1892 Oak Tree Lane, Plano, TX 75023</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Personal Phone:</label>
+                    <div class="field-input completed">(214) 555-0347</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Personal Email:</label>
+                    <div class="field-input completed">maria.vasquez@gmail.com</div>
+                </div>
+            </div>
+
+            <div class="section-header">Financial Information</div>
+            <table class="financial-table">
+                <tr>
+                    <td colspan="2" class="table-header">BUSINESS FINANCIAL SUMMARY</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell table-label">Annual Gross Revenue (2023)</td>
+                    <td class="table-cell table-value">$2,850,000</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell table-label">Annual Net Income (2023)</td>
+                    <td class="table-cell table-value">$425,000</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell table-label">Current Assets</td>
+                    <td class="table-cell table-value">$680,000</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell table-label">Current Liabilities</td>
+                    <td class="table-cell table-value">$195,000</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell table-label">Existing Business Debt</td>
+                    <td class="table-cell table-value">$78,500</td>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell table-label">Bank Account Balance</td>
+                    <td class="table-cell table-value">$156,000</td>
+                </tr>
+            </table>
+
+            <div class="section-header">Loan Purpose & Terms</div>
+            <div class="field-grid">
+                <div class="field-group">
+                    <label class="field-label">Primary Use of Funds:</label>
+                    <div class="field-input completed">New Equipment Purchase (60%)</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Secondary Use:</label>
+                    <div class="field-input completed">Working Capital (40%)</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Requested Term:</label>
+                    <div class="field-input completed">7 Years (84 months)</div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Collateral Offered:</label>
+                    <div class="field-input completed">Equipment + Business Assets</div>
+                </div>
+            </div>
+
+            <div class="attestation-section">
+                <div class="attestation-title">APPLICANT CERTIFICATION & AGREEMENTS</div>
+                <div class="agreement-item">
+                    <div class="check-mark"></div>
+                    <div class="agreement-text">I certify that all information provided in this application is true, accurate, and complete to the best of my knowledge.</div>
+                </div>
+                <div class="agreement-item">
+                    <div class="check-mark"></div>
+                    <div class="agreement-text">I authorize Community Trust Bank to verify all information and obtain credit reports for all business owners and the business entity.</div>
+                </div>
+                <div class="agreement-item">
+                    <div class="check-mark"></div>
+                    <div class="agreement-text">I understand that any material misrepresentation may result in immediate termination of credit consideration or acceleration of any resulting loan.</div>
+                </div>
+                <div class="agreement-item">
+                    <div class="check-mark"></div>
+                    <div class="agreement-text">I agree to provide additional financial documentation as requested by the bank during the underwriting process.</div>
+                </div>
+            </div>
+
+            <div class="signature-area">
+                <div style="font-weight: bold; text-align: center; margin-bottom: 20px; color: #2e7d32;">
+                    APPLICANT SIGNATURES - All owners with 20% or greater ownership must sign
+                </div>
+                <div class="signature-grid">
+                    <div class="signature-box">
+                        <div class="sig-line"></div>
+                        <div class="sig-name">Maria Elena Vasquez</div>
+                        <div class="sig-title">Primary Owner (65%)</div>
+                        <div class="sig-title">Date: 03/22/2024</div>
+                    </div>
+                    <div class="signature-box">
+                        <div class="sig-line"></div>
+                        <div class="sig-name">James Robert Mitchell</div>
+                        <div class="sig-title">Co-Owner (25%)</div>
+                        <div class="sig-title">Date: 03/22/2024</div>
+                    </div>
+                    <div class="signature-box">
+                        <div class="sig-line"></div>
+                        <div class="sig-name">Bank Officer</div>
+                        <div class="sig-title">Application Received By</div>
+                        <div class="sig-title">Date: ___________</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <strong>Community Trust Bank - Business Lending Division</strong><br>
+            This application will be processed within 5-7 business days. You will be contacted with our decision.<br>
+            For questions, contact Business Lending at (214) 555-0188 or business@communitytrust.com<br><br>
+            <em>Member FDIC • Equal Opportunity Lender • Community Reinvestment Act Compliant</em>
+        </div>
+    </div>
+</body>
+</html>

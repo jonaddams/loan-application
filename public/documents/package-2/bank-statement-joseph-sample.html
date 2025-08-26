@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Statement - SunTrust Bank</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 25px;
+            background-color: #ffffff;
+            color: #000;
+            line-height: 1.4;
+        }
+        .statement {
+            max-width: 750px;
+            margin: 0 auto;
+            background: white;
+            border: 2px solid #ff6b35;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .bank-logo {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .bank-tagline {
+            font-size: 14px;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        .account-header {
+            padding: 25px;
+            background-color: #fff8f5;
+            border-bottom: 2px solid #ffccb3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .customer-section h3 {
+            color: #ff6b35;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .customer-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .customer-address {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        .account-info {
+            font-size: 14px;
+            color: #666;
+        }
+        .account-info strong {
+            color: #ff6b35;
+        }
+        .content {
+            padding: 25px;
+        }
+        .section-header {
+            background-color: #ff6b35;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 25px 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #ffe8e0 0%, #ffccb3 100%);
+            border: 2px solid #ff6b35;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ff6b35;
+        }
+        .summary-label {
+            font-weight: bold;
+            color: #d63031;
+        }
+        .summary-value {
+            font-weight: bold;
+            color: #00b894;
+        }
+        .summary-value.negative {
+            color: #d63031;
+        }
+        .balance-highlight {
+            background-color: #ff6b35;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .transaction-table th {
+            background-color: #ff6b35;
+            color: white;
+            border: 1px solid #e55a2b;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .transaction-table td {
+            border: 1px solid #ffccb3;
+            padding: 10px 8px;
+            vertical-align: top;
+        }
+        .transaction-table tr:nth-child(even) {
+            background-color: #fff8f5;
+        }
+        .transaction-table tr:hover {
+            background-color: #ffe8e0;
+        }
+        .credit-amount {
+            color: #00b894;
+            font-weight: bold;
+            text-align: right;
+        }
+        .debit-amount {
+            color: #d63031;
+            font-weight: bold;
+            text-align: right;
+        }
+        .date-col {
+            width: 90px;
+        }
+        .amount-col {
+            width: 110px;
+            text-align: right;
+        }
+        .total-row {
+            background-color: #ffccb3 !important;
+            font-weight: bold;
+            border-top: 2px solid #ff6b35;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 11px;
+        }
+        .footer-links {
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="statement">
+        <div class="header">
+            <div class="bank-logo">SUNTRUST BANK</div>
+            <div class="bank-tagline">Banking Excellence Since 1891</div>
+            <div style="font-size: 13px; margin-top: 10px; opacity: 0.9;">
+                1200 Financial Plaza, Tallahassee, FL 32301 | (850) 555-0200
+            </div>
+        </div>
+
+        <div class="account-header">
+            <div class="customer-section">
+                <h3>Account Holder</h3>
+                <div class="customer-name">JOSEPH A SAMPLE</div>
+                <div class="customer-address">
+                    1234 SAMPLE AVE<br>
+                    TALLAHASSEE, FL 32309
+                </div>
+            </div>
+            <div class="account-section">
+                <h3>Statement Information</h3>
+                <div class="account-info">
+                    <strong>Account Number:</strong> 5430-1234-5678<br>
+                    <strong>Account Type:</strong> Premier Checking<br>
+                    <strong>Statement Period:</strong><br>
+                    March 1, 2024 - March 31, 2024<br>
+                    <strong>Statement Date:</strong> April 5, 2024
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section-header">Account Summary</div>
+            
+            <div class="summary-box">
+                <div class="summary-grid">
+                    <div>
+                        <div class="summary-item">
+                            <span class="summary-label">Beginning Balance (03/01/2024):</span>
+                            <span class="summary-value">$6,847.23</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Total Deposits & Credits:</span>
+                            <span class="summary-value">+$7,245.89</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Total Withdrawals & Debits:</span>
+                            <span class="summary-value negative">-$3,456.78</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="summary-item">
+                            <span class="summary-label">Total Checks Paid:</span>
+                            <span class="summary-value negative">-$1,850.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Service Charges:</span>
+                            <span class="summary-value negative">-$15.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Interest Earned:</span>
+                            <span class="summary-value">+$8.72</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="balance-highlight">
+                    ENDING BALANCE (03/31/2024): $8,780.06
+                </div>
+            </div>
+
+            <div class="section-header">Deposits & Credits</div>
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th class="date-col">Date</th>
+                        <th>Description</th>
+                        <th class="amount-col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>03/01</td>
+                        <td>Direct Deposit - TECHFLOW SOLUTIONS PAYROLL</td>
+                        <td class="credit-amount">$3,622.50</td>
+                    </tr>
+                    <tr>
+                        <td>03/15</td>
+                        <td>Direct Deposit - TECHFLOW SOLUTIONS PAYROLL</td>
+                        <td class="credit-amount">$3,622.50</td>
+                    </tr>
+                    <tr>
+                        <td>03/28</td>
+                        <td>Interest Credit - Premier Checking</td>
+                        <td class="credit-amount">$8.72</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2"><strong>Total Deposits & Credits</strong></td>
+                        <td class="credit-amount"><strong>$7,253.72</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-header">Withdrawals & Debits</div>
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th class="date-col">Date</th>
+                        <th>Description</th>
+                        <th class="amount-col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>03/02</td>
+                        <td>ATM Withdrawal - SunTrust ATM #FL8947</td>
+                        <td class="debit-amount">$100.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/05</td>
+                        <td>Debit Card - PUBLIX SUPER MARKETS</td>
+                        <td class="debit-amount">$156.78</td>
+                    </tr>
+                    <tr>
+                        <td>03/07</td>
+                        <td>Debit Card - SHELL FUEL REWARDS</td>
+                        <td class="debit-amount">$67.45</td>
+                    </tr>
+                    <tr>
+                        <td>03/10</td>
+                        <td>Online Transfer to Savings Account</td>
+                        <td class="debit-amount">$800.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/12</td>
+                        <td>Debit Card - AMAZON.COM PURCHASES</td>
+                        <td class="debit-amount">$234.56</td>
+                    </tr>
+                    <tr>
+                        <td>03/15</td>
+                        <td>ATM Withdrawal - SunTrust ATM #FL8947</td>
+                        <td class="debit-amount">$80.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/18</td>
+                        <td>Debit Card - HOME DEPOT #4738</td>
+                        <td class="debit-amount">$389.67</td>
+                    </tr>
+                    <tr>
+                        <td>03/20</td>
+                        <td>Online Bill Pay - TALLAHASSEE UTILITIES</td>
+                        <td class="debit-amount">$145.89</td>
+                    </tr>
+                    <tr>
+                        <td>03/22</td>
+                        <td>Debit Card - WALGREENS PHARMACY</td>
+                        <td class="debit-amount">$43.21</td>
+                    </tr>
+                    <tr>
+                        <td>03/25</td>
+                        <td>Online Bill Pay - COMCAST XFINITY</td>
+                        <td class="debit-amount">$89.45</td>
+                    </tr>
+                    <tr>
+                        <td>03/28</td>
+                        <td>Debit Card - COSTCO WHOLESALE</td>
+                        <td class="debit-amount">$234.77</td>
+                    </tr>
+                    <tr>
+                        <td>03/31</td>
+                        <td>Monthly Service Charge</td>
+                        <td class="debit-amount">$15.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2"><strong>Total Withdrawals & Debits</strong></td>
+                        <td class="debit-amount"><strong>$2,356.78</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-header">Checks Paid</div>
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th class="date-col">Date</th>
+                        <th>Check #</th>
+                        <th>Payee/Description</th>
+                        <th class="amount-col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>03/01</td>
+                        <td>1567</td>
+                        <td>SAMPLE APARTMENTS LLC - Monthly Rent</td>
+                        <td class="debit-amount">$1,350.00</td>
+                    </tr>
+                    <tr>
+                        <td>03/15</td>
+                        <td>1568</td>
+                        <td>STATE FARM INSURANCE - Auto Premium</td>
+                        <td class="debit-amount">$287.50</td>
+                    </tr>
+                    <tr>
+                        <td>03/28</td>
+                        <td>1569</td>
+                        <td>CAPITAL ONE - Credit Card Payment</td>
+                        <td class="debit-amount">$212.50</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3"><strong>Total Checks Paid</strong></td>
+                        <td class="debit-amount"><strong>$1,850.00</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <strong>SunTrust Bank</strong> - Member FDIC | Equal Housing Lender<br>
+            This statement contains important account information. Please review carefully and report any discrepancies within 60 days.<br>
+            <div class="footer-links">
+                Customer Service: (850) 555-0200 | Online Banking: www.suntrust.com | Mobile App Available
+            </div>
+        </div>
+    </div>
+</body>
+</html>

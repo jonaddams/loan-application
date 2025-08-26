@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Stub - TechFlow Solutions</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .pay-stub {
+            max-width: 750px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .company-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .tagline {
+            font-size: 14px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 25px;
+        }
+        .employee-header {
+            background-color: #f1f3f4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .label {
+            font-weight: bold;
+            color: #444;
+        }
+        .value {
+            color: #666;
+        }
+        .section-header {
+            background-color: #667eea;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 20px 0 15px 0;
+            border-radius: 5px;
+        }
+        .earnings-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 15px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .earnings-header {
+            font-weight: bold;
+            color: #333;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .earnings-row {
+            display: contents;
+        }
+        .earnings-cell {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .amount-cell {
+            text-align: right;
+            font-weight: 600;
+        }
+        .deductions-section {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ffc107;
+        }
+        .deduction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ffeaa7;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            text-align: center;
+        }
+        .summary-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .net-amount {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="pay-stub">
+        <div class="header">
+            <div class="company-name">TechFlow Solutions</div>
+            <div class="tagline">Innovating Tomorrow's Technology Today</div>
+            <div style="font-size: 13px; margin-top: 10px;">
+                1234 Sample Ave, Tallahassee, FL 32309 | (850) 555-0288
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="employee-header">
+                <div>
+                    <div class="detail-row">
+                        <span class="label">Employee:</span>
+                        <span class="value">Joseph A Sample</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Employee ID:</span>
+                        <span class="value">TF-1961-5302</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Department:</span>
+                        <span class="value">Operations Management</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Title:</span>
+                        <span class="value">Operations Manager</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="detail-row">
+                        <span class="label">Pay Period:</span>
+                        <span class="value">02/01/2024 - 02/29/2024</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Pay Date:</span>
+                        <span class="value">March 5, 2024</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Pay Type:</span>
+                        <span class="value">Monthly Salary</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Status:</span>
+                        <span class="value">Full-Time Exempt</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header">Earnings Details</div>
+            <div class="earnings-grid">
+                <div class="earnings-header">Description</div>
+                <div class="earnings-header">Rate</div>
+                <div class="earnings-header">Hours/Units</div>
+                <div class="earnings-header">Amount</div>
+
+                <div class="earnings-row">
+                    <div class="earnings-cell">Base Salary</div>
+                    <div class="earnings-cell">$8,333.33</div>
+                    <div class="earnings-cell">Monthly</div>
+                    <div class="earnings-cell amount-cell">$8,333.33</div>
+                </div>
+
+                <div class="earnings-row">
+                    <div class="earnings-cell">Performance Bonus</div>
+                    <div class="earnings-cell">5% of base</div>
+                    <div class="earnings-cell">Q1 2024</div>
+                    <div class="earnings-cell amount-cell">$416.67</div>
+                </div>
+
+                <div class="earnings-row">
+                    <div class="earnings-cell">Remote Work Stipend</div>
+                    <div class="earnings-cell">$150.00</div>
+                    <div class="earnings-cell">Monthly</div>
+                    <div class="earnings-cell amount-cell">$150.00</div>
+                </div>
+
+                <div class="earnings-row" style="background-color: #e3f2fd; font-weight: bold; margin-top: 10px;">
+                    <div class="earnings-cell">Gross Pay</div>
+                    <div class="earnings-cell"></div>
+                    <div class="earnings-cell"></div>
+                    <div class="earnings-cell amount-cell">$8,900.00</div>
+                </div>
+            </div>
+
+            <div class="section-header">Deductions & Withholdings</div>
+            <div class="deductions-section">
+                <div class="deduction-item">
+                    <span>Federal Income Tax</span>
+                    <span style="font-weight: bold;">$1,601.00</span>
+                </div>
+                <div class="deduction-item">
+                    <span>State Income Tax (TX)</span>
+                    <span style="font-weight: bold;">$0.00</span>
+                </div>
+                <div class="deduction-item">
+                    <span>Social Security Tax (6.2%)</span>
+                    <span style="font-weight: bold;">$551.80</span>
+                </div>
+                <div class="deduction-item">
+                    <span>Medicare Tax (1.45%)</span>
+                    <span style="font-weight: bold;">$129.05</span>
+                </div>
+                <div class="deduction-item">
+                    <span>Health Insurance Premium</span>
+                    <span style="font-weight: bold;">$285.00</span>
+                </div>
+                <div class="deduction-item">
+                    <span>Dental/Vision Insurance</span>
+                    <span style="font-weight: bold;">$35.00</span>
+                </div>
+                <div class="deduction-item">
+                    <span>401(k) Contribution (8%)</span>
+                    <span style="font-weight: bold;">$712.00</span>
+                </div>
+                <div class="deduction-item">
+                    <span>Life Insurance Premium</span>
+                    <span style="font-weight: bold;">$12.50</span>
+                </div>
+                <div class="deduction-item" style="background-color: #fff8dc; font-weight: bold; margin-top: 15px; padding: 15px; border-radius: 5px;">
+                    <span>Total Deductions</span>
+                    <span>$3,326.35</span>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <div class="summary-title">NET PAY</div>
+                <div class="net-amount">$5,573.65</div>
+                <div style="font-size: 14px; margin-top: 10px; opacity: 0.9;">
+                    Direct Deposit to Account ending in 4892
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <strong>Important:</strong> This statement contains confidential information. Keep for tax records.<br>
+            Questions? Contact Payroll at payroll@techflowsolutions.com or (512) 555-0299<br>
+            TechFlow Solutions - Equal Opportunity Employer
+        </div>
+    </div>
+</body>
+</html>
