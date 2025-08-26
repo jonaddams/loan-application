@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 		const response = await fetch(`${API_BASE_URL}/api/register-component`, {
 			method: "POST",
 			headers: {
-				Authorization: `Bearer ${AUTH_TOKEN}`,
+				Authorization: AUTH_TOKEN,
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({

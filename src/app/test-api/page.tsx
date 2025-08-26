@@ -4,6 +4,7 @@ import {
 	CreditCard,
 	DollarSign,
 	FileText,
+	Zap,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -31,6 +32,15 @@ const documentTypes = [
 		path: "/test-api/bank-statements",
 		samples: 1,
 		color: "bg-purple-600 hover:bg-purple-700",
+	},
+	{
+		id: "auto-process",
+		name: "Auto Process Test",
+		icon: Zap,
+		path: "/test-api/auto-process",
+		samples: 6,
+		color: "bg-orange-600 hover:bg-orange-700",
+		description: "Test automatic document type detection without predefined templates",
 	},
 ];
 

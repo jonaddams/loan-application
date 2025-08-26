@@ -17,7 +17,7 @@ export async function GET() {
 			`${API_BASE_URL}/api/get-predefined-templates`,
 			{
 				headers: {
-					Authorization: `Bearer ${AUTH_TOKEN}`,
+					Authorization: AUTH_TOKEN,
 				},
 			},
 		);
