@@ -86,7 +86,7 @@ export default function AutoProcessTestPage() {
 							<h3 className="font-medium text-gray-900 mb-2">Test Files</h3>
 							<ul className="text-sm text-gray-600 space-y-1">
 								<li>• 3 Passport images</li>
-								<li>• 3 Driver's License images</li>
+								<li>• 3 Driver&apos;s License images</li>
 								<li>• No predefined templates used</li>
 								<li>• No componentId sent to API</li>
 							</ul>
