@@ -40,7 +40,8 @@ const documentTypes = [
 		path: "/test-api/auto-process",
 		samples: 6,
 		color: "bg-orange-600 hover:bg-orange-700",
-		description: "Test automatic document type detection without predefined templates",
+		description:
+			"Test automatic document type detection without predefined templates",
 	},
 ];
 

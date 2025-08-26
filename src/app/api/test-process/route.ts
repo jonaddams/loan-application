@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_NUTRIENT_API_URL || "https://api.xtractflow.com";
+const API_BASE_URL =
+	process.env.NEXT_PUBLIC_NUTRIENT_API_URL || "https://api.xtractflow.com";
 const AUTH_TOKEN = process.env.NUTRIENT_AUTH_TOKEN;
 
 export async function GET() {
@@ -9,7 +10,7 @@ export async function GET() {
 	if (!AUTH_TOKEN) {
 		return NextResponse.json(
 			{ error: "Authentication token not configured" },
-			{ status: 500 }
+			{ status: 500 },
 		);
 	}
 
@@ -21,47 +22,49 @@ export async function GET() {
 		{
 			url: "/documents/passports/usa-passport.jpg",
 			type: "passport",
-			name: "usa-passport.jpg"
+			name: "usa-passport.jpg",
 		},
 		{
-			url: "/documents/passports/canada-passport.jpg", 
+			url: "/documents/passports/canada-passport.jpg",
 			type: "passport",
-			name: "canada-passport.jpg"
+			name: "canada-passport.jpg",
 		},
 		{
 			url: "/documents/passports/uk-ireland-passport.jpg",
-			type: "passport", 
-			name: "uk-ireland-passport.jpg"
+			type: "passport",
+			name: "uk-ireland-passport.jpg",
 		},
 		// Driver license files
 		{
 			url: "/documents/drivers-licenses/california-drivers-license.jpg",
 			type: "driver_license",
-			name: "california-drivers-license.jpg"
+			name: "california-drivers-license.jpg",
 		},
 		{
 			url: "/documents/drivers-licenses/texas-drivers-license.webp",
-			type: "driver_license", 
-			name: "texas-drivers-license.webp"
+			type: "driver_license",
+			name: "texas-drivers-license.webp",
 		},
 		{
 			url: "/documents/drivers-licenses/florida-driver-license.png",
 			type: "driver_license",
-			name: "florida-driver-license.png"
-		}
+			name: "florida-driver-license.png",
+		},
 	];
 
 	for (const testFile of testFiles) {
 		console.log(`📄 Testing ${testFile.name} (${testFile.type})...`);
-		
+
 		try {
 			// First, get the image file from local API
-			const fullUrl = `${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}${testFile.url}`;
+			const fullUrl = `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"}${testFile.url}`;
 			console.log(`📥 Fetching image from: ${fullUrl}`);
 			const imageResponse = await fetch(fullUrl);
 
 			if (!imageResponse.ok) {
-				console.error(`❌ Failed to fetch ${testFile.name}: ${imageResponse.statusText}`);
+				console.error(
+					`❌ Failed to fetch ${testFile.name}: ${imageResponse.statusText}`,
+				);
 				testResults.push({
 					file: testFile.name,
 					type: testFile.type,
@@ -73,7 +76,9 @@ export async function GET() {
 			}
 
 			const imageBlob = await imageResponse.blob();
-			console.log(`✅ Got image blob: ${imageBlob.size} bytes, type: ${imageBlob.type}`);
+			console.log(
+				`✅ Got image blob: ${imageBlob.size} bytes, type: ${imageBlob.type}`,
+			);
 
 			// Create FormData for the process request (without componentId)
 			const formData = new FormData();
@@ -81,7 +86,7 @@ export async function GET() {
 			// Note: Not including componentId - let server deduce the type
 
 			console.log(`🚀 Processing ${testFile.name} without componentId...`);
-			
+
 			// Process the document without componentId
 			const processResponse = await fetch(`${API_BASE_URL}/api/process`, {
 				method: "POST",
@@ -110,7 +115,9 @@ export async function GET() {
 					result: processResult,
 					timestamp: new Date().toISOString(),
 				});
-				console.log(`✅ Successfully processed ${testFile.name}. Detected: ${processResult.detectedTemplate}`);
+				console.log(
+					`✅ Successfully processed ${testFile.name}. Detected: ${processResult.detectedTemplate}`,
+				);
 			} else {
 				testResults.push({
 					file: testFile.name,
@@ -133,7 +140,7 @@ export async function GET() {
 		}
 	}
 
-	const successCount = testResults.filter(r => r.success).length;
+	const successCount = testResults.filter((r) => r.success).length;
 	const summary = {
 		totalTests: testResults.length,
 		successful: successCount,

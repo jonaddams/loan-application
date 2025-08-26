@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, Zap, CheckCircle, XCircle, Clock } from "lucide-react";
+import { ArrowLeft, CheckCircle, Clock, XCircle, Zap } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -10,7 +10,7 @@ interface TestResult {
 	success: boolean;
 	detectedTemplate?: string;
 	fieldsCount?: number;
-	result?: any;
+	result?: Record<string, unknown>;
 	error?: string;
 	timestamp: string;
 }
@@ -70,8 +70,9 @@ export default function AutoProcessTestPage() {
 						Auto Process Test
 					</h1>
 					<p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-						Test automatic document type detection by sending files directly to the API 
-						without a componentId. The server will automatically deduce the document type.
+						Test automatic document type detection by sending files directly to
+						the API without a componentId. The server will automatically deduce
+						the document type.
 					</p>
 				</div>
 
@@ -105,6 +106,7 @@ export default function AutoProcessTestPage() {
 				{/* Run Test Button */}
 				<div className="text-center mb-8">
 					<button
+						type="button"
 						onClick={runTest}
 						disabled={isRunning}
 						className={`inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg shadow-sm text-white transition-colors ${
@@ -192,8 +194,11 @@ export default function AutoProcessTestPage() {
 									</tr>
 								</thead>
 								<tbody className="bg-white divide-y divide-gray-200">
-									{results.map((result, index) => (
-										<tr key={index} className="hover:bg-gray-50">
+									{results.map((result) => (
+										<tr
+											key={`${result.file}-${result.timestamp}`}
+											className="hover:bg-gray-50"
+										>
 											<td className="px-6 py-4 whitespace-nowrap">
 												{result.success ? (
 													<CheckCircle className="h-5 w-5 text-green-500" />
@@ -249,7 +254,8 @@ export default function AutoProcessTestPage() {
 								/api/process
 							</code>
 							<p className="text-sm text-gray-600 mt-1">
-								Process documents without componentId - let server deduce type automatically
+								Process documents without componentId - let server deduce type
+								automatically
 							</p>
 							<p className="text-xs text-gray-500 mt-1">
 								Payload: FormData with inputFile only (no componentId)

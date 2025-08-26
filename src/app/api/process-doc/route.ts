@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_NUTRIENT_API_URL || "https://api.xtractflow.com";
+const API_BASE_URL =
+	process.env.NEXT_PUBLIC_NUTRIENT_API_URL || "https://api.xtractflow.com";
 const AUTH_TOKEN = process.env.NUTRIENT_AUTH_TOKEN;
 
 export async function POST(request: NextRequest) {
@@ -11,7 +12,7 @@ export async function POST(request: NextRequest) {
 			console.error("❌ Missing authentication token");
 			return NextResponse.json(
 				{ error: "Authentication token not configured" },
-				{ status: 500 }
+				{ status: 500 },
 			);
 		}
 
