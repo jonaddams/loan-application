@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import Viewer from "@/components/Viewer";
 
 // Package information for display
@@ -74,14 +74,19 @@ interface ProcessingResult {
 
 // Removed complex processing steps - just show simple processing state
 
-export default function Results() {
+function ResultsContent() {
 	const searchParams = useSearchParams();
 	const packageId = searchParams.get("package") || "package1";
 
 	const [isProcessing, setIsProcessing] = useState(true);
 	const [results, setResults] = useState<ProcessingResult | null>(null);
 	const [error, setError] = useState<string | null>(null);
-	const [formFields, setFormFields] = useState<any[]>([]);
+	const [formFields, setFormFields] = useState<Array<{
+		name: string;
+		type: string;
+		required: boolean;
+		value: string | null;
+	}>>([]);
 
 	// Get package info or default to package1
 	const packageInfo =
@@ -122,7 +127,12 @@ export default function Results() {
 		processPackageDocuments();
 	}, [processPackageDocuments]);
 
-	const handleFormFieldsLoaded = useCallback((fields: any[]) => {
+	const handleFormFieldsLoaded = useCallback((fields: Array<{
+		name: string;
+		type: string;
+		required: boolean;
+		value: string | null;
+	}>) => {
 		console.log("📋 Form fields received in results page:", fields);
 		setFormFields(fields);
 	}, []);
@@ -160,7 +170,7 @@ export default function Results() {
 			.trim();
 	};
 
-	const getCategoryIcon = (category: string) => {
+	const getCategoryIcon = () => {
 		return "";
 	};
 
@@ -395,7 +405,7 @@ export default function Results() {
 							<div key={doc.id} className="bg-white rounded-lg shadow-md p-6">
 								<div className="flex items-center mb-4">
 									<span className="text-2xl mr-3">
-										{getCategoryIcon(doc.category)}
+										{getCategoryIcon()}
 									</span>
 									<div className="flex-1">
 										<h3 className="text-lg font-semibold text-gray-900">
@@ -557,5 +567,29 @@ export default function Results() {
 				</div>
 			</div>
 		</div>
+	);
+}
+
+export default function Results() {
+	return (
+		<Suspense fallback={
+			<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+				<div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+					<div className="bg-white rounded-lg shadow-md p-12">
+						<div className="text-center">
+							<RefreshCw className="h-12 w-12 text-indigo-600 animate-spin mx-auto mb-4" />
+							<h3 className="text-lg font-medium text-gray-900 mb-2">
+								Loading Results
+							</h3>
+							<p className="text-gray-600">
+								Please wait while we load your processing results...
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		}>
+			<ResultsContent />
+		</Suspense>
 	);
 }

@@ -2,9 +2,16 @@
 
 import { useEffect, useRef } from "react";
 
+interface FormField {
+	name: string;
+	type: string;
+	required: boolean;
+	value: string | null;
+}
+
 interface ViewerProps {
 	document: string | ArrayBuffer;
-	onFormFieldsLoaded?: (formFields: any[]) => void;
+	onFormFieldsLoaded?: (formFields: FormField[]) => void;
 }
 
 export default function Viewer({ document, onFormFieldsLoaded }: ViewerProps) {
@@ -26,7 +33,7 @@ export default function Viewer({ document, onFormFieldsLoaded }: ViewerProps) {
 					console.log("📊 Total form fields:", formFields.size);
 
 					// Helper function to determine form field type
-					const getFormFieldType = (formField: any) => {
+					const getFormFieldType = (formField: unknown) => {
 						const { NutrientViewer } = window;
 						if (!NutrientViewer?.FormFields) return "Unknown";
 
@@ -58,14 +65,14 @@ export default function Viewer({ document, onFormFieldsLoaded }: ViewerProps) {
 					};
 
 					// Convert ImmutableJS List to regular JavaScript array
-					const formFieldsArray: any[] = [];
-					formFields.forEach((formField: any) => {
+					const formFieldsArray: FormField[] = [];
+					formFields.forEach((formField: unknown) => {
+						const field = formField as { name: string; required: boolean; value?: string };
 						formFieldsArray.push({
-							name: formField.name,
+							name: field.name,
 							type: getFormFieldType(formField),
-							required: formField.required,
-							value: formField.value || null,
-							// Add more properties as needed
+							required: field.required,
+							value: field.value || null,
 						});
 					});
 

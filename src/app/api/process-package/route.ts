@@ -232,7 +232,9 @@ export async function POST(request: NextRequest) {
 
 		// Calculate summary statistics
 		const successCount = results.filter((r) => r.status === "completed").length;
-		const completedResults = results.filter((r) => r.status === "completed") as any[];
+		const completedResults = results.filter((r) => r.status === "completed") as Array<{
+			fields?: Array<{ validationState: string }>;
+		}>;
 		
 		const totalFields = completedResults
 			.filter((r) => r.fields)
@@ -243,7 +245,7 @@ export async function POST(request: NextRequest) {
 			.reduce((acc, r) => {
 				return (
 					acc +
-					(r.fields?.filter((f: any) => f.validationState === "Valid").length ||
+					(r.fields?.filter((f) => f.validationState === "Valid").length ||
 						0)
 				);
 			}, 0);
@@ -254,7 +256,7 @@ export async function POST(request: NextRequest) {
 				return (
 					acc +
 					(r.fields?.filter(
-						(f: any) =>
+						(f) =>
 							f.validationState === "VerificationNeeded" ||
 							f.validationState === "Undefined",
 					).length || 0)
