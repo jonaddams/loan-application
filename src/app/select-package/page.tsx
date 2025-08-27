@@ -23,7 +23,10 @@ const packages = [
 				description: "Government-issued identification for Ima Cardholder",
 			},
 			{ type: "Pay Stub", description: "Income verification document" },
-			{ type: "Bank Statement", description: "Commerce Bank account statement" },
+			{
+				type: "Bank Statement",
+				description: "Commerce Bank account statement",
+			},
 			{
 				type: "Auto Loan Application",
 				description: "Vehicle financing application form",
@@ -34,15 +37,22 @@ const packages = [
 	{
 		id: "package2",
 		name: "Personal Loan Package",
-		description: "Personal loan application with Florida driver's license for Joseph Sample",
+		description:
+			"Personal loan application with Florida driver's license for Joseph Sample",
 		documents: [
 			{
 				type: "Florida Driver's License",
 				description: "Government-issued identification for Joseph Sample",
 			},
 			{ type: "Pay Stub", description: "TechFlow Solutions payroll document" },
-			{ type: "Employment Letter", description: "Employment verification from TechFlow Solutions" },
-			{ type: "Bank Statement", description: "SunTrust Bank account statement" },
+			{
+				type: "Employment Letter",
+				description: "Employment verification from TechFlow Solutions",
+			},
+			{
+				type: "Bank Statement",
+				description: "SunTrust Bank account statement",
+			},
 			{
 				type: "Personal Loan Application",
 				description: "General purpose loan application form",
@@ -53,15 +63,22 @@ const packages = [
 	{
 		id: "package3",
 		name: "Home Improvement Package",
-		description: "Home improvement loan with Canadian passport for Sarah Martin",
+		description:
+			"Home improvement loan with Canadian passport for Sarah Martin",
 		documents: [
 			{
 				type: "Canadian Passport",
 				description: "Government-issued identification for Sarah Martin",
 			},
 			{ type: "Pay Stub", description: "Meridian Healthcare Systems payroll" },
-			{ type: "Employment Letter", description: "Employment verification from Meridian Healthcare" },
-			{ type: "Bank Statement", description: "Royal Bank of Canada account statement" },
+			{
+				type: "Employment Letter",
+				description: "Employment verification from Meridian Healthcare",
+			},
+			{
+				type: "Bank Statement",
+				description: "Royal Bank of Canada account statement",
+			},
 			{
 				type: "Home Improvement Loan Application",
 				description: "Property improvement financing form",
@@ -163,7 +180,7 @@ export default function SelectPackage() {
 				{selectedPackage && (
 					<div className="text-center">
 						<Link
-							href="/results"
+							href={`/results?package=${selectedPackage}`}
 							className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
 						>
 							Process Documents
