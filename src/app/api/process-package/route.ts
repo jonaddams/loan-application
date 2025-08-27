@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { type NextRequest, NextResponse } from "next/server";
 
 const API_BASE_URL =
@@ -92,26 +94,23 @@ const PACKAGE_DIRECTORIES = {
 } as const;
 
 async function fetchDocumentFile(packageId: string, fileName: string) {
-	const baseUrl = process.env.VERCEL_URL
-		? `https://${process.env.VERCEL_URL}`
-		: "http://localhost:3000";
-
 	// Use the correct directory name (package1 -> package-1)
 	const directoryName =
 		PACKAGE_DIRECTORIES[packageId as keyof typeof PACKAGE_DIRECTORIES];
-	const fileUrl = `${baseUrl}/documents/${directoryName}/${fileName}`;
-	console.log(`📥 Fetching document: ${fileUrl}`);
+	
+	// Read file directly from filesystem instead of HTTP request
+	const filePath = join(process.cwd(), 'public', 'documents', directoryName, fileName);
+	console.log(`📥 Reading document from filesystem: ${filePath}`);
 	console.log(`📂 Package ID: ${packageId} -> Directory: ${directoryName}`);
 
-	const response = await fetch(fileUrl);
-	console.log(`📡 Fetch response: ${response.status} ${response.statusText}`);
-	if (!response.ok) {
-		throw new Error(
-			`Failed to fetch ${fileName}: ${response.status} ${response.statusText}`,
-		);
+	try {
+		const fileBuffer = await readFile(filePath);
+		console.log(`✅ Successfully read ${fileName}: ${fileBuffer.length} bytes`);
+		return new Blob([fileBuffer]);
+	} catch (error) {
+		console.error(`❌ Failed to read file ${filePath}:`, error);
+		throw new Error(`Failed to read ${fileName}: ${error instanceof Error ? error.message : 'Unknown error'}`);
 	}
-
-	return response.blob();
 }
 
 async function processDocument(
