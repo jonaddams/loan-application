@@ -106,7 +106,7 @@ async function fetchDocumentFile(packageId: string, fileName: string) {
 	try {
 		const fileBuffer = await readFile(filePath);
 		console.log(`✅ Successfully read ${fileName}: ${fileBuffer.length} bytes`);
-		return new Blob([fileBuffer.buffer]);
+		return new Blob([new Uint8Array(fileBuffer)]);
 	} catch (error) {
 		console.error(`❌ Failed to read file ${filePath}:`, error);
 		throw new Error(`Failed to read ${fileName}: ${error instanceof Error ? error.message : 'Unknown error'}`);
