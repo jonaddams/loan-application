@@ -17,16 +17,29 @@
             max-width: 800px;
             margin: 0 auto;
             background: white;
+        }
+        .section-container {
             border: 2px solid #dc3545;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             border-radius: 8px;
             overflow: hidden;
+            margin: 20px auto 20px auto;
+            background: white;
+            max-width: 800px;
+            width: 100%;
+        }
+        .section-container:first-of-type {
+            margin-top: 0;
         }
         .form-header {
             background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
             padding: 25px;
             text-align: center;
+            border-radius: 6px 6px 0 0;
+        }
+        .border-radius-all {
+            border-radius: 6px;
         }
         .bank-name {
             font-size: 28px;
@@ -47,12 +60,20 @@
         .content {
             padding: 30px;
         }
+        .section-content {
+            padding: 0 30px 30px 30px;
+        }
+        .signature-input {
+            height: 100px;
+            padding: 20px 10px;
+            vertical-align: top;
+        }
         .application-info {
             background-color: #f8d7da;
             border: 1px solid #dc3545;
             border-radius: 8px;
             padding: 15px;
-            margin-bottom: 25px;
+            /* margin-bottom: 25px; */
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
@@ -78,7 +99,7 @@
             padding: 12px 20px;
             font-size: 16px;
             font-weight: bold;
-            margin: 25px -30px 20px -30px;
+            margin: 0 -30px 20px -30px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -118,7 +139,7 @@
             cursor: pointer;
         }
         .vehicle-highlight {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            background: #dc3545;
             color: white;
             padding: 25px;
             border-radius: 12px;
@@ -216,16 +237,21 @@
         .required {
             color: #dc3545;
         }
+        .spacer {
+            height: 0px;
+            background-color: white;
+            border: none;
+        }
     </style>
 </head>
 <body>
     <form id="auto-loan-form">
         <div class="application-form">
-            <div class="form-header">
+            <div class="form-header border-radius-all">
                 <div class="bank-name">FIRST NATIONAL BANK</div>
                 <div style="font-size: 14px; opacity: 0.9;">Est. 1892 • Member FDIC</div>
                 <div class="form-title">AUTO LOAN APPLICATION</div>
-                <div class="form-subtitle">Complete all required fields • All fields will be parsed from documents</div>
+                <div class="form-subtitle">Complete all required fields</div>
             </div>
 
             <div class="content">
@@ -236,25 +262,30 @@
                     </div>
                     <div class="app-info-item">
                         <label class="field-label" for="application-date">Date of Application <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="application-date" id="application-date">
+                        <input type="text" class="field-input" name="application-date" id="application-date" required>
                     </div>
                 </div>
 
+            </div>
+        </div>
+        
+        <div class="section-container" style="page-break-after: always; margin-top: 0;">
+            <div class="section-content">
                 <div class="section-title">Vehicle Information</div>
                 <div class="vehicle-highlight">
                     <div class="vehicle-title">Vehicle Details</div>
                     <div class="vehicle-grid">
                         <div class="vehicle-item">
-                            <label class="field-label" style="color: white;" for="vehicle-year">Year <span class="required">*</span></label>
-                            <input type="text" class="field-input" name="vehicle-year" id="vehicle-year" placeholder="e.g., 2024">
+                            <label class="field-label" style="color: white;" for="vehicle-year">Year <span class="white">*</span></label>
+                            <input type="text" class="field-input" name="vehicle-year" id="vehicle-year" placeholder="e.g., 2024" required>
                         </div>
                         <div class="vehicle-item">
-                            <label class="field-label" style="color: white;" for="vehicle-make">Make <span class="required">*</span></label>
-                            <input type="text" class="field-input" name="vehicle-make" id="vehicle-make" placeholder="e.g., Toyota">
+                            <label class="field-label" style="color: white;" for="vehicle-make">Make <span class="white">*</span></label>
+                            <input type="text" class="field-input" name="vehicle-make" id="vehicle-make" placeholder="e.g., Toyota" required>
                         </div>
                         <div class="vehicle-item">
-                            <label class="field-label" style="color: white;" for="vehicle-model">Model <span class="required">*</span></label>
-                            <input type="text" class="field-input" name="vehicle-model" id="vehicle-model" placeholder="e.g., Camry">
+                            <label class="field-label" style="color: white;" for="vehicle-model">Model <span class="white">*</span></label>
+                            <input type="text" class="field-input" name="vehicle-model" id="vehicle-model" placeholder="e.g., Camry" required>
                         </div>
                     </div>
                 </div>
@@ -262,19 +293,19 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="field-label" for="vehicle-vin">Vehicle VIN <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="vehicle-vin" id="vehicle-vin" placeholder="17-character VIN">
+                        <input type="text" class="field-input" name="vehicle-vin" id="vehicle-vin" placeholder="17-character VIN" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label" for="vehicle-price">Vehicle Price <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="vehicle-price" id="vehicle-price" placeholder="$">
+                        <input type="text" class="field-input" name="vehicle-price" id="vehicle-price" placeholder="$" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label" for="down-payment">Down Payment <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="down-payment" id="down-payment" placeholder="$">
+                        <input type="text" class="field-input" name="down-payment" id="down-payment" placeholder="$" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label" for="loan-amount">Loan Amount Requested <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="loan-amount" id="loan-amount" placeholder="$">
+                        <input type="text" class="field-input" name="loan-amount" id="loan-amount" placeholder="$" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label" for="loan-term">Loan Term</label>
@@ -289,48 +320,52 @@
                     </div>
                     <div class="form-group">
                         <label class="field-label">Vehicle Condition</label>
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" class="radio" name="vehicle-condition" value="new" id="condition-new">
-                                <label for="condition-new">New</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" class="radio" name="vehicle-condition" value="used" id="condition-used">
-                                <label for="condition-used">Used</label>
-                            </div>
-                        </div>
+                        <select class="field-input" name="vehicle-condition">
+                            <option value="">Select Condition</option>
+                            <option value="new">New</option>
+                            <option value="used">Used</option>
+                        </select>
                     </div>
                 </div>
-
+            </div>
+        </div>
+        <div class="spacer">&nbsp;</div>
+        <div class="section-container" style="page-break-after: always; ">
+            <div class="form-header">
+                <div class="bank-name">FIRST NATIONAL BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Est. 1892 • Member FDIC</div>
+                <div class="form-title">AUTO LOAN APPLICATION</div>
+            </div>
+            <div class="section-content">
                 <div class="section-title">Personal Information</div>
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="field-label" for="first-name">First Name <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="first-name" id="first-name" placeholder="First Name">
+                        <input type="text" class="field-input" name="first-name" id="first-name" placeholder="First Name" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Last Name <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="last-name" placeholder="Last Name">
+                        <input type="text" class="field-input" name="last-name" placeholder="Last Name" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Date of Birth <span class="required">*</span></label>
-                        <input type="date" class="field-input" name="date-of-birth">
+                        <input type="text" class="field-input" name="date-of-birth" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Driver's License Number <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="license-number" placeholder="License Number">
+                        <input type="text" class="field-input" name="license-number" placeholder="License Number" required>
                     </div>
                     <div class="form-group full-width">
                         <label class="field-label">Home Address <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="home-address" placeholder="Street Address, City, State, ZIP">
+                        <input type="text" class="field-input" name="home-address" placeholder="Street Address, City, State, ZIP" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Phone Number <span class="required">*</span></label>
-                        <input type="tel" class="field-input" name="phone-number" placeholder="(000) 000-0000">
+                        <input type="text" class="field-input" name="phone-number" placeholder="(000) 000-0000" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Email Address</label>
-                        <input type="email" class="field-input" name="email-address" placeholder="email@example.com">
+                        <input type="te" class="field-input" name="email-address" placeholder="email@example.com">
                     </div>
                     <div class="form-group">
                         <label class="field-label">Housing Status</label>
@@ -346,20 +381,29 @@
                         <input type="text" class="field-input" name="monthly-housing" placeholder="$">
                     </div>
                 </div>
-
+            </div>
+        </div>
+        <div class="spacer">&nbsp;</div>
+        <div class="section-container" style="page-break-after: always">
+            <div class="form-header">
+                <div class="bank-name">FIRST NATIONAL BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Est. 1892 • Member FDIC</div>
+                <div class="form-title">AUTO LOAN APPLICATION</div>
+            </div>
+            <div class="section-content">
                 <div class="section-title">Employment & Income Information</div>
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="field-label">Employer Name <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="employer-name" placeholder="Company Name">
+                        <input type="text" class="field-input" name="employer-name" placeholder="Company Name" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Job Title <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="job-title" placeholder="Position/Title">
+                        <input type="text" class="field-input" name="job-title" placeholder="Position/Title" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Employment Start Date</label>
-                        <input type="date" class="field-input" name="employment-start-date">
+                        <input type="text" class="field-input" name="employment-start-date">
                     </div>
                     <div class="form-group">
                         <label class="field-label">Employment Status</label>
@@ -373,7 +417,7 @@
                     </div>
                     <div class="form-group">
                         <label class="field-label">Annual Gross Income <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="annual-income" placeholder="$">
+                        <input type="text" class="field-input" name="annual-income" placeholder="$" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Monthly Net Income</label>
@@ -381,10 +425,32 @@
                     </div>
                     <div class="form-group full-width">
                         <label class="field-label">Employer Address</label>
-                        <input type="text" class="field-input" name="employer-address" placeholder="Company Address">
+                        <input type="text" class="field-input" name="employer-address-line-1" placeholder="Address Line 1" style="margin-bottom: 10px;">
+                        <input type="text" class="field-input" name="employer-address-line-2" placeholder="Address Line 2 (optional)">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">City</label>
+                        <input type="text" class="field-input" name="employer-city" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">State</label>
+                        <input type="text" class="field-input" name="employer-state" placeholder="State">
+                    </div>
+                    <div class="form-group">
+                        <label class="field-label">ZIP Code</label>
+                        <input type="text" class="field-input" name="employer-zip" placeholder="ZIP Code">
                     </div>
                 </div>
-
+            </div>
+        </div>
+        <div class="spacer">&nbsp;</div>
+        <div class="section-container" style="page-break-after: always">
+            <div class="form-header">
+                <div class="bank-name">FIRST NATIONAL BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Est. 1892 • Member FDIC</div>
+                <div class="form-title">AUTO LOAN APPLICATION</div>
+            </div>
+            <div class="section-content">
                 <div class="section-title">Financial Information</div>
                 <div class="form-grid">
                     <div class="form-group">
@@ -423,7 +489,17 @@
                         </select>
                     </div>
                 </div>
-
+            </div>
+        </div>
+        <div class="spacer">&nbsp;</div>
+        <div class="section-container">
+            <div class="form-header">
+                <div class="bank-name">FIRST NATIONAL BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Est. 1892 • Member FDIC</div>
+                <div class="form-title">AUTO LOAN APPLICATION</div>
+                <div class="form-subtitle">Declarations & Signatures Section</div>
+            </div>
+            <div class="section-content">
                 <div class="section-title">Declarations & Consent</div>
                 <div class="checkbox-section">
                     <div class="checkbox-item">
@@ -448,30 +524,32 @@
                     <div style="font-weight: bold; margin-bottom: 15px;">
                         Electronic Signatures - By signing below, I acknowledge that I have read and agree to all terms.
                     </div>
-                    <div class="signature-grid">
-                        <div class="signature-block">
-                            <input type="text" class="signature-field" name="applicant-signature" placeholder="Sign your name here">
-                            <div class="signature-label">
-                                <strong>Applicant Signature</strong><br>
-                                Date: ___________
-                            </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="field-label" for="applicant-signature">Applicant Signature <span class="required">*</span></label>
+                            <input type="text" class="field-input signature-input" name="applicant-signature" id="applicant-signature" placeholder="Enter your full name" required>
                         </div>
-                        <div class="signature-block">
-                            <input type="text" class="signature-field" name="co-applicant-signature" placeholder="Co-applicant signature (if applicable)">
-                            <div class="signature-label">
-                                <strong>Co-Applicant Signature</strong><br>
-                                Date: ___________
-                            </div>
+                        <div class="form-group">
+                            <label class="field-label" for="co-applicant-signature">Co-Applicant Signature</label>
+                            <input type="text" class="field-input signature-input" name="co-applicant-signature" id="co-applicant-signature" placeholder="Enter co-applicant name (if applicable)">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label" for="applicant-date">Date</label>
+                            <input type="text" class="field-input" name="applicant-date" id="applicant-date">
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label" for="co-applicant-date">Co-Applicant Date</label>
+                            <input type="text" class="field-input" name="co-applicant-date" id="co-applicant-date">
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="footer-info">
+                
+                <div class="footer-info" style="margin: 20px -30px 0 -30px;">
                 <strong>For Bank Use Only:</strong><br>
                 Loan Officer: _________________ | Date Received: _________________ | Application Status: _________________<br><br>
                 First National Bank • 2500 Financial Center Drive, Sacramento, CA 95825 • (916) 555-0100<br>
                 www.firstnationalbank.com • Member FDIC • Equal Housing Lender
+                </div>
             </div>
         </div>
     </form>

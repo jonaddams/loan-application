@@ -18,9 +18,18 @@
             max-width: 800px;
             margin: 0 auto;
             background: white;
+        }
+        .section-container {
+            border: 2px solid #667eea;
             border-radius: 12px;
+            margin-bottom: 20px;
+            background: white;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            page-break-after: always;
             overflow: hidden;
+        }
+        .section-content {
+            padding: 25px 30px;
         }
         
         .form-header {
@@ -48,14 +57,6 @@
             opacity: 0.9;
         }
         
-        .form-section {
-            padding: 25px 30px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-        
-        .form-section:last-child {
-            border-bottom: none;
-        }
         
         .section-title {
             font-size: 20px;
@@ -216,15 +217,23 @@
 </head>
 <body>
     <div class="application-form">
-        <div class="form-header">
-            <div class="bank-logo">PREMIER HOME LENDING</div>
-            <div class="form-title">Home Improvement Loan Application</div>
-            <div class="form-subtitle">Transform Your Home with Competitive Rates</div>
+        <!-- Application Header Page -->
+        <div class="section-container">
+            <div class="form-header">
+                <div class="bank-logo">PREMIER HOME LENDING</div>
+                <div class="form-title">Home Improvement Loan Application</div>
+                <div class="form-subtitle">Transform Your Home with Competitive Rates</div>
+            </div>
         </div>
 
         <form>
-            <!-- Loan Details Section -->
-            <div class="form-section">
+            <!-- Loan Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-logo">PREMIER HOME LENDING</div>
+                    <div class="form-title">LOAN INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Loan Information</div>
                 
                 <div class="form-grid">
@@ -302,9 +311,15 @@
                     </div>
                 </div>
             </div>
+            </div>
 
-            <!-- Personal Information Section -->
-            <div class="form-section">
+            <!-- Personal Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-logo">PREMIER HOME LENDING</div>
+                    <div class="form-title">PERSONAL INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Personal Information</div>
                 
                 <div class="form-grid">
@@ -345,9 +360,15 @@
                     </div>
                 </div>
             </div>
+            </div>
 
-            <!-- Property Information Section -->
-            <div class="form-section">
+            <!-- Property Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-logo">PREMIER HOME LENDING</div>
+                    <div class="form-title">PROPERTY INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Property Information</div>
                 
                 <div class="form-group">
@@ -402,9 +423,15 @@
                     </div>
                 </div>
             </div>
+            </div>
 
-            <!-- Employment Information Section -->
-            <div class="form-section">
+            <!-- Employment Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-logo">PREMIER HOME LENDING</div>
+                    <div class="form-title">EMPLOYMENT INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Employment Information</div>
                 
                 <div class="form-grid">
@@ -467,9 +494,15 @@
                     </div>
                 </div>
             </div>
+            </div>
 
-            <!-- Financial Information Section -->
-            <div class="form-section">
+            <!-- Financial Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-logo">PREMIER HOME LENDING</div>
+                    <div class="form-title">FINANCIAL INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Financial Information</div>
                 
                 <div class="info-box">
@@ -515,9 +548,15 @@
                     <input type="text" id="savings-balance" name="savings-balance" class="field-input" placeholder="$">
                 </div>
             </div>
+            </div>
 
-            <!-- Authorization Section -->
-            <div class="form-section">
+            <!-- Authorization & Signature Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-logo">PREMIER HOME LENDING</div>
+                    <div class="form-title">AUTHORIZATION & SIGNATURE</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Authorization & Signature</div>
                 
                 <div class="info-box">
@@ -556,6 +595,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </form>
     </div>

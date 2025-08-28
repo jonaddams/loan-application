@@ -81,12 +81,14 @@ function ResultsContent() {
 	const [isProcessing, setIsProcessing] = useState(true);
 	const [results, setResults] = useState<ProcessingResult | null>(null);
 	const [error, setError] = useState<string | null>(null);
-	const [formFields, setFormFields] = useState<Array<{
-		name: string;
-		type: string;
-		required: boolean;
-		value: string | null;
-	}>>([]);
+	const [formFields, setFormFields] = useState<
+		Array<{
+			name: string;
+			type: string;
+			required: boolean;
+			value: string | null;
+		}>
+	>([]);
 
 	// Get package info or default to package1
 	const packageInfo =
@@ -127,15 +129,20 @@ function ResultsContent() {
 		processPackageDocuments();
 	}, [processPackageDocuments]);
 
-	const handleFormFieldsLoaded = useCallback((fields: Array<{
-		name: string;
-		type: string;
-		required: boolean;
-		value: string | null;
-	}>) => {
-		console.log("📋 Form fields received in results page:", fields);
-		setFormFields(fields);
-	}, []);
+	const handleFormFieldsLoaded = useCallback(
+		(
+			fields: Array<{
+				name: string;
+				type: string;
+				required: boolean;
+				value: string | null;
+			}>,
+		) => {
+			console.log("📋 Form fields received in results page:", fields);
+			setFormFields(fields);
+		},
+		[],
+	);
 
 	const getStatusIcon = (status: string) => {
 		switch (status) {
@@ -230,7 +237,8 @@ function ResultsContent() {
 								Processing Documents
 							</h3>
 							<p className="text-gray-600">
-								Extracting data from documents using AI Document Processing...
+								Classifying and extracting data from documents using AI Document
+								Processing...
 							</p>
 						</div>
 					</div>
@@ -260,7 +268,7 @@ function ResultsContent() {
 		if (results.summary.verificationNeededFields > 0) {
 			return {
 				status: "review",
-				message: "Review required for some fields",
+				message: "Review required for some fields (unable to validate data)",
 				color: "yellow",
 			};
 		}
@@ -404,9 +412,7 @@ function ResultsContent() {
 						.map((doc) => (
 							<div key={doc.id} className="bg-white rounded-lg shadow-md p-6">
 								<div className="flex items-center mb-4">
-									<span className="text-2xl mr-3">
-										{getCategoryIcon()}
-									</span>
+									<span className="text-2xl mr-3">{getCategoryIcon()}</span>
 									<div className="flex-1">
 										<h3 className="text-lg font-semibold text-gray-900">
 											{doc.documentType}
@@ -443,7 +449,10 @@ function ResultsContent() {
 									<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 										{doc.fields && doc.fields.length > 0 ? (
 											doc.fields.map((field) => (
-												<div key={field.fieldName} className="border rounded-lg p-3">
+												<div
+													key={field.fieldName}
+													className="border rounded-lg p-3"
+												>
 													<div className="flex items-center justify-between mb-1">
 														<span className="text-sm font-medium text-gray-700">
 															{formatFieldName(field.fieldName)}
@@ -572,23 +581,25 @@ function ResultsContent() {
 
 export default function Results() {
 	return (
-		<Suspense fallback={
-			<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-				<div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-					<div className="bg-white rounded-lg shadow-md p-12">
-						<div className="text-center">
-							<RefreshCw className="h-12 w-12 text-indigo-600 animate-spin mx-auto mb-4" />
-							<h3 className="text-lg font-medium text-gray-900 mb-2">
-								Loading Results
-							</h3>
-							<p className="text-gray-600">
-								Please wait while we load your processing results...
-							</p>
+		<Suspense
+			fallback={
+				<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+					<div className="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+						<div className="bg-white rounded-lg shadow-md p-12">
+							<div className="text-center">
+								<RefreshCw className="h-12 w-12 text-indigo-600 animate-spin mx-auto mb-4" />
+								<h3 className="text-lg font-medium text-gray-900 mb-2">
+									Loading Results
+								</h3>
+								<p className="text-gray-600">
+									Please wait while we load your processing results...
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		}>
+			}
+		>
 			<ResultsContent />
 		</Suspense>
 	);

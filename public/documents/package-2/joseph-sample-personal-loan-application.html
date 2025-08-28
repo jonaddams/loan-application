@@ -17,10 +17,18 @@
             max-width: 800px;
             margin: 0 auto;
             background: white;
+        }
+        .section-container {
             border: 2px solid #ff6b35;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             border-radius: 8px;
+            margin-bottom: 20px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            page-break-after: always;
             overflow: hidden;
+        }
+        .section-content {
+            padding: 30px;
         }
         .form-header {
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
@@ -43,9 +51,6 @@
             font-size: 14px;
             margin-top: 8px;
             opacity: 0.9;
-        }
-        .content {
-            padding: 30px;
         }
         .application-info {
             background-color: #fff8f5;
@@ -207,7 +212,6 @@
         .footer-info {
             background-color: #f5f5f5;
             padding: 20px;
-            margin: -30px -30px 0 -30px;
             font-size: 11px;
             color: #666;
             text-align: center;
@@ -235,25 +239,36 @@
 <body>
     <form id="personal-loan-form">
         <div class="application-form">
-            <div class="form-header">
-                <div class="bank-name">SUNTRUST BANK</div>
-                <div style="font-size: 14px; opacity: 0.9;">Banking Excellence Since 1891</div>
-                <div class="form-title">PERSONAL LOAN APPLICATION</div>
-                <div class="form-subtitle">Unsecured Personal Lending • Document parsing demo</div>
-            </div>
-
-            <div class="content">
-                <div class="application-info">
-                    <div class="app-info-item">
-                        <div class="app-label">Application Number</div>
-                        <div class="app-value">PL-2024-287461</div>
-                    </div>
-                    <div class="app-info-item">
-                        <label class="field-label">Date of Application <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="application-date">
-                    </div>
+            <!-- Application Header Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-name">SUNTRUST BANK</div>
+                    <div style="font-size: 14px; opacity: 0.9;">Banking Excellence Since 1891</div>
+                    <div class="form-title">PERSONAL LOAN APPLICATION</div>
+                    <div class="form-subtitle">Unsecured Personal Lending • Document parsing demo</div>
                 </div>
 
+                <div class="section-content">
+                    <div class="application-info">
+                        <div class="app-info-item">
+                            <div class="app-label">Application Number</div>
+                            <div class="app-value">PL-2024-287461</div>
+                        </div>
+                        <div class="app-info-item">
+                            <label class="field-label">Date of Application <span class="required">*</span></label>
+                            <input type="text" class="field-input" name="application-date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Request Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-name">SUNTRUST BANK</div>
+                    <div class="form-title">LOAN REQUEST INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Loan Request Information</div>
                 <div class="loan-purpose-highlight">
                     <div class="purpose-title">Loan Purpose & Amount</div>
@@ -312,7 +327,16 @@
                         <input type="text" class="field-input" name="purpose-other-specify" placeholder="Describe the purpose">
                     </div>
                 </div>
+                </div>
+            </div>
 
+            <!-- Personal Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-name">SUNTRUST BANK</div>
+                    <div class="form-title">PERSONAL INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Personal Information</div>
                 <div class="form-grid">
                     <div class="form-group">
@@ -375,7 +399,16 @@
                         </select>
                     </div>
                 </div>
+                </div>
+            </div>
 
+            <!-- Housing Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-name">SUNTRUST BANK</div>
+                    <div class="form-title">HOUSING INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Housing Information</div>
                 <div class="form-grid">
                     <div class="form-group">
@@ -411,7 +444,16 @@
                         </select>
                     </div>
                 </div>
+                </div>
+            </div>
 
+            <!-- Employment & Income Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-name">SUNTRUST BANK</div>
+                    <div class="form-title">EMPLOYMENT & INCOME INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Employment & Income Information</div>
                 <div class="form-grid">
                     <div class="form-group">
@@ -459,7 +501,16 @@
                         <input type="text" class="field-input" name="other-monthly-income" placeholder="$">
                     </div>
                 </div>
+                </div>
+            </div>
 
+            <!-- Financial Information Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-name">SUNTRUST BANK</div>
+                    <div class="form-title">FINANCIAL INFORMATION</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">Financial Information</div>
                 <div class="form-grid">
                     <div class="form-group">
@@ -487,7 +538,16 @@
                         <input type="text" class="field-input" name="auto-loan-balance" placeholder="$">
                     </div>
                 </div>
+                </div>
+            </div>
 
+            <!-- References & Consent Page -->
+            <div class="section-container">
+                <div class="form-header">
+                    <div class="bank-name">SUNTRUST BANK</div>
+                    <div class="form-title">REFERENCES & CONSENT</div>
+                </div>
+                <div class="section-content">
                 <div class="section-title">References & Consent</div>
                 <div class="checkbox-section">
                     <div class="checkbox-item">
@@ -535,13 +595,17 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
 
-            <div class="footer-info">
+            <!-- Footer Information Page -->
+            <div class="section-container">
+                <div class="footer-info">
                 <strong>For Bank Use Only:</strong><br>
                 Loan Officer: _________________ | Credit Score: _______ | DTI Ratio: _______ | Decision: _________________<br><br>
                 SunTrust Bank • 1200 Financial Plaza, Tallahassee, FL 32301 • (850) 555-0200<br>
                 www.suntrust.com • Member FDIC • Equal Opportunity Lender
+            </div>
             </div>
         </div>
     </form>

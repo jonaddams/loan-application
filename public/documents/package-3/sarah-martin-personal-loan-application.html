@@ -17,10 +17,18 @@
             max-width: 800px;
             margin: 0 auto;
             background: white;
+        }
+        .section-container {
             border: 2px solid #6f42c1;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             border-radius: 8px;
+            margin-bottom: 20px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            page-break-after: always;
             overflow: hidden;
+        }
+        .section-content {
+            padding: 30px;
         }
         .form-header {
             background: linear-gradient(135deg, #6f42c1 0%, #563d7c 100%);
@@ -43,9 +51,6 @@
             font-size: 14px;
             margin-top: 8px;
             opacity: 0.9;
-        }
-        .content {
-            padding: 30px;
         }
         .application-info {
             background-color: #e8e5ff;
@@ -200,7 +205,6 @@
         .footer-info {
             background-color: #f5f5f5;
             padding: 20px;
-            margin: -30px -30px 0 -30px;
             font-size: 11px;
             color: #666;
             text-align: center;
@@ -210,31 +214,42 @@
 </head>
 <body>
     <div class="application-form">
-        <div class="form-header">
-            <div class="bank-name">BROOKLYN COMMUNITY BANK</div>
-            <div style="font-size: 14px; opacity: 0.9;">Est. 1952 • Member FDIC</div>
-            <div class="form-title">PERSONAL LOAN APPLICATION</div>
-            <div class="form-subtitle">Complete all sections • Please print clearly</div>
+        <!-- Application Header Page -->
+        <div class="section-container">
+            <div class="form-header">
+                <div class="bank-name">BROOKLYN COMMUNITY BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Est. 1952 • Member FDIC</div>
+                <div class="form-title">PERSONAL LOAN APPLICATION</div>
+                <div class="form-subtitle">Complete all sections • Please print clearly</div>
+            </div>
+
+            <div class="section-content">
+                <div class="application-info">
+                    <div class="app-info-item">
+                        <div class="app-label">Application Number</div>
+                        <div class="app-value">PL-2024-112458</div>
+                    </div>
+                    <div class="app-info-item">
+                        <div class="app-label">Date of Application</div>
+                        <div class="app-value">March 22, 2024</div>
+                    </div>
+                </div>
+
+                <div class="loan-request">
+                    <div class="loan-amount-label">LOAN AMOUNT REQUESTED</div>
+                    <div class="loan-amount">$45,000.00</div>
+                    <div class="loan-purpose-text">Debt Consolidation & Home Improvement</div>
+                </div>
+            </div>
         </div>
 
-        <div class="content">
-            <div class="application-info">
-                <div class="app-info-item">
-                    <div class="app-label">Application Number</div>
-                    <div class="app-value">PL-2024-112458</div>
-                </div>
-                <div class="app-info-item">
-                    <div class="app-label">Date of Application</div>
-                    <div class="app-value">March 22, 2024</div>
-                </div>
+        <!-- Loan Information Page -->
+        <div class="section-container">
+            <div class="form-header">
+                <div class="bank-name">BROOKLYN COMMUNITY BANK</div>
+                <div class="form-title">LOAN INFORMATION</div>
             </div>
-
-            <div class="loan-request">
-                <div class="loan-amount-label">LOAN AMOUNT REQUESTED</div>
-                <div class="loan-amount">$45,000.00</div>
-                <div class="loan-purpose-text">Debt Consolidation & Home Improvement</div>
-            </div>
-
+            <div class="section-content">
             <div class="section-title">Loan Information</div>
             <div class="form-grid">
                 <div class="form-group">
@@ -254,7 +269,16 @@
                     <div class="field-value filled">$750 - $850</div>
                 </div>
             </div>
+            </div>
+        </div>
 
+        <!-- Personal Information Page -->
+        <div class="section-container">
+            <div class="form-header">
+                <div class="bank-name">BROOKLYN COMMUNITY BANK</div>
+                <div class="form-title">PERSONAL INFORMATION</div>
+            </div>
+            <div class="section-content">
             <div class="section-title">Personal Information</div>
             <div class="form-grid">
                 <div class="form-group">
@@ -302,7 +326,16 @@
                     <div class="field-value filled">Rent</div>
                 </div>
             </div>
+            </div>
+        </div>
 
+        <!-- Employment & Income Information Page -->
+        <div class="section-container">
+            <div class="form-header">
+                <div class="bank-name">BROOKLYN COMMUNITY BANK</div>
+                <div class="form-title">EMPLOYMENT & INCOME INFORMATION</div>
+            </div>
+            <div class="section-content">
             <div class="section-title">Employment & Income Information</div>
             <div class="form-grid">
                 <div class="form-group">
@@ -342,7 +375,16 @@
                     <div class="field-value filled">Financial Consulting Services</div>
                 </div>
             </div>
+            </div>
+        </div>
 
+        <!-- Financial Information Page -->
+        <div class="section-container">
+            <div class="form-header">
+                <div class="bank-name">BROOKLYN COMMUNITY BANK</div>
+                <div class="form-title">FINANCIAL INFORMATION</div>
+            </div>
+            <div class="section-content">
             <div class="section-title">Financial Information</div>
             <div class="form-grid">
                 <div class="form-group">
@@ -370,7 +412,16 @@
                     <div class="field-value filled">$18,750.00</div>
                 </div>
             </div>
+            </div>
+        </div>
 
+        <!-- Declarations Page -->
+        <div class="section-container">
+            <div class="form-header">
+                <div class="bank-name">BROOKLYN COMMUNITY BANK</div>
+                <div class="form-title">DECLARATIONS</div>
+            </div>
+            <div class="section-content">
             <div class="section-title">Declarations</div>
             <div class="checkbox-section">
                 <div class="checkbox-item">
@@ -412,13 +463,17 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
 
-        <div class="footer-info">
+        <!-- Footer Information Page -->
+        <div class="section-container">
+            <div class="footer-info">
             <strong>For Bank Use Only:</strong><br>
             Loan Officer: _________________ | Date Received: _________________ | Application Status: _________________<br><br>
             Brooklyn Community Bank • 789 Atlantic Avenue, Brooklyn, NY 11238 • (718) 555-0100<br>
             www.brooklyncommunitbank.com • Member FDIC • Equal Housing Lender
+        </div>
         </div>
     </div>
 </body>
