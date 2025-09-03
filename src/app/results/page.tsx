@@ -166,7 +166,6 @@ function ResultsContent() {
 				// First try to find explicit mapping from JSON
 				const explicitMapping = fieldMappings.find((mapping) => {
 					const mappingKey = Object.keys(mapping)[0];
-					const mappingConfig = mapping[mappingKey as keyof typeof mapping];
 					
 					// Check if the cleaned field name matches the mapping key
 					const normalizedMappingKey = mappingKey.toLowerCase().replace(/[^a-z0-9-]/g, "");
@@ -438,43 +437,6 @@ function ResultsContent() {
 	// Show results if processing is complete
 	if (!results) return null;
 
-	const getOverallStatus = () => {
-		if (results.summary.failedDocuments > 0) {
-			return {
-				status: "error",
-				message: "Some documents failed to process",
-				color: "red",
-			};
-		}
-		if (results.summary.missingFields > 0) {
-			return {
-				status: "incomplete",
-				message: "Some data could not be extracted",
-				color: "red",
-			};
-		}
-		if (results.summary.verificationNeededFields > 0) {
-			return {
-				status: "review",
-				message: "Review required for some fields (unable to validate data)",
-				color: "yellow",
-			};
-		}
-		if (results.summary.validFields === results.summary.totalFields) {
-			return {
-				status: "complete",
-				message: "All documents processed successfully",
-				color: "green",
-			};
-		}
-		return {
-			status: "partial",
-			message: "Processing completed",
-			color: "yellow",
-		};
-	};
-
-	const overallStatus = getOverallStatus();
 
 	// Exclude application documents from validation - they are target forms, not source data
 	const sourceDocuments = results.documents.filter(doc => doc.category !== "application");

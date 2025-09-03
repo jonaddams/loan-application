@@ -18,6 +18,17 @@ interface FieldData {
 	hasMatch?: boolean;
 }
 
+// Basic type for Nutrient Viewer instance
+interface FormFieldValues {
+	[fieldName: string]: string;
+}
+
+interface ViewerInstance {
+	getFormFields: () => Promise<unknown>;
+	setFormFieldValues: (values: FormFieldValues) => void;
+	update: (formFieldValue: unknown) => Promise<unknown>;
+}
+
 interface ViewerProps {
 	document: string | ArrayBuffer;
 	onFormFieldsLoaded?: (formFields: FormField[]) => void;
@@ -26,10 +37,10 @@ interface ViewerProps {
 
 export default function Viewer({ document, onFormFieldsLoaded, fieldData }: ViewerProps) {
 	const containerRef = useRef(null);
-	const instanceRef = useRef(null);
+	const instanceRef = useRef<ViewerInstance | null>(null);
 
 	// Function to fill form fields with extracted data
-	const fillFormFieldsWithData = async (instance: any, fieldData: FieldData[]) => {
+	const fillFormFieldsWithData = async (instance: ViewerInstance, fieldData: FieldData[]) => {
 		const { NutrientViewer } = window;
 		if (!NutrientViewer?.FormFieldValue) {
 			console.error("❌ NutrientViewer.FormFieldValue not available");
