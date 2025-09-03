@@ -2,17 +2,22 @@
 
 import {
 	AlertCircle,
+	AlertTriangle,
 	ArrowLeft,
 	CheckCircle,
+	ChevronDown,
+	ChevronUp,
 	Download,
 	FileText,
 	RefreshCw,
+	X,
 	XCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import Viewer from "@/components/Viewer";
+import fieldMappings from "@/lib/field-mappings.json";
 
 // Package information for display
 const PACKAGE_INFO = {
@@ -87,8 +92,12 @@ function ResultsContent() {
 			type: string;
 			required: boolean;
 			value: string | null;
+			extractedValue?: string | null;
+			hasMatch?: boolean;
 		}>
 	>([]);
+	const [showDetailedResults, setShowDetailedResults] = useState(false);
+	const [showFormFields, setShowFormFields] = useState(false);
 
 	// Get package info or default to package1
 	const packageInfo =
@@ -129,6 +138,175 @@ function ResultsContent() {
 		processPackageDocuments();
 	}, [processPackageDocuments]);
 
+	// Function to match form fields with extracted data using explicit JSON mapping
+	const matchFormFieldsWithData = useCallback(
+		(
+			fields: Array<{
+				name: string;
+				type: string;
+				required: boolean;
+				value: string | null;
+			}>,
+			extractedData: ProcessedDocument[],
+		) => {
+			const allExtractedFields = extractedData.flatMap(
+				(doc) => doc.fields || [],
+			);
+
+			return fields.map((field) => {
+				// Clean the form field name to find potential matches
+				const cleanFieldName = field.name
+					.replace(/^id_[a-f0-9]+_/, "") // Remove ID prefix
+					.replace(/^[a-f0-9]{32,}_/, "") // Remove long hash prefix
+					.toLowerCase()
+					.replace(/[^a-z0-9-]/g, "");
+
+				console.log(`🔍 Matching field: "${field.name}" -> cleaned: "${cleanFieldName}"`);
+
+				// First try to find explicit mapping from JSON
+				const explicitMapping = fieldMappings.find((mapping) => {
+					const mappingKey = Object.keys(mapping)[0];
+					const mappingConfig = mapping[mappingKey as keyof typeof mapping];
+					
+					// Check if the cleaned field name matches the mapping key
+					const normalizedMappingKey = mappingKey.toLowerCase().replace(/[^a-z0-9-]/g, "");
+					return cleanFieldName === normalizedMappingKey || 
+						   cleanFieldName.includes(normalizedMappingKey) ||
+						   normalizedMappingKey.includes(cleanFieldName);
+				});
+
+				let matchingField = null;
+
+				if (explicitMapping) {
+					const mappingKey = Object.keys(explicitMapping)[0];
+					const mappingConfig = explicitMapping[mappingKey as keyof typeof explicitMapping] as {
+						extractedFields: string[];
+						document: string[];
+						type: string;
+						description: string;
+					};
+					
+					console.log(`  🎯 Found explicit mapping for "${cleanFieldName}" -> "${mappingKey}"`);
+					console.log(`  🔎 Looking for extracted fields:`, mappingConfig.extractedFields);
+
+					// Find matching extracted field based on explicit mapping
+					matchingField = allExtractedFields.find((extractedField) => {
+						const extractedFieldName = extractedField.fieldName.toLowerCase();
+						
+						// Check if any of the mapped extracted field names match
+						return mappingConfig.extractedFields.some((mappedField) => {
+							const normalizedMappedField = mappedField.toLowerCase();
+							const isMatch = extractedFieldName === normalizedMappedField ||
+										   extractedFieldName.includes(normalizedMappedField) ||
+										   normalizedMappedField.includes(extractedFieldName);
+							
+							if (isMatch) {
+								console.log(`    ✅ Matched "${extractedField.fieldName}" with mapped field "${mappedField}"`);
+							}
+							return isMatch;
+						});
+					});
+				}
+
+				// Fallback to original algorithmic matching if no explicit mapping found
+				if (!matchingField) {
+					console.log(`  ⚠️ No explicit mapping found, trying algorithmic matching...`);
+					
+					matchingField = allExtractedFields.find((extractedField) => {
+						const extractedFieldName = extractedField.fieldName
+							.toLowerCase()
+							.replace(/[^a-z0-9]/g, "");
+
+						console.log(`    🔎 Comparing with extracted: "${extractedField.fieldName}" -> cleaned: "${extractedFieldName}"`);
+
+						// Exact match after cleaning
+						return cleanFieldName === extractedFieldName;
+					});
+				}
+
+				// Check for duplicate address values for line 2 fields
+				let extractedValue = matchingField?.value?.value || null;
+				let hasMatch = !!matchingField;
+
+				// Special handling for address line 2 fields to prevent duplicates
+				if (cleanFieldName.includes('addressline2') || cleanFieldName.includes('address-line-2')) {
+					// Find the corresponding line 1 field name
+					const line1FieldName = cleanFieldName.replace(/addressline2|address-line-2/, 'addressline1').replace(/addressline1/, 'address-line-1');
+					
+					// Find the line 1 field result
+					const line1Field = fields.find(f => {
+						const line1CleanName = f.name
+							.replace(/^id_[a-f0-9]+_/, "")
+							.replace(/^[a-f0-9]{32,}_/, "")
+							.toLowerCase()
+							.replace(/[^a-z0-9-]/g, "");
+						return line1CleanName === line1FieldName || line1CleanName.includes('addressline1') || line1CleanName.includes('address-line-1');
+					});
+
+					if (line1Field && extractedValue) {
+						// Check if we need to find the line 1 extracted value
+						const line1ExplicitMapping = fieldMappings.find((mapping) => {
+							const mappingKey = Object.keys(mapping)[0];
+							const normalizedMappingKey = mappingKey.toLowerCase().replace(/[^a-z0-9-]/g, "");
+							const line1CleanName = line1Field.name
+								.replace(/^id_[a-f0-9]+_/, "")
+								.replace(/^[a-f0-9]{32,}_/, "")
+								.toLowerCase()
+								.replace(/[^a-z0-9-]/g, "");
+							return line1CleanName === normalizedMappingKey || 
+								   line1CleanName.includes(normalizedMappingKey) ||
+								   normalizedMappingKey.includes(line1CleanName);
+						});
+
+						if (line1ExplicitMapping) {
+							const line1MappingKey = Object.keys(line1ExplicitMapping)[0];
+							const line1MappingConfig = line1ExplicitMapping[line1MappingKey as keyof typeof line1ExplicitMapping] as {
+								extractedFields: string[];
+							};
+
+							// Find line 1 extracted value
+							const line1MatchingField = allExtractedFields.find((extractedField) => {
+								const extractedFieldName = extractedField.fieldName.toLowerCase();
+								return line1MappingConfig.extractedFields.some((mappedField) => {
+									const normalizedMappedField = mappedField.toLowerCase();
+									return extractedFieldName === normalizedMappedField ||
+										   extractedFieldName.includes(normalizedMappedField) ||
+										   normalizedMappedField.includes(extractedFieldName);
+								});
+							});
+
+							const line1Value = line1MatchingField?.value?.value;
+							
+							// If line 1 and line 2 values are the same, don't fill line 2
+							if (line1Value && line1Value === extractedValue) {
+								console.log(`  🚫 Skipping "${field.name}" - duplicate of line 1: "${line1Value}"`);
+								extractedValue = null;
+								hasMatch = false;
+							}
+						}
+					}
+				}
+
+				const result = {
+					...field,
+					extractedValue,
+					hasMatch,
+				};
+
+				if (matchingField && hasMatch) {
+					console.log(`  🎯 Final match: "${field.name}" -> "${matchingField.fieldName}" = "${extractedValue}"`);
+				} else if (matchingField && !hasMatch) {
+					console.log(`  🚫 Duplicate prevented: "${field.name}" -> "${matchingField.fieldName}"`);
+				} else {
+					console.log(`  ❌ No match found for "${field.name}"`);
+				}
+
+				return result;
+			});
+		},
+		[],
+	);
+
 	const handleFormFieldsLoaded = useCallback(
 		(
 			fields: Array<{
@@ -139,9 +317,19 @@ function ResultsContent() {
 			}>,
 		) => {
 			console.log("📋 Form fields received in results page:", fields);
-			setFormFields(fields);
+
+			// Match fields with extracted data if results are available
+			if (results?.documents) {
+				const matchedFields = matchFormFieldsWithData(
+					fields,
+					results.documents,
+				);
+				setFormFields(matchedFields);
+			} else {
+				setFormFields(fields.map((field) => ({ ...field, hasMatch: false })));
+			}
 		},
-		[],
+		[results, matchFormFieldsWithData],
 	);
 
 	const getStatusIcon = (status: string) => {
@@ -288,6 +476,82 @@ function ResultsContent() {
 
 	const overallStatus = getOverallStatus();
 
+	// Exclude application documents from validation - they are target forms, not source data
+	const sourceDocuments = results.documents.filter(doc => doc.category !== "application");
+
+	// Generate executive summary for loan application
+	const generateExecutiveSummary = () => {
+		const failedSourceDocs = sourceDocuments.filter(doc => doc.status === "failed");
+		
+		// Determine status: VALID, REVIEW REQUIRED, or INVALID
+		const hasFailedDocs = failedSourceDocs.length > 0;
+		const hasMissingData = results.summary.missingFields > 0;
+		const hasVerificationNeeded = results.summary.verificationNeededFields > 0;
+		
+		let status;
+		let isValid;
+		
+		if (hasFailedDocs || hasMissingData) {
+			status = "Invalid";
+			isValid = false;
+		} else if (hasVerificationNeeded) {
+			status = "Valid - Review Required";
+			isValid = false; // Not fully valid, needs review
+		} else {
+			status = "Valid";
+			isValid = true;
+		}
+		
+		const missingData = [];
+		
+		// Check for failed source documents (exclude application forms)
+		if (failedSourceDocs.length > 0) {
+			missingData.push(`${failedSourceDocs.length} document${failedSourceDocs.length > 1 ? 's' : ''} failed to process: ${failedSourceDocs.map(doc => doc.documentType).join(', ')}`);
+		}
+		
+		// Check for verification needed fields
+		if (results.summary.verificationNeededFields > 0) {
+			missingData.push(`${results.summary.verificationNeededFields} field${results.summary.verificationNeededFields > 1 ? 's' : ''} require verification`);
+		}
+		
+		// Check for missing fields
+		if (results.summary.missingFields > 0) {
+			missingData.push(`${results.summary.missingFields} field${results.summary.missingFields > 1 ? 's' : ''} could not be extracted`);
+		}
+
+		// Identify specific missing document types if any (exclude application category)
+		const requiredDocTypes = ["identification", "income", "financial"];
+		const processedCategories = sourceDocuments
+			.filter(doc => doc.status === "completed")
+			.map(doc => doc.category);
+		const missingCategories = requiredDocTypes.filter(cat => !processedCategories.includes(cat));
+		
+		if (missingCategories.length > 0) {
+			const categoryNames = missingCategories.map(cat => {
+				switch(cat) {
+					case "identification": return "identification document";
+					case "income": return "income verification";
+					case "financial": return "financial statements";
+					default: return cat;
+				}
+			});
+			missingData.push(`Missing required document types: ${categoryNames.join(', ')}`);
+		}
+
+		return {
+			isValid,
+			status,
+			missingData,
+			recommendation: status === "Valid"
+				? "Application is complete and ready for approval review."
+				: status === "Valid - Review Required"
+				? `Application data extracted successfully. ${results.summary.verificationNeededFields} field${results.summary.verificationNeededFields > 1 ? 's' : ''} require verification.`
+				: "Application requires additional documentation or correction before approval."
+		};
+	};
+
+	const executiveSummary = generateExecutiveSummary();
+
 	// Find the loan application PDF document for the Viewer
 	const loanApplicationDoc = results.documents.find(
 		(doc) => doc.category === "application" && doc.fileName.endsWith(".pdf"),
@@ -331,82 +595,106 @@ function ResultsContent() {
 					</p>
 				</div>
 
-				{/* Summary Card */}
-				<div className="bg-white rounded-lg shadow-md p-6 mb-8">
+				{/* Executive Summary */}
+				<div className="bg-white rounded-lg shadow-md p-5 mb-6">
 					<h2 className="text-xl font-semibold text-gray-900 mb-4">
-						Processing Summary
+						Loan Application Status Summary: <span className={`${
+							executiveSummary.status === "Valid" ? "text-green-600" : 
+							executiveSummary.status === "Valid - Review Required" ? "text-yellow-600" : 
+							"text-red-600"
+						}`}>{executiveSummary.status}</span>
 					</h2>
-					<div className="grid md:grid-cols-4 gap-4 mb-6">
-						<div className="text-center">
-							<div className="text-2xl font-bold text-indigo-600">
-								{results.summary.successfulDocuments}/
-								{results.summary.totalDocuments}
-							</div>
-							<div className="text-sm text-gray-600">Documents Processed</div>
-						</div>
-						<div className="text-center">
-							<div className="text-2xl font-bold text-green-600">
-								{results.summary.validFields}
-							</div>
-							<div className="text-sm text-gray-600">Valid Fields</div>
-						</div>
-						<div className="text-center">
-							<div className="text-2xl font-bold text-yellow-600">
-								{results.summary.verificationNeededFields}
-							</div>
-							<div className="text-sm text-gray-600">Need Review</div>
-						</div>
-						<div className="text-center">
-							<div className="text-2xl font-bold text-red-600">
-								{results.summary.missingFields}
-							</div>
-							<div className="text-sm text-gray-600">Missing Data</div>
+					
+					{/* Recommendation */}
+					<div className="mb-4">
+						<div className={`p-3 rounded-lg border-l-4 ${
+							executiveSummary.status === "Valid"
+								? "bg-green-50 border-green-400"
+								: executiveSummary.status === "Valid - Review Required"
+								? "bg-yellow-50 border-yellow-400"
+								: "bg-red-50 border-red-400"
+						}`}>
+							<p className={`font-medium ${
+								executiveSummary.status === "Valid" ? "text-green-800" : 
+								executiveSummary.status === "Valid - Review Required" ? "text-yellow-800" : 
+								"text-red-800"
+							}`}>
+								{executiveSummary.recommendation}
+							</p>
 						</div>
 					</div>
 
-					<div
-						className={`p-4 rounded-lg ${
-							overallStatus.color === "green"
-								? "bg-green-50"
-								: overallStatus.color === "yellow"
-									? "bg-yellow-50"
-									: overallStatus.color === "red"
-										? "bg-red-50"
-										: "bg-gray-50"
-						}`}
-					>
-						<div className="flex items-center">
-							{overallStatus.status === "complete" && (
-								<CheckCircle className="h-5 w-5 text-green-600 mr-2" />
-							)}
-							{overallStatus.status === "review" && (
-								<AlertCircle className="h-5 w-5 text-yellow-600 mr-2" />
-							)}
-							{overallStatus.status === "error" && (
-								<XCircle className="h-5 w-5 text-red-600 mr-2" />
-							)}
-							{overallStatus.status === "partial" && (
-								<AlertCircle className="h-5 w-5 text-yellow-600 mr-2" />
-							)}
-							<span
-								className={`font-medium ${
-									overallStatus.color === "green"
-										? "text-green-800"
-										: overallStatus.color === "yellow"
-											? "text-yellow-900"
-											: overallStatus.color === "red"
-												? "text-red-800"
-												: "text-gray-800"
-								}`}
-							>
-								Status: {overallStatus.message}
-							</span>
+					{/* Issues Details - Only show for Invalid status or if there are non-verification issues */}
+					{(executiveSummary.status === "Invalid" || (executiveSummary.status === "Valid - Review Required" && executiveSummary.missingData.some(issue => !issue.includes('require verification')))) && (
+						<div className="mb-4">
+							<h3 className="text-lg font-medium text-gray-900 mb-2">
+								Issues Requiring Attention:
+							</h3>
+							<ul className="space-y-1">
+								{executiveSummary.missingData
+									.filter(issue => !issue.includes('require verification'))
+									.map((issue, index) => (
+									<li key={index} className="flex items-start">
+										<AlertCircle className="h-4 w-4 mr-2 mt-1 flex-shrink-0 text-red-500" />
+										<span className="text-gray-700 text-sm">{issue}</span>
+									</li>
+								))}
+							</ul>
+						</div>
+					)}
+
+					{/* Processing Statistics */}
+					<div className="grid md:grid-cols-4 gap-3">
+						<div className="text-center p-2 bg-gray-50 rounded-lg">
+							<div className="text-lg font-bold text-indigo-600">
+								{sourceDocuments.filter(doc => doc.status === "completed").length}/{sourceDocuments.length}
+							</div>
+							<div className="text-xs text-gray-600">Source Documents</div>
+						</div>
+						<div className="text-center p-2 bg-gray-50 rounded-lg">
+							<div className="text-lg font-bold text-green-600">
+								{results.summary.validFields}
+							</div>
+							<div className="text-xs text-gray-600">Valid Fields</div>
+						</div>
+						<div className="text-center p-2 bg-gray-50 rounded-lg">
+							<div className="text-lg font-bold text-yellow-600">
+								{results.summary.verificationNeededFields}
+							</div>
+							<div className="text-xs text-gray-600">Need Review</div>
+						</div>
+						<div className="text-center p-2 bg-gray-50 rounded-lg">
+							<div className="text-lg font-bold text-red-600">
+								{results.summary.missingFields}
+							</div>
+							<div className="text-xs text-gray-600">Missing Data</div>
 						</div>
 					</div>
 				</div>
 
-				{/* Detailed Results */}
-				<div className="space-y-6">
+				{/* Detailed Results - Collapsible */}
+				<div className="bg-white rounded-lg shadow-md mb-8">
+					<button
+						onClick={() => setShowDetailedResults(!showDetailedResults)}
+						className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 rounded-lg transition-colors"
+					>
+						<div>
+							<h3 className="text-lg font-semibold text-gray-900">
+								Detailed Document Analysis
+							</h3>
+							<p className="text-sm text-gray-600">
+								View extracted data from each document
+							</p>
+						</div>
+						{showDetailedResults ? (
+							<ChevronUp className="h-5 w-5 text-gray-400" />
+						) : (
+							<ChevronDown className="h-5 w-5 text-gray-400" />
+						)}
+					</button>
+					
+					{showDetailedResults && (
+						<div className="px-6 pb-6 space-y-6 border-t border-gray-200">
 					{results.documents
 						.filter((doc) => doc.category !== "application")
 						.map((doc) => (
@@ -480,30 +768,59 @@ function ResultsContent() {
 								)}
 							</div>
 						))}
+						</div>
+					)}
 				</div>
 
-				{/* PDF Form Fields Display */}
+				{/* PDF Form Fields Display - Collapsible */}
 				{pdfPath && loanApplicationDoc && formFields.length > 0 && (
-					<div className="mt-12 bg-white rounded-lg shadow-md p-6">
-						<div className="mb-6">
-							<h2 className="text-xl font-semibold text-gray-900 mb-1">
-								{loanApplicationDoc.documentType}
-							</h2>
-							<p className="text-sm text-gray-600 mb-3">
-								{loanApplicationDoc.fileName}
-							</p>
-							<h3 className="text-lg font-medium text-gray-900">
-								Available Form Fields ({formFields.length})
-							</h3>
-						</div>
+					<div className="bg-white rounded-lg shadow-md mb-8">
+						<button
+							onClick={() => setShowFormFields(!showFormFields)}
+							className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 rounded-lg transition-colors"
+						>
+							<div>
+								<h3 className="text-lg font-semibold text-gray-900">
+									PDF Form Field Analysis
+								</h3>
+								<p className="text-sm text-gray-600">
+									{loanApplicationDoc.documentType} - {formFields.length} fields detected
+								</p>
+							</div>
+							{showFormFields ? (
+								<ChevronUp className="h-5 w-5 text-gray-400" />
+							) : (
+								<ChevronDown className="h-5 w-5 text-gray-400" />
+							)}
+						</button>
+						
+						{showFormFields && (
+							<div className="px-6 pb-6 border-t border-gray-200">
 						<div className="grid md:grid-cols-2 gap-4">
 							{formFields.map((field) => (
 								<div
 									key={field.name}
-									className="bg-gray-50 rounded-lg p-4 border border-gray-200"
+									className={`rounded-lg p-4 border-2 ${
+										field.hasMatch
+											? "bg-green-50 border-green-200"
+											: field.required
+												? "bg-red-50 border-red-200"
+												: "bg-yellow-50 border-yellow-200"
+									}`}
 								>
-									<div className="text-sm font-medium text-gray-900 mb-2 break-words">
-										{field.name}
+									<div className="flex items-start justify-between mb-2">
+										<div className="text-sm font-medium text-gray-900 break-words flex-1 mr-2">
+											{field.name}
+										</div>
+										<div className="flex-shrink-0">
+											{field.hasMatch ? (
+												<CheckCircle className="h-5 w-5 text-green-600" />
+											) : field.required ? (
+												<X className="h-5 w-5 text-red-600" />
+											) : (
+												<AlertTriangle className="h-5 w-5 text-yellow-500" />
+											)}
+										</div>
 									</div>
 									<div className="flex items-center justify-between text-xs text-gray-500 mb-1">
 										<span>Type: {field.type || "Unknown"}</span>
@@ -513,29 +830,43 @@ function ResultsContent() {
 											</span>
 										)}
 									</div>
+									{field.extractedValue && (
+										<div className="text-xs text-green-700 mt-2 p-2 bg-green-100 rounded border-l-2 border-green-400">
+											<span className="font-medium">Extracted value:</span>{" "}
+											{field.extractedValue}
+										</div>
+									)}
 									{field.value && (
 										<div className="text-xs text-blue-600 mt-2 p-2 bg-blue-50 rounded border-l-2 border-blue-200">
 											<span className="font-medium">Current value:</span>{" "}
 											{field.value}
 										</div>
 									)}
+									{!field.hasMatch && (
+										<div className={`text-xs mt-2 p-2 rounded border-l-2 ${
+											field.required 
+												? "text-red-700 bg-red-100 border-red-400"
+												: "text-yellow-700 bg-yellow-100 border-yellow-400"
+										}`}>
+											<span className="font-medium">Status:</span> No matching
+											data found
+										</div>
+									)}
 								</div>
 							))}
 						</div>
+							</div>
+						)}
 					</div>
 				)}
 
 				{/* Loan Application PDF Viewer */}
 				{pdfPath && loanApplicationDoc && (
 					<div className="mt-8 bg-white rounded-lg shadow-md overflow-hidden">
-						<div className="p-4 border-b bg-gray-50">
-							<p className="text-sm text-gray-600">
-								Review and complete the loan application with extracted data
-							</p>
-						</div>
 						<Viewer
 							document={pdfPath}
 							onFormFieldsLoaded={handleFormFieldsLoaded}
+							fieldData={formFields}
 						/>
 					</div>
 				)}

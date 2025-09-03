@@ -13,7 +13,8 @@ export type ValidationMethod =
 	| "PhoneNumberIntegrity"
 	| "CurrencyIntegrity"
 	| "DateIntegrity"
-	| "NumberIntegrity";
+	| "NumberIntegrity"
+	| null;
 
 // Validation state types
 export type ValidationState = "Undefined" | "VerificationNeeded" | "Valid";

@@ -15,17 +15,16 @@ const packages = [
 	{
 		id: "package1",
 		name: "Auto Loan Package",
-		description:
-			"Auto loan application with California driver's license for Ima Cardholder",
+		description: "Auto Loan Application",
 		documents: [
 			{
-				type: "California Driver's License",
-				description: "Government-issued identification for Ima Cardholder",
+				type: "Driver's License",
+				description: "Government-issued identification",
 			},
 			{ type: "Pay Stub", description: "Income verification document" },
 			{
 				type: "Bank Statement",
-				description: "Commerce Bank account statement",
+				description: "Bank account statement verifying income and expenses",
 			},
 			{
 				type: "Auto Loan Application",
@@ -37,21 +36,20 @@ const packages = [
 	{
 		id: "package2",
 		name: "Personal Loan Package",
-		description:
-			"Personal loan application with Florida driver's license for Joseph Sample",
+		description: "Personal loan application",
 		documents: [
 			{
-				type: "Florida Driver's License",
-				description: "Government-issued identification for Joseph Sample",
+				type: "Driver's License",
+				description: "Government-issued identification",
 			},
-			{ type: "Pay Stub", description: "TechFlow Solutions payroll document" },
+			{ type: "Pay Stub", description: "Income verification document" },
 			{
 				type: "Employment Letter",
-				description: "Employment verification from TechFlow Solutions",
+				description: "Employment verification",
 			},
 			{
 				type: "Bank Statement",
-				description: "SunTrust Bank account statement",
+				description: "Bank account statement verifying income and expenses",
 			},
 			{
 				type: "Personal Loan Application",
@@ -68,16 +66,16 @@ const packages = [
 		documents: [
 			{
 				type: "Canadian Passport",
-				description: "Government-issued identification for Sarah Martin",
+				description: "Government-issued identification",
 			},
-			{ type: "Pay Stub", description: "Meridian Healthcare Systems payroll" },
+			{ type: "Pay Stub", description: "Income verification document" },
 			{
 				type: "Employment Letter",
-				description: "Employment verification from Meridian Healthcare",
+				description: "Employment verification",
 			},
 			{
 				type: "Bank Statement",
-				description: "Royal Bank of Canada account statement",
+				description: "Bank account statement verifying income and expenses",
 			},
 			{
 				type: "Home Improvement Loan Application",
@@ -106,11 +104,11 @@ export default function SelectPackage() {
 
 				<div className="text-center mb-12">
 					<h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-						Select Your Document Package
+						Select Document Package
 					</h1>
 					<p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
 						Each package includes different combinations of documents for
-						processing.
+						processing
 					</p>
 				</div>
 
@@ -141,22 +139,22 @@ export default function SelectPackage() {
 									<div className="h-16 flex items-center justify-center mb-4">
 										<IconComponent className="h-12 w-12 text-indigo-600" />
 									</div>
-									<div className="h-8 flex items-center justify-center mb-4">
+									<div className="h-8 flex items-center justify-center">
 										<h3 className="text-xl font-semibold text-gray-900">
 											{pkg.name}
 										</h3>
 									</div>
-									<div className="h-16 flex items-center justify-center">
+									{/* <div className="h-16 flex items-center justify-center">
 										<p className="text-gray-600 text-center leading-tight">
 											{pkg.description}
 										</p>
-									</div>
+									</div> */}
 								</div>
 
 								{/* Variable content section */}
 								<div className="space-y-3 flex-grow">
 									<h4 className="font-medium text-gray-900">
-										Included Documents:
+										Required Documents:
 									</h4>
 									{pkg.documents.map((doc) => (
 										<div key={doc.type} className="flex items-start">

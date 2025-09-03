@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { type NextRequest, NextResponse } from "next/server";
+import { DOCUMENT_TEMPLATES } from "@/lib/constants";
 
 const API_BASE_URL =
 	process.env.NEXT_PUBLIC_NUTRIENT_API_URL || "https://api.xtractflow.com";
@@ -15,7 +16,7 @@ const PACKAGE_DOCUMENTS = {
 			category: "identification",
 		},
 		{
-			name: "ima-cardholder-sample-pay-stub-1.pdf",
+			name: "ima-cardholder-sample-pay-stub.pdf",
 			type: "Pay Stub",
 			category: "income",
 		},
@@ -23,6 +24,11 @@ const PACKAGE_DOCUMENTS = {
 			name: "ima-cardholder-bank-statement.pdf",
 			type: "Bank Statement",
 			category: "financial",
+		},
+		{
+			name: "ima-cardholder-vehicle-bill-of-sale.pdf",
+			type: "Vehicle Bill of Sale",
+			category: "vehicle",
 		},
 		{
 			name: "ima-cardholder-auto-loan-application.pdf",
@@ -93,6 +99,34 @@ const PACKAGE_DIRECTORIES = {
 	package3: "package-3",
 } as const;
 
+// Register custom templates and get component ID
+async function registerCustomTemplates() {
+	console.log("🔧 Registering custom templates...");
+	
+	const response = await fetch(`${API_BASE_URL}/api/register-component`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: AUTH_TOKEN || "",
+		},
+		body: JSON.stringify({
+			enableClassifier: true,
+			enableExtraction: true,
+			templates: DOCUMENT_TEMPLATES,
+		}),
+	});
+
+	if (!response.ok) {
+		const errorText = await response.text();
+		console.error("❌ Template registration failed:", errorText);
+		throw new Error(`Template registration failed: ${response.status} ${errorText}`);
+	}
+
+	const result = await response.json();
+	console.log("✅ Templates registered successfully, componentId:", result.componentId);
+	return result.componentId;
+}
+
 async function fetchDocumentFile(packageId: string, fileName: string) {
 	// Use the correct directory name (package1 -> package-1)
 	const directoryName =
@@ -117,12 +151,13 @@ async function processDocument(
 	file: Blob,
 	fileName: string,
 	documentType: string,
+	componentId: string,
 ) {
 	const formData = new FormData();
 	formData.append("inputFile", file, fileName);
-	// Not including componentId - let the API automatically detect document type
+	formData.append("componentId", componentId);
 
-	console.log(`🚀 Processing ${fileName} (${documentType})...`);
+	console.log(`🚀 Processing ${fileName} (${documentType}) with componentId: ${componentId}...`);
 
 	const response = await fetch(`${API_BASE_URL}/api/process`, {
 		method: "POST",
@@ -183,6 +218,9 @@ export async function POST(request: NextRequest) {
 
 		console.log(`📦 Processing package: ${packageId}`);
 
+		// Register custom templates first
+		const componentId = await registerCustomTemplates();
+
 		const packageDocs =
 			PACKAGE_DOCUMENTS[packageId as keyof typeof PACKAGE_DOCUMENTS];
 		const results = [];
@@ -196,8 +234,8 @@ export async function POST(request: NextRequest) {
 				const fileBlob = await fetchDocumentFile(packageId, doc.name);
 				console.log(`✅ Fetched ${doc.name}: ${fileBlob.size} bytes`);
 
-				// Process with API
-				const apiResult = await processDocument(fileBlob, doc.name, doc.type);
+				// Process with API using custom templates
+				const apiResult = await processDocument(fileBlob, doc.name, doc.type, componentId);
 
 				// Format the result
 				const processedResult = {

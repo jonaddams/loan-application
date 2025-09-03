@@ -1,0 +1,317 @@
+[
+    {
+        "application-date": {
+            "type": "date",
+            "required": false,
+            "extractedFields": [],
+            "document": [],
+            "description": "Application date - entered by applicant at time of applying"
+        }
+    },
+    {
+        "vehicle-year": {
+            "type": "number",
+            "required": true,
+            "extractedFields": ["vehicleYear"],
+            "document": ["vehicle-bill-of-sale"],
+            "description": "Vehicle year"
+        }
+    },
+    {
+        "vehicle-make": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["vehicleMake"],
+            "document": ["vehicle-bill-of-sale"],
+            "description": "Vehicle make/manufacturer"
+        }
+    },
+    {
+        "vehicle-model": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["vehicleModel"],
+            "document": ["vehicle-bill-of-sale"],
+            "description": "Vehicle model"
+        }
+    },
+    {
+        "vehicle-vin": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["vehicleVin"],
+            "document": ["vehicle-bill-of-sale"],
+            "description": "Vehicle VIN number"
+        }
+    },
+    {
+        "vehicle-price": {
+            "type": "currency",
+            "required": true,
+            "extractedFields": ["salePrice"],
+            "document": ["vehicle-bill-of-sale"],
+            "description": "Vehicle purchase price"
+        }
+    },
+    {
+        "down-payment": {
+            "type": "currency",
+            "required": false,
+            "extractedFields": [],
+            "document": [],
+            "description": "Down payment amount - entered by applicant"
+        }
+    },
+    {
+        "loan-amount": {
+            "type": "currency",
+            "required": false,
+            "extractedFields": [],
+            "document": [],
+            "description": "Requested loan amount - entered by applicant"
+        }
+    },
+    {
+        "vehicle-condition": {
+            "type": "select",
+            "required": false,
+            "extractedFields": ["vehicleCondition"],
+            "document": ["vehicle-bill-of-sale"],
+            "description": "Vehicle condition (new/used)"
+        }
+    },
+    {
+        "first-name": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["firstName", "employeeName"],
+            "document": ["driver-license", "pay-stub"],
+            "description": "First name of applicant"
+        }
+    },
+    {
+        "last-name": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["lastName"],
+            "document": ["driver-license"],
+            "description": "Last name of applicant"
+        }
+    },
+    {
+        "date-of-birth": {
+            "type": "date",
+            "required": true,
+            "extractedFields": ["dateOfBirth"],
+            "document": ["driver-license"],
+            "description": "Date of birth"
+        }
+    },
+    {
+        "license-number": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["licenseNumber"],
+            "document": ["driver-license"],
+            "description": "Driver's license number"
+        }
+    },
+    {
+        "home-address": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["address", "buyerAddress"],
+            "document": ["driver-license", "vehicle-bill-of-sale"],
+            "description": "Home address"
+        }
+    },
+    {
+        "phone-number": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["buyerPhone"],
+            "document": ["vehicle-bill-of-sale"],
+            "description": "Phone number"
+        }
+    },
+    {
+        "email-address": {
+            "type": "email",
+            "required": false,
+            "extractedFields": ["buyerEmail", "email"],
+            "document": ["vehicle-bill-of-sale"],
+            "description": "Email address"
+        }
+    },
+    {
+        "employer-name": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["employer"],
+            "document": ["pay-stub", "employment-letter"],
+            "description": "Employer name"
+        }
+    },
+    {
+        "job-title": {
+            "type": "text",
+            "required": true,
+            "extractedFields": ["jobTitle", "position", "employeePosition", "role", "jobPosition"],
+            "document": ["employment-letter", "pay-stub"],
+            "description": "Job title or position"
+        }
+    },
+    {
+        "employment-start-date": {
+            "type": "date",
+            "required": false,
+            "extractedFields": ["payPeriodStart", "periodBeginning"],
+            "document": ["pay-stub"],
+            "description": "Employment start date"
+        }
+    },
+    {
+        "employment-status": {
+            "type": "select",
+            "required": false,
+            "extractedFields": ["employmentStatus"],
+            "document": ["employment-letter"],
+            "description": "Employment status"
+        }
+    },
+    {
+        "annual-income": {
+            "type": "currency",
+            "required": true,
+            "extractedFields": ["grossPay", "yearToDateGross", "annualIncome"],
+            "document": ["pay-stub", "employment-letter"],
+            "description": "Annual gross income"
+        }
+    },
+    {
+        "monthly-income": {
+            "type": "currency",
+            "required": false,
+            "extractedFields": ["netPay", "yearToDateNet", "monthlyIncome"],
+            "document": ["pay-stub"],
+            "description": "Monthly net income"
+        }
+    },
+    {
+        "employer-address-line-1": {
+            "type": "text",
+            "required": false,
+            "extractedFields": ["employerAddress"],
+            "document": ["pay-stub"],
+            "description": "Employer address line 1"
+        }
+    },
+    {
+        "employer-address-line-2": {
+            "type": "text",
+            "required": false,
+            "extractedFields": ["employerAddress"],
+            "document": ["pay-stub"],
+            "description": "Employer address line 2"
+        }
+    },
+    {
+        "employer-city": {
+            "type": "text",
+            "required": false,
+            "extractedFields": ["employerCity"],
+            "document": ["pay-stub"],
+            "description": "Employer city"
+        }
+    },
+    {
+        "employer-state": {
+            "type": "text",
+            "required": false,
+            "extractedFields": ["employerState"],
+            "document": ["pay-stub"],
+            "description": "Employer state"
+        }
+    },
+    {
+        "employer-zip": {
+            "type": "text",
+            "required": false,
+            "extractedFields": ["employerZip"],
+            "document": ["pay-stub"],
+            "description": "Employer ZIP code"
+        }
+    },
+    {
+        "bank-name": {
+            "type": "text",
+            "required": false,
+            "extractedFields": ["bankName"],
+            "document": ["bank-statement"],
+            "description": "Bank name"
+        }
+    },
+    {
+        "account-type": {
+            "type": "select",
+            "required": false,
+            "extractedFields": ["accountType", "account_type", "typeOfAccount", "bankAccountType"],
+            "document": ["bank-statement"],
+            "description": "Account type (checking/savings)"
+        }
+    },
+    {
+        "checking-balance": {
+            "type": "currency",
+            "required": false,
+            "extractedFields": ["closingBalance", "currentBalance"],
+            "document": ["bank-statement"],
+            "description": "Checking account balance"
+        }
+    },
+    {
+        "savings-balance": {
+            "type": "currency",
+            "required": false,
+            "extractedFields": ["openingBalance"],
+            "document": ["bank-statement"],
+            "description": "Savings account balance"
+        }
+    },
+    {
+        "applicant-signature": {
+            "type": "signature",
+            "required": true,
+            "extractedFields": [],
+            "document": [],
+            "description": "Applicant signature - to be signed manually"
+        }
+    },
+    {
+        "co-applicant-signature": {
+            "type": "signature",
+            "required": false,
+            "extractedFields": [],
+            "document": [],
+            "description": "Co-applicant signature - to be signed manually"
+        }
+    },
+    {
+        "applicant-date": {
+            "type": "date",
+            "required": false,
+            "extractedFields": [],
+            "document": [],
+            "description": "Applicant signature date - to be filled when signed"
+        }
+    },
+    {
+        "co-applicant-date": {
+            "type": "date",
+            "required": false,
+            "extractedFields": [],
+            "document": [],
+            "description": "Co-applicant signature date - to be filled when signed"
+        }
+    }
+]

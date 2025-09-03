@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Bill of Sale - Ima Cardholder</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.75in;
+        }
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.4;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #2c5aa0;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+            margin: 0 0 10px 0;
+            color: #2c5aa0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .header p {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #666;
+        }
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #2c5aa0;
+            padding-bottom: 5px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .info-item {
+            margin-bottom: 10px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        .info-value {
+            font-size: 16px;
+            color: #000;
+            background: white;
+            padding: 5px 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        .vehicle-highlight {
+            background: #2c5aa0;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .vehicle-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .price-section {
+            background: #e8f4f8;
+            border: 2px solid #2c5aa0;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .price-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 10px;
+        }
+        .price-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        .signature-section {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .signature-box {
+            border: 1px solid #333;
+            padding: 15px;
+            text-align: center;
+        }
+        .signature-line {
+            border-bottom: 2px solid #333;
+            margin: 20px 0 10px 0;
+            height: 40px;
+        }
+        .terms {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Vehicle Bill of Sale</h1>
+        <p><strong>State of California</strong></p>
+        <p>Bill of Sale #: BOS-2024-0815</p>
+        <p>Sale Date: January 15, 2024</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Seller Information</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Seller Name:</div>
+                <div class="info-value">Sacramento Auto Sales LLC</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Business License:</div>
+                <div class="info-value">CA-DLR-2024-8855</div>
+            </div>
+            <div class="info-item full-width">
+                <div class="info-label">Seller Address:</div>
+                <div class="info-value">1500 Auto Row, Sacramento, CA 95814</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Phone:</div>
+                <div class="info-value">(916) 555-0123</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Email:</div>
+                <div class="info-value">sales@sacautos.com</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Buyer Information</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Buyer Name:</div>
+                <div class="info-value">Ima Cardholder</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Driver License:</div>
+                <div class="info-value">I1234568</div>
+            </div>
+            <div class="info-item full-width">
+                <div class="info-label">Buyer Address:</div>
+                <div class="info-value">2570 24th Street, Anytown, CA 95818</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Phone:</div>
+                <div class="info-value">(916) 555-7890</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Email:</div>
+                <div class="info-value">ima.cardholder@email.com</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="vehicle-highlight">
+        <div class="vehicle-title">Vehicle Information</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Vehicle Details</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Year:</div>
+                <div class="info-value">2018</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Make:</div>
+                <div class="info-value">Honda</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Model:</div>
+                <div class="info-value">Civic</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Trim:</div>
+                <div class="info-value">LX Sedan</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">VIN:</div>
+                <div class="info-value">2HGFC2F59JH123456</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Mileage:</div>
+                <div class="info-value">45,230 miles</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Color:</div>
+                <div class="info-value">Lunar Silver Metallic</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Engine:</div>
+                <div class="info-value">2.0L 4-Cylinder</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Transmission:</div>
+                <div class="info-value">CVT Automatic</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Fuel Type:</div>
+                <div class="info-value">Gasoline</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Title Status:</div>
+                <div class="info-value">Clean Title</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Previous Owners:</div>
+                <div class="info-value">2</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="price-section">
+        <div class="price-title">Total Sale Price</div>
+        <div class="price-amount">$18,500.00</div>
+        <p style="margin: 10px 0 5px 0; font-size: 14px;">Payment Method: Financing (Auto Loan)</p>
+        <p style="margin: 0; font-size: 14px;">Down Payment: $3,500.00</p>
+        <p style="margin: 0; font-size: 14px;">Loan Amount: $15,000.00</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Additional Information</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Warranty:</div>
+                <div class="info-value">30-Day Limited Dealer Warranty</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Condition:</div>
+                <div class="info-value">Used - Excellent</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Accident History:</div>
+                <div class="info-value">None Reported</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Service Records:</div>
+                <div class="info-value">Available</div>
+            </div>
+            <div class="info-item full-width">
+                <div class="info-label">Special Notes:</div>
+                <div class="info-value">Vehicle includes factory floor mats, spare key, owner's manual, and maintenance records. Recent oil change and 60,000-mile service completed.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="terms">
+        <strong>Terms and Conditions:</strong><br>
+        This bill of sale certifies that the above described vehicle has been sold by the seller to the buyer for the agreed upon price. The buyer acknowledges receipt of the vehicle in its current condition and agrees that the sale is final. The seller warrants that they have clear title to the vehicle and the right to sell it. The buyer is responsible for registration, insurance, and all applicable taxes and fees.
+    </div>
+
+    <div class="signature-section">
+        <div class="signature-box">
+            <strong>Seller Signature</strong>
+            <div class="signature-line"></div>
+            <p>Sacramento Auto Sales LLC</p>
+            <p>Michael Thompson, Sales Manager</p>
+            <p>Date: January 15, 2024</p>
+        </div>
+        <div class="signature-box">
+            <strong>Buyer Signature</strong>
+            <div class="signature-line"></div>
+            <p>Ima Cardholder</p>
+            <p>Date: January 15, 2024</p>
+        </div>
+    </div>
+</body>
+</html>
