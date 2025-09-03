@@ -103,28 +103,43 @@ const PACKAGE_DIRECTORIES = {
 async function registerCustomTemplates() {
 	console.log("🔧 Registering custom templates...");
 	
-	const response = await fetch(`${API_BASE_URL}/api/register-component`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: AUTH_TOKEN || "",
-		},
-		body: JSON.stringify({
-			enableClassifier: true,
-			enableExtraction: true,
-			templates: DOCUMENT_TEMPLATES,
-		}),
-	});
+	const controller = new AbortController();
+	const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout for registration
 
-	if (!response.ok) {
-		const errorText = await response.text();
-		console.error("❌ Template registration failed:", errorText);
-		throw new Error(`Template registration failed: ${response.status} ${errorText}`);
+	try {
+		const response = await fetch(`${API_BASE_URL}/api/register-component`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: AUTH_TOKEN || "",
+			},
+			body: JSON.stringify({
+				enableClassifier: true,
+				enableExtraction: true,
+				templates: DOCUMENT_TEMPLATES,
+			}),
+			signal: controller.signal,
+		});
+
+		clearTimeout(timeoutId);
+
+		if (!response.ok) {
+			const errorText = await response.text();
+			console.error("❌ Template registration failed:", errorText);
+			throw new Error(`Template registration failed: ${response.status} ${errorText}`);
+		}
+
+		const result = await response.json();
+		console.log("✅ Templates registered successfully, componentId:", result.componentId);
+		return result.componentId;
+	} catch (error) {
+		clearTimeout(timeoutId);
+		if (error instanceof Error && error.name === 'AbortError') {
+			console.error("⏰ Timeout registering templates after 30 seconds");
+			throw new Error("Timeout registering templates: Request took longer than 30 seconds");
+		}
+		throw error;
 	}
-
-	const result = await response.json();
-	console.log("✅ Templates registered successfully, componentId:", result.componentId);
-	return result.componentId;
 }
 
 async function fetchDocumentFile(packageId: string, fileName: string) {
@@ -159,34 +174,50 @@ async function processDocument(
 
 	console.log(`🚀 Processing ${fileName} (${documentType}) with componentId: ${componentId}...`);
 
-	const response = await fetch(`${API_BASE_URL}/api/process`, {
-		method: "POST",
-		headers: {
-			Authorization: AUTH_TOKEN || "",
-		},
-		body: formData,
-	});
+	// Create an AbortController with timeout
+	const controller = new AbortController();
+	const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
 
-	console.log(
-		`📡 API response for ${fileName}: ${response.status} ${response.statusText}`,
-	);
+	try {
+		const response = await fetch(`${API_BASE_URL}/api/process`, {
+			method: "POST",
+			headers: {
+				Authorization: AUTH_TOKEN || "",
+			},
+			body: formData,
+			signal: controller.signal,
+		});
 
-	if (!response.ok) {
-		const errorText = await response.text();
-		console.error(`❌ API error for ${fileName}:`, errorText);
-		throw new Error(
-			`API error for ${fileName}: ${response.status} ${errorText}`,
+		clearTimeout(timeoutId);
+
+		console.log(
+			`📡 API response for ${fileName}: ${response.status} ${response.statusText}`,
 		);
+
+		if (!response.ok) {
+			const errorText = await response.text();
+			console.error(`❌ API error for ${fileName}:`, errorText);
+			throw new Error(
+				`API error for ${fileName}: ${response.status} ${errorText}`,
+			);
+		}
+
+		const result = await response.json();
+		console.log(`✅ API success for ${fileName}:`, {
+			detectedTemplate: result.detectedTemplate,
+			fieldsCount: result.fields ? result.fields.length : 0,
+			hasFields: !!result.fields,
+		});
+
+		return result;
+	} catch (error) {
+		clearTimeout(timeoutId);
+		if (error instanceof Error && error.name === 'AbortError') {
+			console.error(`⏰ Timeout processing ${fileName} after 60 seconds`);
+			throw new Error(`Timeout processing ${fileName}: Request took longer than 60 seconds`);
+		}
+		throw error;
 	}
-
-	const result = await response.json();
-	console.log(`✅ API success for ${fileName}:`, {
-		detectedTemplate: result.detectedTemplate,
-		fieldsCount: result.fields ? result.fields.length : 0,
-		hasFields: !!result.fields,
-	});
-
-	return result;
 }
 
 export async function POST(request: NextRequest) {

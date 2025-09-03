@@ -49,4 +49,15 @@ NEXT_PUBLIC_WEB_SDK_VERSION=1.6.0
    - `NEXT_PUBLIC_WEB_SDK_VERSION`: Set to `1.6.0`
 4. Deploy
 
-The project includes a `vercel.json` configuration file optimized for deployment.
+The project includes a `vercel.json` configuration file optimized for deployment with the following timeouts:
+- Process Package API: 300 seconds (5 minutes) - for handling multiple document processing
+- Other APIs: 60 seconds - for individual operations
+
+## Performance Optimizations
+
+The application includes several optimizations for production deployment:
+
+- **Request Timeouts**: Individual API calls have 60-second timeouts to prevent hanging
+- **Template Registration Timeout**: 30-second timeout for template registration
+- **Graceful Error Handling**: Proper timeout and error handling for all external API calls
+- **Production Build**: Optimized bundle sizes and static page generation
