@@ -57,7 +57,16 @@ The project includes a `vercel.json` configuration file optimized for deployment
 
 The application includes several optimizations for production deployment:
 
+### Performance Optimizations:
+- **Parallel Processing**: All documents are processed simultaneously rather than sequentially
+- **Two-Phase Processing**: File loading and API processing are batched separately for optimal performance
+- **HTTP Keep-Alive**: Connection reuse reduces overhead between multiple API calls
 - **Request Timeouts**: Individual API calls have 60-second timeouts to prevent hanging
 - **Template Registration Timeout**: 30-second timeout for template registration
 - **Graceful Error Handling**: Proper timeout and error handling for all external API calls
-- **Production Build**: Optimized bundle sizes and static page generation
+
+### Speed Improvements:
+- **Parallel Processing**: All documents processed simultaneously rather than sequentially
+- **Estimated Performance**: Processing 5 documents in ~60-90 seconds (based on external API response times)
+- **Better Resource Utilization**: CPU and network resources used more efficiently
+- **Optimized bundle sizes**: Production build with static page generation

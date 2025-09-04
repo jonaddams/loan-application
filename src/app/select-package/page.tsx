@@ -178,10 +178,10 @@ export default function SelectPackage() {
 				{selectedPackage && (
 					<div className="text-center">
 						<Link
-							href={`/results?package=${selectedPackage}`}
+							href={`/preview?package=${selectedPackage}`}
 							className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
 						>
-							Process Documents
+							Preview Documents
 							<ArrowRight className="ml-2 h-5 w-5" />
 						</Link>
 					</div>

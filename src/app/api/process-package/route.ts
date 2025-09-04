@@ -7,6 +7,11 @@ const API_BASE_URL =
 	process.env.NEXT_PUBLIC_NUTRIENT_API_URL || "https://api.xtractflow.com";
 const AUTH_TOKEN = process.env.NUTRIENT_AUTH_TOKEN;
 
+// Common headers for API requests
+const commonHeaders = {
+	"User-Agent": "loan-application/1.0",
+};
+
 // Define document types and their file patterns for each package
 const PACKAGE_DOCUMENTS = {
 	package1: [
@@ -102,7 +107,7 @@ const PACKAGE_DIRECTORIES = {
 // Register custom templates and get component ID
 async function registerCustomTemplates() {
 	console.log("🔧 Registering custom templates...");
-	
+
 	const controller = new AbortController();
 	const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout for registration
 
@@ -112,6 +117,7 @@ async function registerCustomTemplates() {
 			headers: {
 				"Content-Type": "application/json",
 				Authorization: AUTH_TOKEN || "",
+				...commonHeaders,
 			},
 			body: JSON.stringify({
 				enableClassifier: true,
@@ -126,17 +132,24 @@ async function registerCustomTemplates() {
 		if (!response.ok) {
 			const errorText = await response.text();
 			console.error("❌ Template registration failed:", errorText);
-			throw new Error(`Template registration failed: ${response.status} ${errorText}`);
+			throw new Error(
+				`Template registration failed: ${response.status} ${errorText}`,
+			);
 		}
 
 		const result = await response.json();
-		console.log("✅ Templates registered successfully, componentId:", result.componentId);
+		console.log(
+			"✅ Templates registered successfully, componentId:",
+			result.componentId,
+		);
 		return result.componentId;
 	} catch (error) {
 		clearTimeout(timeoutId);
-		if (error instanceof Error && error.name === 'AbortError') {
+		if (error instanceof Error && error.name === "AbortError") {
 			console.error("⏰ Timeout registering templates after 30 seconds");
-			throw new Error("Timeout registering templates: Request took longer than 30 seconds");
+			throw new Error(
+				"Timeout registering templates: Request took longer than 30 seconds",
+			);
 		}
 		throw error;
 	}
@@ -146,9 +159,15 @@ async function fetchDocumentFile(packageId: string, fileName: string) {
 	// Use the correct directory name (package1 -> package-1)
 	const directoryName =
 		PACKAGE_DIRECTORIES[packageId as keyof typeof PACKAGE_DIRECTORIES];
-	
+
 	// Read file directly from filesystem instead of HTTP request
-	const filePath = join(process.cwd(), 'public', 'documents', directoryName, fileName);
+	const filePath = join(
+		process.cwd(),
+		"public",
+		"documents",
+		directoryName,
+		fileName,
+	);
 	console.log(`📥 Reading document from filesystem: ${filePath}`);
 	console.log(`📂 Package ID: ${packageId} -> Directory: ${directoryName}`);
 
@@ -158,7 +177,9 @@ async function fetchDocumentFile(packageId: string, fileName: string) {
 		return new Blob([new Uint8Array(fileBuffer)]);
 	} catch (error) {
 		console.error(`❌ Failed to read file ${filePath}:`, error);
-		throw new Error(`Failed to read ${fileName}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+		throw new Error(
+			`Failed to read ${fileName}: ${error instanceof Error ? error.message : "Unknown error"}`,
+		);
 	}
 }
 
@@ -172,7 +193,9 @@ async function processDocument(
 	formData.append("inputFile", file, fileName);
 	formData.append("componentId", componentId);
 
-	console.log(`🚀 Processing ${fileName} (${documentType}) with componentId: ${componentId}...`);
+	console.log(
+		`🚀 Processing ${fileName} (${documentType}) with componentId: ${componentId}...`,
+	);
 
 	// Create an AbortController with timeout
 	const controller = new AbortController();
@@ -183,6 +206,7 @@ async function processDocument(
 			method: "POST",
 			headers: {
 				Authorization: AUTH_TOKEN || "",
+				...commonHeaders,
 			},
 			body: formData,
 			signal: controller.signal,
@@ -212,9 +236,11 @@ async function processDocument(
 		return result;
 	} catch (error) {
 		clearTimeout(timeoutId);
-		if (error instanceof Error && error.name === 'AbortError') {
+		if (error instanceof Error && error.name === "AbortError") {
 			console.error(`⏰ Timeout processing ${fileName} after 60 seconds`);
-			throw new Error(`Timeout processing ${fileName}: Request took longer than 60 seconds`);
+			throw new Error(
+				`Timeout processing ${fileName}: Request took longer than 60 seconds`,
+			);
 		}
 		throw error;
 	}
@@ -254,19 +280,57 @@ export async function POST(request: NextRequest) {
 
 		const packageDocs =
 			PACKAGE_DOCUMENTS[packageId as keyof typeof PACKAGE_DOCUMENTS];
-		const results = [];
 
-		// Process each document in the package
-		for (const doc of packageDocs) {
+		// Step 1: Fetch all files in parallel first
+		console.log(`📥 Pre-loading all ${packageDocs.length} document files...`);
+		const fileLoadingPromises = packageDocs.map(async (doc) => {
 			try {
-				console.log(`📄 Processing document: ${doc.name}`);
-
-				// Fetch the document file
 				const fileBlob = await fetchDocumentFile(packageId, doc.name);
-				console.log(`✅ Fetched ${doc.name}: ${fileBlob.size} bytes`);
+				console.log(`✅ Loaded ${doc.name}: ${fileBlob.size} bytes`);
+				return { doc, fileBlob, error: null };
+			} catch (error) {
+				console.error(`❌ Error loading ${doc.name}:`, error);
+				return { doc, fileBlob: null, error };
+			}
+		});
+
+		const fileResults = await Promise.all(fileLoadingPromises);
+		console.log(
+			`📦 File loading completed: ${fileResults.filter((r) => r.fileBlob).length}/${fileResults.length} files loaded successfully`,
+		);
+
+		// Step 2: Process all documents with API in parallel
+		console.log(`🚀 Starting parallel API processing of loaded documents...`);
+
+		const processingPromises = fileResults.map(async (fileResult) => {
+			const { doc, fileBlob, error: loadError } = fileResult;
+
+			// If file loading failed, return failed result
+			if (loadError || !fileBlob) {
+				return {
+					id: doc.name,
+					fileName: doc.name,
+					documentType: doc.type,
+					category: doc.category,
+					status: "failed",
+					error:
+						loadError instanceof Error
+							? loadError.message
+							: "Failed to load file",
+					timestamp: new Date().toISOString(),
+				};
+			}
+
+			try {
+				console.log(`🚀 Processing ${doc.name} with API...`);
 
 				// Process with API using custom templates
-				const apiResult = await processDocument(fileBlob, doc.name, doc.type, componentId);
+				const apiResult = await processDocument(
+					fileBlob,
+					doc.name,
+					doc.type,
+					componentId,
+				);
 
 				// Format the result
 				const processedResult = {
@@ -281,12 +345,12 @@ export async function POST(request: NextRequest) {
 					timestamp: new Date().toISOString(),
 				};
 
-				results.push(processedResult);
 				console.log(`✅ Successfully processed ${doc.name}`);
+				return processedResult;
 			} catch (error) {
 				console.error(`❌ Error processing ${doc.name}:`, error);
 
-				results.push({
+				return {
 					id: doc.name,
 					fileName: doc.name,
 					documentType: doc.type,
@@ -294,16 +358,24 @@ export async function POST(request: NextRequest) {
 					status: "failed",
 					error: error instanceof Error ? error.message : "Unknown error",
 					timestamp: new Date().toISOString(),
-				});
+				};
 			}
-		}
+		});
+
+		// Wait for all documents to be processed
+		const results = await Promise.all(processingPromises);
+		console.log(
+			`🎉 Parallel processing completed: ${results.length} documents processed`,
+		);
 
 		// Calculate summary statistics
 		const successCount = results.filter((r) => r.status === "completed").length;
-		const completedResults = results.filter((r) => r.status === "completed") as Array<{
+		const completedResults = results.filter(
+			(r) => r.status === "completed",
+		) as Array<{
 			fields?: Array<{ validationState: string }>;
 		}>;
-		
+
 		const totalFields = completedResults
 			.filter((r) => r.fields)
 			.reduce((acc, r) => acc + (r.fields?.length || 0), 0);
@@ -313,8 +385,7 @@ export async function POST(request: NextRequest) {
 			.reduce((acc, r) => {
 				return (
 					acc +
-					(r.fields?.filter((f) => f.validationState === "Valid").length ||
-						0)
+					(r.fields?.filter((f) => f.validationState === "Valid").length || 0)
 				);
 			}, 0);
 

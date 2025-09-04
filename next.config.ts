@@ -4,6 +4,17 @@ const nextConfig: NextConfig = {
 	env: {
 		WEB_SDK_VERSION: process.env.NEXT_PUBLIC_WEB_SDK_VERSION,
 	},
+	images: {
+		// Allow images from the public/documents folder
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: '**',
+			},
+		],
+		// Optimize images from public directory
+		unoptimized: false,
+	},
 	// Configure externals for Turbopack (development) - now stable
 	turbopack: {
 		resolveAlias: {

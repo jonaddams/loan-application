@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 
 interface FormField {
 	name: string;
@@ -33,14 +33,29 @@ interface ViewerProps {
 	document: string | ArrayBuffer;
 	onFormFieldsLoaded?: (formFields: FormField[]) => void;
 	fieldData?: FieldData[];
+	toolbarItems?: Array<{ type: string }>;
 }
 
-export default function Viewer({ document, onFormFieldsLoaded, fieldData }: ViewerProps) {
+export default function Viewer({
+	document,
+	onFormFieldsLoaded,
+	fieldData,
+	toolbarItems,
+}: ViewerProps) {
 	const containerRef = useRef(null);
 	const instanceRef = useRef<ViewerInstance | null>(null);
 
+	// Memoize toolbarItems to prevent infinite re-renders
+	const memoizedToolbarItems = useMemo(
+		() => toolbarItems,
+		[toolbarItems],
+	);
+
 	// Function to fill form fields with extracted data
-	const fillFormFieldsWithData = async (instance: ViewerInstance, fieldData: FieldData[]) => {
+	const fillFormFieldsWithData = async (
+		instance: ViewerInstance,
+		fieldData: FieldData[],
+	) => {
 		const { NutrientViewer } = window;
 		if (!NutrientViewer?.FormFieldValue) {
 			console.error("❌ NutrientViewer.FormFieldValue not available");
@@ -53,11 +68,13 @@ export default function Viewer({ document, onFormFieldsLoaded, fieldData }: View
 				try {
 					const formFieldValue = new NutrientViewer.FormFieldValue({
 						name: field.name,
-						value: field.extractedValue
+						value: field.extractedValue,
 					});
-					
+
 					await instance.update(formFieldValue);
-					console.log(`✅ Filled field '${field.name}' with value '${field.extractedValue}'`);
+					console.log(
+						`✅ Filled field '${field.name}' with value '${field.extractedValue}'`,
+					);
 					filledCount++;
 				} catch (error) {
 					console.error(`❌ Error filling field '${field.name}':`, error);
@@ -72,10 +89,18 @@ export default function Viewer({ document, onFormFieldsLoaded, fieldData }: View
 
 		const { NutrientViewer } = window;
 		if (container && NutrientViewer) {
-			NutrientViewer.load({
-				container,
+			// Use object spreading to avoid TypeScript conflicts with strict typing
+			const baseConfig = {
+				container: container as HTMLElement,
 				document: document,
-			}).then(async (instance) => {
+			};
+
+			const loadConfig = memoizedToolbarItems 
+				? { ...baseConfig, toolbarItems: memoizedToolbarItems }
+				: baseConfig;
+
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(NutrientViewer.load as any)(loadConfig).then(async (instance: any) => {
 				instanceRef.current = instance;
 				try {
 					// Get form fields from the PDF (returns ImmutableJS List)
@@ -118,7 +143,11 @@ export default function Viewer({ document, onFormFieldsLoaded, fieldData }: View
 					// Convert ImmutableJS List to regular JavaScript array
 					const formFieldsArray: FormField[] = [];
 					formFields.forEach((formField: unknown) => {
-						const field = formField as { name: string; required: boolean; value?: string };
+						const field = formField as {
+							name: string;
+							required: boolean;
+							value?: string;
+						};
 						formFieldsArray.push({
 							name: field.name,
 							type: getFormFieldType(formField),
@@ -140,7 +169,7 @@ export default function Viewer({ document, onFormFieldsLoaded, fieldData }: View
 		return () => {
 			NutrientViewer?.unload(container);
 		};
-	}, [document, onFormFieldsLoaded]);
+	}, [document, onFormFieldsLoaded, memoizedToolbarItems]);
 
 	// Separate effect to fill form fields when fieldData is available
 	useEffect(() => {

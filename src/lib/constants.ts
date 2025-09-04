@@ -10,25 +10,29 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 		fields: [
 			{
 				name: "fullName",
-				semanticDescription: "Full name of the license holder as printed on the license",
+				semanticDescription:
+					"Full name of the license holder as printed on the license",
 				format: "Text",
 				validationMethod: null,
 			},
 			{
 				name: "firstName",
-				semanticDescription: "First name of the license holder (appears after 'FN' on the license, extract only the name value, not the 'FN' prefix)",
+				semanticDescription:
+					"First name of the license holder (appears after 'FN' on the license, extract only the name value, not the 'FN' prefix)",
 				format: "Text",
 				validationMethod: null,
 			},
 			{
 				name: "lastName",
-				semanticDescription: "Last name of the license holder (appears after 'LN' on the license, extract only the name value, not the 'LN' prefix)",
+				semanticDescription:
+					"Last name of the license holder (appears after 'LN' on the license, extract only the name value, not the 'LN' prefix)",
 				format: "Text",
 				validationMethod: null,
 			},
 			{
 				name: "dateOfBirth",
-				semanticDescription: "Date of birth or birth date as shown on the license",
+				semanticDescription:
+					"Date of birth or birth date as shown on the license",
 				format: "Date",
 				validationMethod: "DateIntegrity",
 			},
@@ -126,7 +130,8 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 			},
 			{
 				name: "socialSecurityNumber",
-				semanticDescription: "Employee SSN or social security number (may be partially masked)",
+				semanticDescription:
+					"Employee SSN or social security number (may be partially masked)",
 				format: "Text",
 				validationMethod: null,
 			},
@@ -138,7 +143,8 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 			},
 			{
 				name: "jobTitle",
-				semanticDescription: "Employee job title or position (appears after 'Position:' or 'Title:' on the pay stub)",
+				semanticDescription:
+					"Employee job title or position (appears after 'Position:' or 'Title:' on the pay stub)",
 				format: "Text",
 				validationMethod: null,
 			},
@@ -162,25 +168,29 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 			},
 			{
 				name: "grossPay",
-				semanticDescription: "Current gross pay amount for this pay period (numeric dollar amount like 3,500.00, not currency symbol)",
+				semanticDescription:
+					"Current gross pay amount for this pay period (numeric dollar amount like 3,500.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "netPay",
-				semanticDescription: "Current net pay amount for this pay period (numeric dollar amount like 2,800.00, not currency symbol)",
+				semanticDescription:
+					"Current net pay amount for this pay period (numeric dollar amount like 2,800.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "regularPay",
-				semanticDescription: "Regular hours pay amount (numeric dollar amount like 2,800.00, not currency symbol)",
+				semanticDescription:
+					"Regular hours pay amount (numeric dollar amount like 2,800.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "overtimePay",
-				semanticDescription: "Overtime pay amount (numeric dollar amount like 700.00, not currency symbol)",
+				semanticDescription:
+					"Overtime pay amount (numeric dollar amount like 700.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
@@ -210,13 +220,15 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 			},
 			{
 				name: "yearToDateGross",
-				semanticDescription: "Year-to-date gross pay total (numeric dollar amount like 42,000.00, not currency symbol)",
+				semanticDescription:
+					"Year-to-date gross pay total (numeric dollar amount like 42,000.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "yearToDateNet",
-				semanticDescription: "Year-to-date net pay total (numeric dollar amount like 33,600.00, not currency symbol)",
+				semanticDescription:
+					"Year-to-date net pay total (numeric dollar amount like 33,600.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
@@ -338,31 +350,36 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 			},
 			{
 				name: "openingBalance",
-				semanticDescription: "Opening balance dollar amount at start of statement period (numeric value like 5,234.67, not currency symbol)",
+				semanticDescription:
+					"Opening balance dollar amount at start of statement period (numeric value like 5,234.67, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "closingBalance",
-				semanticDescription: "Closing balance dollar amount at end of statement period (numeric value like 3,456.78, not currency symbol)",
+				semanticDescription:
+					"Closing balance dollar amount at end of statement period (numeric value like 3,456.78, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "currentBalance",
-				semanticDescription: "Current account balance dollar amount (numeric value with decimals, not currency symbol)",
+				semanticDescription:
+					"Current account balance dollar amount (numeric value with decimals, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "totalDeposits",
-				semanticDescription: "Total deposits dollar amount during statement period (numeric value like 1,250.00, not currency symbol)",
+				semanticDescription:
+					"Total deposits dollar amount during statement period (numeric value like 1,250.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "totalWithdrawals",
-				semanticDescription: "Total withdrawals dollar amount during statement period (numeric value like 2,100.50, not currency symbol)",
+				semanticDescription:
+					"Total withdrawals dollar amount during statement period (numeric value like 2,100.50, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
@@ -374,7 +391,8 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 			},
 			{
 				name: "accountType",
-				semanticDescription: "Type of bank account - look for words like 'CHECKING', 'SAVINGS', 'Money Market' in headers or near 'Account Summary' (extract just the account type like 'Checking' or 'Savings')",
+				semanticDescription:
+					"Type of bank account - look for words like 'CHECKING', 'SAVINGS', 'Money Market' in headers or near 'Account Summary' (extract just the account type like 'Checking' or 'Savings')",
 				format: "Text",
 				validationMethod: null,
 			},
@@ -402,7 +420,8 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 	{
 		name: "Vehicle Bill of Sale",
 		identifier: "vehicle_bill_of_sale",
-		semanticDescription: "Vehicle purchase documentation with buyer, seller, and vehicle information",
+		semanticDescription:
+			"Vehicle purchase documentation with buyer, seller, and vehicle information",
 		fields: [
 			{
 				name: "billOfSaleNumber",
@@ -460,7 +479,8 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 			},
 			{
 				name: "vehicleMake",
-				semanticDescription: "Vehicle manufacturer or make (Honda, Toyota, Ford, etc.)",
+				semanticDescription:
+					"Vehicle manufacturer or make (Honda, Toyota, Ford, etc.)",
 				format: "Text",
 				validationMethod: null,
 			},
@@ -508,25 +528,29 @@ export const DOCUMENT_TEMPLATES: DocumentTemplate[] = [
 			},
 			{
 				name: "vehicleCondition",
-				semanticDescription: "Vehicle condition (new, used, excellent, good, fair)",
+				semanticDescription:
+					"Vehicle condition (new, used, excellent, good, fair)",
 				format: "Text",
 				validationMethod: null,
 			},
 			{
 				name: "salePrice",
-				semanticDescription: "Total sale price of the vehicle (numeric dollar amount like 25,000.00, not currency symbol)",
+				semanticDescription:
+					"Total sale price of the vehicle (numeric dollar amount like 25,000.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "downPayment",
-				semanticDescription: "Down payment amount (numeric dollar amount like 5,000.00, not currency symbol)",
+				semanticDescription:
+					"Down payment amount (numeric dollar amount like 5,000.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
 			{
 				name: "loanAmount",
-				semanticDescription: "Loan amount or financed amount (numeric dollar amount like 20,000.00, not currency symbol)",
+				semanticDescription:
+					"Loan amount or financed amount (numeric dollar amount like 20,000.00, not currency symbol)",
 				format: "Currency",
 				validationMethod: "CurrencyIntegrity",
 			},
@@ -566,7 +590,10 @@ export const LOAN_PACKAGES: LoanPackage[] = [
 			},
 			{ type: "Pay Stub", description: "Recent income verification" },
 			{ type: "Bank Statement", description: "Financial account information" },
-			{ type: "Vehicle Bill of Sale", description: "Vehicle purchase documentation with pricing" },
+			{
+				type: "Vehicle Bill of Sale",
+				description: "Vehicle purchase documentation with pricing",
+			},
 		],
 	},
 	{
