@@ -634,9 +634,9 @@ function ResultsContent() {
 								{/* Processing Logs */}
 								{processingLogs.length > 0 && (
 									<div className="mt-4 p-3 bg-gray-900 rounded-lg text-xs font-mono max-h-48 overflow-y-auto text-left">
-										{processingLogs.slice(-8).map((log) => (
+										{processingLogs.slice(-8).map((log, index) => (
 											<div
-												key={`log-${log.substring(0, 20)}-${log.length}`}
+												key={`log-${index}-${Date.now()}`}
 												className="text-green-400 mb-1 text-left"
 											>
 												{log}

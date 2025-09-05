@@ -394,11 +394,16 @@ export async function POST(request: NextRequest) {
 			.reduce((acc, r) => {
 				return (
 					acc +
-					(r.fields?.filter(
-						(f) =>
-							f.validationState === "VerificationNeeded" ||
-							f.validationState === "Undefined",
-					).length || 0)
+					(r.fields?.filter((f) => f.validationState === "VerificationNeeded").length || 0)
+				);
+			}, 0);
+
+		const missingFields = completedResults
+			.filter((r) => r.fields)
+			.reduce((acc, r) => {
+				return (
+					acc +
+					(r.fields?.filter((f) => f.validationState === "Undefined").length || 0)
 				);
 			}, 0);
 
@@ -410,7 +415,7 @@ export async function POST(request: NextRequest) {
 			totalFields,
 			validFields,
 			verificationNeededFields: verificationFields,
-			missingFields: totalFields - validFields - verificationFields,
+			missingFields: missingFields,
 			overallStatus: successCount === results.length ? "completed" : "partial",
 			timestamp: new Date().toISOString(),
 		};

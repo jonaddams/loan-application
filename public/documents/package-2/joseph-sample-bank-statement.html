@@ -181,6 +181,9 @@
             margin-top: 10px;
             opacity: 0.8;
         }
+        .page-break {
+            page-break-after: always;
+        }
     </style>
 </head>
 <body>
@@ -217,7 +220,7 @@
         <div class="content">
             <div class="section-header">Account Summary</div>
             
-            <div class="summary-box">
+            <div class="summary-box page-break">
                 <div class="summary-grid">
                     <div>
                         <div class="summary-item">
@@ -285,6 +288,7 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="page-break"></div>
 
             <div class="section-header">Withdrawals & Debits</div>
             <table class="transaction-table">
@@ -362,6 +366,7 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="page-break"></div>
 
             <div class="section-header">Checks Paid</div>
             <table class="transaction-table">

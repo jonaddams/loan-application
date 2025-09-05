@@ -20,21 +20,26 @@
         }
         .section-container {
             border: 2px solid #ff6b35;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            background: white;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            page-break-after: always;
+            border-radius: 8px;
             overflow: hidden;
+            margin: 20px auto 20px auto;
+            background: white;
+            max-width: 800px;
+            width: 100%;
         }
-        .section-content {
-            padding: 30px;
+        .section-container:first-of-type {
+            margin-top: 0;
         }
         .form-header {
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             padding: 25px;
             text-align: center;
+            border-radius: 6px 6px 0 0;
+        }
+        .border-radius-all {
+            border-radius: 6px;
         }
         .bank-name {
             font-size: 28px;
@@ -52,12 +57,23 @@
             margin-top: 8px;
             opacity: 0.9;
         }
+        .content {
+            padding: 30px;
+        }
+        .section-content {
+            padding: 0 30px 30px 30px;
+        }
+        .signature-input {
+            height: 100px;
+            padding: 20px 10px;
+            vertical-align: top;
+        }
         .application-info {
             background-color: #fff8f5;
             border: 1px solid #ff6b35;
             border-radius: 8px;
             padding: 15px;
-            margin-bottom: 25px;
+            /* margin-bottom: 25px; */
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
@@ -83,7 +99,7 @@
             padding: 12px 20px;
             font-size: 16px;
             font-weight: bold;
-            margin: 25px -30px 20px -30px;
+            margin: 0 -30px 20px -30px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -123,7 +139,7 @@
             cursor: pointer;
         }
         .loan-purpose-highlight {
-            background: linear-gradient(135deg, #ffb347 0%, #ff8c42 100%);
+            background: #ff6b35;
             color: white;
             padding: 25px;
             border-radius: 12px;
@@ -146,6 +162,17 @@
             background-color: rgba(255,255,255,0.1);
             padding: 10px;
             border-radius: 6px;
+        }
+        .purpose-checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .purpose-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .checkbox-section {
             margin: 20px 0;
@@ -212,6 +239,7 @@
         .footer-info {
             background-color: #f5f5f5;
             padding: 20px;
+            margin: -30px -30px 0 -30px;
             font-size: 11px;
             color: #666;
             text-align: center;
@@ -220,62 +248,47 @@
         .required {
             color: #ff6b35;
         }
-        .purpose-checkbox-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .purpose-checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background-color: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 6px;
+        .spacer {
+            height: 0px;
+            background-color: white;
+            border: none;
         }
     </style>
 </head>
 <body>
     <form id="personal-loan-form">
         <div class="application-form">
-            <!-- Application Header Page -->
-            <div class="section-container">
-                <div class="form-header">
-                    <div class="bank-name">SUNTRUST BANK</div>
-                    <div style="font-size: 14px; opacity: 0.9;">Banking Excellence Since 1891</div>
-                    <div class="form-title">PERSONAL LOAN APPLICATION</div>
-                    <div class="form-subtitle">Unsecured Personal Lending • Document parsing demo</div>
-                </div>
-
-                <div class="section-content">
-                    <div class="application-info">
-                        <div class="app-info-item">
-                            <div class="app-label">Application Number</div>
-                            <div class="app-value">PL-2024-287461</div>
-                        </div>
-                        <div class="app-info-item">
-                            <label class="field-label">Date of Application <span class="required">*</span></label>
-                            <input type="text" class="field-input" name="application-date">
-                        </div>
-                    </div>
-                </div>
+            <div class="form-header border-radius-all">
+                <div class="bank-name">SUNTRUST BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Banking Excellence Since 1891</div>
+                <div class="form-title">PERSONAL LOAN APPLICATION</div>
+                <div class="form-subtitle">Complete all required fields</div>
             </div>
 
-            <!-- Loan Request Information Page -->
-            <div class="section-container">
-                <div class="form-header">
-                    <div class="bank-name">SUNTRUST BANK</div>
-                    <div class="form-title">LOAN REQUEST INFORMATION</div>
+            <div class="content">
+                <div class="application-info">
+                    <div class="app-info-item">
+                        <div class="app-label">Application Number</div>
+                        <div class="app-value">PL-2024-287461</div>
+                    </div>
+                    <div class="app-info-item">
+                        <label class="field-label" for="application-date">Date of Application <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="application-date" id="application-date" required>
+                    </div>
                 </div>
-                <div class="section-content">
+
+            </div>
+        </div>
+        
+        <div class="section-container" style="page-break-after: always; margin-top: 0;">
+            <div class="section-content">
                 <div class="section-title">Loan Request Information</div>
                 <div class="loan-purpose-highlight">
                     <div class="purpose-title">Loan Purpose & Amount</div>
                     <div class="purpose-grid">
                         <div class="purpose-item">
                             <label class="field-label" style="color: white;">Loan Amount Requested <span class="required">*</span></label>
-                            <input type="text" class="field-input" name="loan-amount" placeholder="$">
+                            <input type="text" class="field-input" name="loan-amount" required>
                         </div>
                         <div class="purpose-item">
                             <label class="field-label" style="color: white;">Loan Term</label>
@@ -324,56 +337,48 @@
                 <div class="form-grid">
                     <div class="form-group full-width">
                         <label class="field-label">If Other, Please Specify:</label>
-                        <input type="text" class="field-input" name="purpose-other-specify" placeholder="Describe the purpose">
+                        <input type="text" class="field-input" name="purpose-other-specify">
                     </div>
                 </div>
-                </div>
             </div>
-
-            <!-- Personal Information Page -->
-            <div class="section-container">
-                <div class="form-header">
-                    <div class="bank-name">SUNTRUST BANK</div>
-                    <div class="form-title">PERSONAL INFORMATION</div>
-                </div>
-                <div class="section-content">
+        </div>
+        <div class="spacer">&nbsp;</div>
+        <div class="section-container" style="page-break-after: always; ">
+            <div class="form-header">
+                <div class="bank-name">SUNTRUST BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Banking Excellence Since 1891</div>
+                <div class="form-title">PERSONAL LOAN APPLICATION</div>
+            </div>
+            <div class="section-content">
                 <div class="section-title">Personal Information</div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="field-label">First Name <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="first-name" placeholder="First Name">
-                    </div>
-                    <div class="form-group">
-                        <label class="field-label">Middle Name</label>
-                        <input type="text" class="field-input" name="middle-name" placeholder="Middle Name">
+                        <label class="field-label" for="first-name">First Name <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="first-name" id="first-name" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Last Name <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="last-name" placeholder="Last Name">
+                        <input type="text" class="field-input" name="last-name" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Date of Birth <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="date-of-birth">
+                        <input type="text" class="field-input" name="date-of-birth" required>
                     </div>
                     <div class="form-group">
-                        <label class="field-label">Social Security Number <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="ssn" placeholder="XXX-XX-XXXX">
-                    </div>
-                    <div class="form-group">
-                        <label class="field-label">Driver's License Number</label>
-                        <input type="text" class="field-input" name="license-number" placeholder="License Number">
+                        <label class="field-label">Driver's License Number <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="license-number" required>
                     </div>
                     <div class="form-group full-width">
                         <label class="field-label">Home Address <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="home-address" placeholder="Street Address, City, State, ZIP">
+                        <input type="text" class="field-input" name="home-address" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Phone Number <span class="required">*</span></label>
-                        <input type="tel" class="field-input" name="phone-number" placeholder="(000) 000-0000">
+                        <input type="text" class="field-input" name="phone-number" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Email Address</label>
-                        <input type="email" class="field-input" name="email-address" placeholder="email@example.com">
+                        <input type="text" class="field-input" name="email-address">
                     </div>
                     <div class="form-group">
                         <label class="field-label">Marital Status</label>
@@ -383,7 +388,6 @@
                             <option value="married">Married</option>
                             <option value="divorced">Divorced</option>
                             <option value="widowed">Widowed</option>
-                            <option value="separated">Separated</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -399,172 +403,152 @@
                         </select>
                     </div>
                 </div>
-                </div>
             </div>
-
-            <!-- Housing Information Page -->
-            <div class="section-container">
-                <div class="form-header">
-                    <div class="bank-name">SUNTRUST BANK</div>
-                    <div class="form-title">HOUSING INFORMATION</div>
-                </div>
-                <div class="section-content">
+        </div>
+        <div class="spacer">&nbsp;</div>
+        <div class="section-container" style="page-break-after: always">
+            <div class="form-header">
+                <div class="bank-name">SUNTRUST BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Banking Excellence Since 1891</div>
+                <div class="form-title">PERSONAL LOAN APPLICATION</div>
+            </div>
+            <div class="section-content">
                 <div class="section-title">Housing Information</div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="field-label">Housing Status <span class="required">*</span></label>
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" class="radio" name="housing-status" value="own" id="housing-own">
-                                <label for="housing-own">Own</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" class="radio" name="housing-status" value="rent" id="housing-rent">
-                                <label for="housing-rent">Rent</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" class="radio" name="housing-status" value="other" id="housing-other">
-                                <label for="housing-other">Other</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="field-label">Monthly Rent/Mortgage Payment</label>
-                        <input type="text" class="field-input" name="monthly-housing" placeholder="$">
-                    </div>
-                    <div class="form-group">
-                        <label class="field-label">Years at Current Address</label>
-                        <select class="field-input" name="years-at-address">
-                            <option value="">Select Years</option>
-                            <option value="less_than_1">Less than 1 year</option>
-                            <option value="1_2">1-2 years</option>
-                            <option value="3_5">3-5 years</option>
-                            <option value="6_10">6-10 years</option>
-                            <option value="more_than_10">More than 10 years</option>
+                        <label class="field-label">Housing Status</label>
+                        <select class="field-input" name="housing-status">
+                            <option value="">Select Status</option>
+                            <option value="own">Own</option>
+                            <option value="rent">Rent</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label class="field-label">Monthly Housing Payment</label>
+                        <input type="text" class="field-input" name="monthly-housing">
+                    </div>
                 </div>
             </div>
-
-            <!-- Employment & Income Information Page -->
-            <div class="section-container">
-                <div class="form-header">
-                    <div class="bank-name">SUNTRUST BANK</div>
-                    <div class="form-title">EMPLOYMENT & INCOME INFORMATION</div>
-                </div>
-                <div class="section-content">
+        </div>
+        <div class="spacer">&nbsp;</div>
+        <div class="section-container" style="page-break-after: always">
+            <div class="form-header">
+                <div class="bank-name">SUNTRUST BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Banking Excellence Since 1891</div>
+                <div class="form-title">PERSONAL LOAN APPLICATION</div>
+            </div>
+            <div class="section-content">
                 <div class="section-title">Employment & Income Information</div>
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="field-label">Employer Name <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="employer-name" placeholder="Company Name">
+                        <input type="text" class="field-input" name="employer-name" required>
                     </div>
                     <div class="form-group">
-                        <label class="field-label">Job Title/Position <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="job-title" placeholder="Position/Title">
+                        <label class="field-label">Job Title <span class="required">*</span></label>
+                        <input type="text" class="field-input" name="job-title" required>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Employment Start Date</label>
                         <input type="text" class="field-input" name="employment-start-date">
                     </div>
                     <div class="form-group">
-                        <label class="field-label">Employment Type</label>
-                        <select class="field-input" name="employment-type">
-                            <option value="">Select Type</option>
-                            <option value="full_time_permanent">Full-Time Permanent</option>
-                            <option value="full_time_contract">Full-Time Contract</option>
+                        <label class="field-label">Employment Status</label>
+                        <select class="field-input" name="employment-status">
+                            <option value="">Select Status</option>
+                            <option value="full_time">Full-Time</option>
                             <option value="part_time">Part-Time</option>
+                            <option value="contract">Contract</option>
                             <option value="self_employed">Self-Employed</option>
-                            <option value="retired">Retired</option>
-                            <option value="unemployed">Unemployed</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="field-label">Annual Gross Income <span class="required">*</span></label>
-                        <input type="text" class="field-input" name="annual-gross-income" placeholder="$">
+                        <input type="text" class="field-input" name="annual-income" required>
                     </div>
                     <div class="form-group">
-                        <label class="field-label">Monthly Take-Home Pay</label>
-                        <input type="text" class="field-input" name="monthly-net-income" placeholder="$">
+                        <label class="field-label">Monthly Net Income</label>
+                        <input type="text" class="field-input" name="monthly-income">
                     </div>
                     <div class="form-group full-width">
                         <label class="field-label">Employer Address</label>
-                        <input type="text" class="field-input" name="employer-address" placeholder="Company Address">
+                        <input type="text" class="field-input" name="employer-address">
                     </div>
                     <div class="form-group">
-                        <label class="field-label">Work Phone</label>
-                        <input type="tel" class="field-input" name="work-phone" placeholder="(000) 000-0000">
+                        <label class="field-label">Work Phone Number</label>
+                        <input type="text" class="field-input" name="work-phone">
                     </div>
                     <div class="form-group">
                         <label class="field-label">Other Monthly Income</label>
-                        <input type="text" class="field-input" name="other-monthly-income" placeholder="$">
+                        <input type="text" class="field-input" name="other-monthly-income">
                     </div>
                 </div>
-                </div>
             </div>
-
-            <!-- Financial Information Page -->
-            <div class="section-container">
-                <div class="form-header">
-                    <div class="bank-name">SUNTRUST BANK</div>
-                    <div class="form-title">FINANCIAL INFORMATION</div>
-                </div>
-                <div class="section-content">
+        </div>
+        <div class="spacer">&nbsp;</div>
+        <div class="section-container" style="page-break-after: always">
+            <div class="form-header">
+                <div class="bank-name">SUNTRUST BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Banking Excellence Since 1891</div>
+                <div class="form-title">PERSONAL LOAN APPLICATION</div>
+            </div>
+            <div class="section-content">
                 <div class="section-title">Financial Information</div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="field-label">Primary Bank/Credit Union</label>
-                        <input type="text" class="field-input" name="primary-bank" placeholder="Bank Name">
+                        <label class="field-label">Primary Bank</label>
+                        <input type="text" class="field-input" name="primary-bank">
                     </div>
                     <div class="form-group">
                         <label class="field-label">Checking Account Balance</label>
-                        <input type="text" class="field-input" name="checking-balance" placeholder="$">
+                        <input type="text" class="field-input" name="checking-balance">
                     </div>
                     <div class="form-group">
                         <label class="field-label">Savings Account Balance</label>
-                        <input type="text" class="field-input" name="savings-balance" placeholder="$">
+                        <input type="text" class="field-input" name="savings-balance">
                     </div>
                     <div class="form-group">
                         <label class="field-label">Total Monthly Debt Payments</label>
-                        <input type="text" class="field-input" name="total-monthly-debt" placeholder="$">
+                        <input type="text" class="field-input" name="total-monthly-debt">
                     </div>
                     <div class="form-group">
-                        <label class="field-label">Current Credit Card Debt</label>
-                        <input type="text" class="field-input" name="credit-card-debt" placeholder="$">
+                        <label class="field-label">Credit Card Debt</label>
+                        <input type="text" class="field-input" name="credit-card-debt">
                     </div>
                     <div class="form-group">
                         <label class="field-label">Auto Loan Balance</label>
-                        <input type="text" class="field-input" name="auto-loan-balance" placeholder="$">
+                        <input type="text" class="field-input" name="auto-loan-balance">
                     </div>
-                </div>
                 </div>
             </div>
-
-            <!-- References & Consent Page -->
-            <div class="section-container">
-                <div class="form-header">
-                    <div class="bank-name">SUNTRUST BANK</div>
-                    <div class="form-title">REFERENCES & CONSENT</div>
-                </div>
-                <div class="section-content">
-                <div class="section-title">References & Consent</div>
+        </div>
+        <div class="spacer">&nbsp;</div>
+        <div class="section-container">
+            <div class="form-header">
+                <div class="bank-name">SUNTRUST BANK</div>
+                <div style="font-size: 14px; opacity: 0.9;">Banking Excellence Since 1891</div>
+                <div class="form-title">PERSONAL LOAN APPLICATION</div>
+                <div class="form-subtitle">References & Consent Section</div>
+            </div>
+            <div class="section-content">
+                <div class="section-title">Declarations & Consent</div>
                 <div class="checkbox-section">
                     <div class="checkbox-item">
-                        <input type="checkbox" class="checkbox" name="certify-accuracy" id="certify-accuracy">
-                        <label for="certify-accuracy" class="checkbox-label">I certify that all information provided in this application is accurate and complete.</label>
+                        <input type="checkbox" class="checkbox" name="cert-truth" id="cert-truth">
+                        <label for="cert-truth" class="checkbox-label">I certify that all information provided is true and complete to the best of my knowledge.</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" class="checkbox" name="authorize-credit-check" id="authorize-credit-check">
-                        <label for="authorize-credit-check" class="checkbox-label">I authorize SunTrust Bank to obtain credit reports and verify employment/income information.</label>
+                        <input type="checkbox" class="checkbox" name="auth-credit-check" id="auth-credit-check">
+                        <label for="auth-credit-check" class="checkbox-label">I authorize SunTrust Bank to obtain credit reports and verify information provided.</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" class="checkbox" name="understand-terms" id="understand-terms">
-                        <label for="understand-terms" class="checkbox-label">I understand that this application does not guarantee approval and additional documentation may be required.</label>
+                        <input type="checkbox" class="checkbox" name="agree-terms" id="agree-terms">
+                        <label for="agree-terms" class="checkbox-label">I agree to the loan terms and conditions as outlined in the loan agreement.</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" class="checkbox" name="agree-loan-terms" id="agree-loan-terms">
-                        <label for="agree-loan-terms" class="checkbox-label">If approved, I agree to the loan terms, interest rate, and repayment schedule as outlined in the loan agreement.</label>
+                        <input type="checkbox" class="checkbox" name="privacy-consent" id="privacy-consent">
+                        <label for="privacy-consent" class="checkbox-label">I consent to SunTrust sharing my information as outlined in the Privacy Policy.</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" class="checkbox" name="marketing-consent" id="marketing-consent">
@@ -576,36 +560,32 @@
                     <div style="font-weight: bold; margin-bottom: 15px;">
                         Electronic Signatures Required - By signing, I acknowledge all terms and authorize processing of this application.
                     </div>
-                    <div class="signature-grid">
-                        <div class="signature-block">
-                            <input type="text" class="signature-field" name="applicant-signature" placeholder="Electronic signature">
-                            <div class="signature-label">
-                                <strong>Primary Applicant Signature</strong><br>
-                                Print Name: ___________________<br>
-                                Date: ___________
-                            </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="field-label" for="applicant-signature">Primary Applicant Signature <span class="required">*</span></label>
+                            <input type="text" class="field-input signature-input" name="applicant-signature" id="applicant-signature" required>
+                            <label class="field-label" for="applicant-print-name" style="margin-top: 10px;">Print Name</label>
+                            <input type="text" class="field-input" name="applicant-print-name" id="applicant-print-name" style="margin-top: 5px; margin-bottom: 10px;">
+                            <label class="field-label" for="applicant-date" style="margin-top: 10px;">Date</label>
+                            <input type="text" class="field-input" name="applicant-date" id="applicant-date" style="margin-top: 5px;">
                         </div>
-                        <div class="signature-block">
-                            <input type="text" class="signature-field" name="co-applicant-signature" placeholder="Co-applicant (if applicable)">
-                            <div class="signature-label">
-                                <strong>Co-Applicant Signature</strong><br>
-                                Print Name: ___________________<br>
-                                Date: ___________
-                            </div>
+                        <div class="form-group">
+                            <label class="field-label" for="co-applicant-signature">Co-Applicant Signature</label>
+                            <input type="text" class="field-input signature-input" name="co-applicant-signature" id="co-applicant-signature">
+                            <label class="field-label" for="co-applicant-print-name" style="margin-top: 10px;">Print Name</label>
+                            <input type="text" class="field-input" name="co-applicant-print-name" id="co-applicant-print-name" style="margin-top: 5px; margin-bottom: 10px;">
+                            <label class="field-label" for="co-applicant-date" style="margin-top: 10px;">Date</label>
+                            <input type="text" class="field-input" name="co-applicant-date" id="co-applicant-date" style="margin-top: 5px;">
                         </div>
                     </div>
                 </div>
-                </div>
-            </div>
-
-            <!-- Footer Information Page -->
-            <div class="section-container">
-                <div class="footer-info">
+                
+                <div class="footer-info" style="margin: 20px -30px 0 -30px;">
                 <strong>For Bank Use Only:</strong><br>
                 Loan Officer: _________________ | Credit Score: _______ | DTI Ratio: _______ | Decision: _________________<br><br>
                 SunTrust Bank • 1200 Financial Plaza, Tallahassee, FL 32301 • (850) 555-0200<br>
                 www.suntrust.com • Member FDIC • Equal Opportunity Lender
-            </div>
+                </div>
             </div>
         </div>
     </form>
